@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Install" />
+
+# Install
+
+## 1. ENVIRONMENT VARIABLES
+
+create a `.env.local` at the root of the app
+
+```
+NEXTAUTH_URL=http://localhost:3000
+
+```
+
+## 2. INSTALL DEPENDENCIES
+
+First, run the development server:
+
+```bash
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+## 3. DEVELOPMENT
+
+Once you installed all the dependencies and packages you will be able to run these commands available in `package.json` by using `yarn dev`, `yarn build` or `yarn start`
+
+```json
+// package.json
+"scripts": {
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start"
+}
+```
+
+These scripts refer to the different stages of developing an application:
+
+- `dev` - Runs next dev which starts Next.js in development mode
+- `build` - Runs next build which builds the application for production usage
+- `start` - Runs next start which starts a Next.js production server

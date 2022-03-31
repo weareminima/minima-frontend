@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@-webkit-keyframes autofill {
+  0%,
+  100% {
+    color: #666;
+    background: transparent;
+  }
+}
+
+@layer base {
+  html {
+    font-family: Matter, system-ui, sans-serif;
+  }
+
+  /* Matter */
+  @font-face {
+    font-family: 'Matter';
+    src: url('/fonts/Matter-Regular.woff2') format('woff2'),
+      url('/fonts/Matter-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Matter';
+    src: url('/fonts/Matter-Light.woff2') format('woff2'),
+      url('/fonts/Matter-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Gascogne';
+    src: url('/fonts/Gascogne-Regular.woff2') format('woff2'),
+      url('/fonts/Gascogne-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Gascogne';
+    src: url('/fonts/Gascogne-Light.woff2') format('woff2'),
+      url('/fonts/Gascogne-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  input[type='search']::-webkit-search-decoration,
+  input[type='search']::-webkit-search-cancel-button,
+  input[type='search']::-webkit-search-results-button,
+  input[type='search']::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+}
+
+@layer utilities {
+  /* We want a blur effect without having a high opacity background, but we still want the
+  background to be visible for the browsers that don't support backdrop-filter, so we double the
+  background opacity. This can be tested on Firefox. */
+  .bg-blur {
+    @apply bg-opacity-40;
+  }
+
+  @supports (backdrop-filter: blur(4px)) {
+    .bg-blur {
+      @apply bg-opacity-20;
+      backdrop-filter: blur(4px);
+    }
+  }
+}
