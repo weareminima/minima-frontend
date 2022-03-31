@@ -12091,6 +12091,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"matter-js@npm:^0.18.0":
+  version: 0.18.0
+  resolution: "matter-js@npm:0.18.0"
+  checksum: c7f630348148c26064ad2147f2d68ce4d58095cec9a89069bf6db271a97922ccebd13809193eeffa60e73929a2216364a21265ecdc265f87c782179fcb836d21
+  languageName: node
+  linkType: hard
+
+"matter-wrap@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "matter-wrap@npm:0.2.0"
+  checksum: 3107877b2479953f54f5fd3b7656585ad387a24fb6f01f6c9ff91343253dee367937fe675492d0f27b38534410946c7c9886a8e6eaf9614634b796406b0b9ef8
+  languageName: node
+  linkType: hard
+
 "md5.js@npm:^1.3.4":
   version: 1.3.5
   resolution: "md5.js@npm:1.3.5"
@@ -12450,6 +12464,8 @@ __metadata:
     jsona: ^1.9.2
     jsonwebtoken: ^8.5.1
     lodash: ^4.17.21
+    matter-js: ^0.18.0
+    matter-wrap: ^0.2.0
     next: ^12.0.9
     next-compose-plugins: ^2.2.1
     next-optimized-images: ^2.6.2
