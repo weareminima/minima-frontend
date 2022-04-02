@@ -2,13 +2,28 @@ import {
   FC, useCallback, useEffect, useRef,
 } from 'react';
 
+import { useRouter } from 'next/router';
+
 import {
-  Engine, Render, Bodies, World, Runner, Composites, Composite, Common,
+  Engine,
+  Render,
+  Bodies,
+  World,
+  Runner,
+  Composites,
+  Composite,
+  Common,
+  Mouse,
+  MouseConstraint,
+  Events,
+  Query,
 } from 'matter-js';
 
 interface Custom404Props {}
 
 export const Custom404: FC<Custom404Props> = () => {
+  const { push } = useRouter();
+
   const containerRef = useRef();
   const sceneRef = useRef();
   const engineRef = useRef(Engine.create());
@@ -19,6 +34,8 @@ export const Custom404: FC<Custom404Props> = () => {
     world: null,
     boundaries: null,
   });
+
+  const mousedownRef = useRef(null);
 
   const onResize = useCallback(() => {
     const { render, world, boundaries } = matterRef.current;
@@ -37,10 +54,10 @@ export const Custom404: FC<Custom404Props> = () => {
     if (boundaries) {
       const newBoundaries = Composite.create({
         bodies: [
-          Bodies.rectangle(w / 2, -500, w, 20, { isStatic: true, label: 'boundary-top' }), // top
-          Bodies.rectangle(-10, h / 2, 20, h + 500, { isStatic: true, label: 'boundary-left' }), // left
-          Bodies.rectangle(w / 2, h + 25, w, 50, { isStatic: true, label: 'boundary-bottom' }), // bottom
-          Bodies.rectangle(w + 10, h / 2, 20, h, { isStatic: true, label: 'boundary-right' }), // right
+          Bodies.rectangle(w / 2, -500, w, 60, { isStatic: true, label: 'boundary-top' }), // top
+          Bodies.rectangle(-50, ((h - 500) / 2), 100, h + 500, { isStatic: true, label: 'boundary-left' }), // left
+          Bodies.rectangle(w / 2, h + 50, w, 100, { isStatic: true, label: 'boundary-bottom' }), // bottom
+          Bodies.rectangle(w + 50, ((h - 500) / 2), 100, h + 500, { isStatic: true, label: 'boundary-right' }), // right
         ],
       });
       World.add(world, newBoundaries);
@@ -58,7 +75,7 @@ export const Custom404: FC<Custom404Props> = () => {
     const w = window.innerWidth;
     const h = window.innerHeight;
 
-    const radius = 50;
+    const radius = 30;
 
     const engine = engineRef.current;
     const { world } = engine;
@@ -84,10 +101,10 @@ export const Custom404: FC<Custom404Props> = () => {
     // boundaries
     const boundaries = Composite.create({
       bodies: [
-        Bodies.rectangle(w / 2, -500, w, 20, { isStatic: true, label: 'boundary-top' }), // top
-        Bodies.rectangle(-10, h / 2, 20, h + 500, { isStatic: true, label: 'boundary-left' }), // left
-        Bodies.rectangle(w / 2, h + 25, w, 50, { isStatic: true, label: 'boundary-bottom' }), // bottom
-        Bodies.rectangle(w + 10, h / 2, 20, h, { isStatic: true, label: 'boundary-right' }), // right
+        Bodies.rectangle(w / 2, -500, w, 60, { isStatic: true, label: 'boundary-top' }), // top
+        Bodies.rectangle(-50, ((h - 500) / 2), 100, h + 500, { isStatic: true, label: 'boundary-left' }), // left
+        Bodies.rectangle(w / 2, h + 50, w, 100, { isStatic: true, label: 'boundary-bottom' }), // bottom
+        Bodies.rectangle(w + 50, ((h - 500) / 2), 100, h + 500, { isStatic: true, label: 'boundary-right' }), // right
       ],
     });
     World.add(world, boundaries);
@@ -103,17 +120,77 @@ export const Custom404: FC<Custom404Props> = () => {
         Common.random(radius / 2, radius),
         {
           force: {
-            y: 0.1,
+            y: 0,
             x: Common.random(-0.1, 0.1),
           },
-          restitution: 0.3,
+          restitution: 0.5,
           friction: 0.1,
           frictionAir: 0,
         },
       );
     });
 
-    Composite.add(world, [circles]);
+    const links = Composite.create({
+      bodies: [
+        Bodies.circle(w / 2, -400, 60, {
+          force: {
+            y: 0,
+            x: Common.random(-0.1, 0.1),
+          },
+          label: '/',
+          restitution: 0.5,
+          friction: 0.1,
+          frictionAir: 0,
+          render: {
+            fillStyle: '#000',
+          },
+        }),
+      ],
+    });
+
+    Composite.add(world, [circles, links]);
+
+    // add mouse control
+    const mouse = Mouse.create(render.canvas);
+    const mouseConstraint = MouseConstraint.create(engine, {
+      element: containerRef.current,
+      mouse,
+      constraint: {
+        stiffness: 0.2,
+        render: {
+          visible: false,
+        },
+      },
+    });
+
+    Composite.add(world, mouseConstraint);
+
+    // keep the mouse in sync with rendering
+    render.mouse = mouse;
+
+    Events.on(mouseConstraint, 'mousedown', () => {
+      if (mouseConstraint.body) {
+        mousedownRef.current = new Date().getTime();
+      }
+    });
+
+    Events.on(mouseConstraint, 'mouseup', (event) => {
+      const { mouse: mouseEvent } = event;
+      if (mousedownRef.current) {
+        const currentTime:number = new Date().getTime();
+
+        if (currentTime - mousedownRef.current < 100) {
+          const query = Query.point(links.bodies, {
+            ...mouseEvent.mouseupPosition,
+          });
+
+          if (query.length) {
+            const { label } = query[0];
+            push(label);
+          }
+        }
+      }
+    });
 
     matterRef.current = {
       engine,
