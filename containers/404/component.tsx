@@ -54,14 +54,14 @@ export const Custom404: FC<Custom404Props> = () => {
     boundaries: null,
   });
 
-  const hoverRef = useRef();
+  const hoverRef = useRef<any>();
   const hoverAnimationRef = useRef(0);
   const HOVER_IN = 1.5;
   const HOVER_OUT = 1;
 
   const mousedownRef = useRef(null);
 
-  const drawImage = useCallback((radius, text) => {
+  const drawImage = useCallback((radius, text, hover) => {
     const drawing = document.createElement('canvas');
 
     drawing.width = radius * 2;
@@ -69,7 +69,7 @@ export const Custom404: FC<Custom404Props> = () => {
 
     const ctx = drawing.getContext('2d');
 
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = hover ? '#1c1c1c' : '#000';
     // ctx.fillRect(0, 0, 150, 150);
     ctx.beginPath();
     ctx.arc(radius, radius, radius, 0, Math.PI * 2, true);
@@ -84,49 +84,51 @@ export const Custom404: FC<Custom404Props> = () => {
     return drawing.toDataURL('image/png');
   }, []);
 
-  const hoverIn = useCallback((body, time) => {
+  const hoverIn = useCallback((body, time, from) => {
     document.body.style.cursor = 'pointer';
     if (time < 1) {
-      const s = EasingFunctions.easeInOutQuad(time) * (HOVER_IN - HOVER_OUT);
+      const s = EasingFunctions.easeInOutQuad(time) * (HOVER_IN - from);
 
       Body.scale(
         body,
-        (HOVER_OUT + s) / body.render.sprite.xScale,
-        (HOVER_OUT + s) / body.render.sprite.xScale,
+        (from + s) / body.render.sprite.xScale,
+        (from + s) / body.render.sprite.xScale,
       );
 
-      body.render.sprite.xScale = HOVER_OUT + s; // eslint-disable-line no-param-reassign
-      body.render.sprite.yScale = HOVER_OUT + s; // eslint-disable-line no-param-reassign
+      body.render.sprite.xScale = from + s; // eslint-disable-line no-param-reassign
+      body.render.sprite.yScale = from + s; // eslint-disable-line no-param-reassign
+      body.render.sprite.texture = drawImage(60, 'Home', true); // eslint-disable-line no-param-reassign
 
       hoverAnimationRef.current = requestAnimationFrame(() => {
-        hoverIn(body, time + 0.05);
+        hoverIn(body, time + 0.1, from);
       });
     } else if (hoverAnimationRef.current) {
       cancelAnimationFrame(hoverAnimationRef.current);
     }
-  }, []);
+  }, [drawImage]);
 
-  const hoverOut = useCallback((body, time) => {
+  const hoverOut = useCallback((body, time, from) => {
     document.body.style.cursor = '';
     if (time < 1) {
-      const s = EasingFunctions.easeInOutQuad(time) * (HOVER_IN - HOVER_OUT);
+      const s = EasingFunctions.easeInOutQuad(time) * (from - HOVER_OUT);
 
       Body.scale(
         body,
-        (HOVER_IN - s) / body.render.sprite.xScale,
-        (HOVER_IN - s) / body.render.sprite.yScale,
+        (from - s) / body.render.sprite.xScale,
+        (from - s) / body.render.sprite.yScale,
       );
 
-      body.render.sprite.xScale = HOVER_IN - s; // eslint-disable-line no-param-reassign
-      body.render.sprite.yScale = HOVER_IN - s; // eslint-disable-line no-param-reassign
+      body.render.sprite.xScale = from - s; // eslint-disable-line no-param-reassign
+      body.render.sprite.yScale = from - s; // eslint-disable-line no-param-reassign
+      body.render.sprite.texture = drawImage(60, 'Home', false); // eslint-disable-line no-param-reassign
 
       hoverAnimationRef.current = requestAnimationFrame(() => {
-        hoverOut(body, time + 0.05);
+        hoverOut(body, time + 0.1, from);
       });
     } else if (hoverAnimationRef.current) {
       cancelAnimationFrame(hoverAnimationRef.current);
     }
-  }, []);
+  }, [drawImage]);
 
   const draw = useCallback(() => {
     const w = window.innerWidth;
@@ -202,7 +204,7 @@ export const Custom404: FC<Custom404Props> = () => {
           render: {
             fillStyle: '#000',
             sprite: {
-              texture: drawImage(60, 'Home'),
+              texture: drawImage(60, 'Home', false),
               xScale: 1,
               yScale: 1,
             },
@@ -264,6 +266,10 @@ export const Custom404: FC<Custom404Props> = () => {
       });
 
       if (query.length && !hoverRef.current) {
+        if (hoverAnimationRef.current) {
+          cancelAnimationFrame(hoverAnimationRef.current);
+        }
+
         const [body] = query;
         hoverRef.current = body;
 
@@ -273,17 +279,22 @@ export const Custom404: FC<Custom404Props> = () => {
           Sleeping.set(b, false);
         });
 
-        hoverIn(hoverRef.current, 0);
+        hoverIn(hoverRef.current, 0, body.render.sprite.xScale);
       }
 
       if (!query.length && hoverRef.current) {
+        if (hoverAnimationRef.current) {
+          cancelAnimationFrame(hoverAnimationRef.current);
+        }
         // Remove sleeping bodies
         const allBodies = Composite.allBodies(world);
         allBodies.forEach((b) => {
           Sleeping.set(b, false);
         });
 
-        hoverOut(hoverRef.current, 0);
+        if (hoverRef.current) {
+          hoverOut(hoverRef.current, 0, hoverRef.current.render.sprite.xScale);
+        }
         hoverRef.current = null;
       }
     });
@@ -301,6 +312,11 @@ export const Custom404: FC<Custom404Props> = () => {
     const { render, world, boundaries } = matterRef.current;
     const w = window.innerWidth;
     const h = window.innerHeight;
+
+    const allBodies = Composite.allBodies(world);
+    allBodies.forEach((b) => {
+      Sleeping.set(b, false);
+    });
 
     if (render) {
       render.bounds.max.x = w;
