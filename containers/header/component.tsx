@@ -16,7 +16,7 @@ export const Header: FC<HeaderProps> = () => {
   return (
     <header
       key="header"
-      className="relative flex justify-between px-4 py-4 md:px-8"
+      className="relative z-10 flex justify-between px-4 py-4 md:px-8"
     >
       <Link href="/">
         <h1
