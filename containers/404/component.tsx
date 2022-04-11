@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 
 import {
   Engine,
-  Render,
   Body,
   Bodies,
   World,
@@ -20,6 +19,9 @@ import {
   Query,
   Sleeping,
 } from 'matter-js';
+
+import COLORS from 'constants/colors';
+import Render from 'lib/matter/render';
 
 const EasingFunctions = {
   linear(t) {
@@ -174,10 +176,13 @@ export const Custom404: FC<Custom404Props> = () => {
 
     // circles
     const circles = Composites.stack(0, -500, cols, rows, 0, 0, (x, y) => {
+      const r = Common.random(radius / 2, radius);
+      const imageSize = 55;
+
       return Bodies.circle(
         x,
         y,
-        Common.random(radius / 2, radius),
+        r,
         {
           force: {
             y: 0,
@@ -186,6 +191,14 @@ export const Custom404: FC<Custom404Props> = () => {
           restitution: 0.5,
           friction: 0.1,
           frictionAir: 0,
+          render: {
+            fillStyle: Common.choose(Object.values(COLORS)),
+            sprite: {
+              texture: '/images/pixel.png',
+              xScale: (r / imageSize) + 0.01,
+              yScale: (r / imageSize) + 0.01,
+            },
+          },
         },
       );
     });
