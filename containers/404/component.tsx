@@ -188,9 +188,9 @@ export const Custom404: FC<Custom404Props> = () => {
             y: 0,
             x: Common.random(-0.1, 0.1),
           },
-          restitution: 0.5,
-          friction: 0.1,
-          frictionAir: 0,
+          restitution: 0.3,
+          friction: 0.01,
+          frictionAir: 0.01,
           render: {
             fillStyle: Common.choose(Object.values(COLORS)),
             sprite: {
