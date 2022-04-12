@@ -9,8 +9,8 @@ module.exports = {
   content: ['./components/**/*.ts', './containers/**/*.tsx', './pages/**/*.tsx'],
   theme: {
     fontFamily: {
-      display: 'Gascogne',
-      body: 'Matter',
+      display: 'Garamond',
+      body: 'Graphik',
     },
     colors: {
       current: 'currentColor',

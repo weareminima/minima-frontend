@@ -12,40 +12,32 @@
 
 @layer base {
   html {
-    font-family: Matter, system-ui, sans-serif;
+    font-family: Graphik, system-ui, sans-serif;
   }
 
   /* Matter */
   @font-face {
-    font-family: 'Matter';
-    src: url('/fonts/Matter-Regular.woff2') format('woff2'),
-      url('/fonts/Matter-Regular.woff') format('woff');
+    font-family: 'Graphik';
+    src: url('/fonts/Graphik-Regular.woff2') format('woff2'),
+      url('/fonts/Graphik-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'Matter';
-    src: url('/fonts/Matter-Light.woff2') format('woff2'),
-      url('/fonts/Matter-Light.woff') format('woff');
+    font-family: 'Garamond';
+    src: url('/fonts/ITCGaramondStd-LtCond.woff2') format('woff2'),
+      url('/fonts/ITCGaramondStd-LtCond.woff') format('woff');
     font-weight: 300;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'Gascogne';
-    src: url('/fonts/Gascogne-Regular.woff2') format('woff2'),
-      url('/fonts/Gascogne-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Gascogne';
-    src: url('/fonts/Gascogne-Light.woff2') format('woff2'),
-      url('/fonts/Gascogne-Light.woff') format('woff');
+    font-family: 'Garamond';
+    src: url('/fonts/ITCGaramondStd-LtCondIta.woff2') format('woff2'),
+      url('/fonts/ITCGaramondStd-LtCondIta.woff') format('woff');
     font-weight: 300;
-    font-style: normal;
+    font-style: italic;
   }
 
   input[type='search']::-webkit-search-decoration,

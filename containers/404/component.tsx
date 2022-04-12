@@ -78,7 +78,7 @@ export const Custom404: FC<Custom404Props> = () => {
     ctx.closePath();
     ctx.fill();
     ctx.fillStyle = '#fff';
-    ctx.font = '14pt Matter-JS';
+    ctx.font = '14pt Graphik';
     ctx.textAlign = 'center';
     ctx.fillText(text, radius, radius + 7);
     // ctx.strokeText("Canvas Rocks!", 5, 130);
@@ -363,7 +363,7 @@ export const Custom404: FC<Custom404Props> = () => {
   }, []);
 
   useEffect(() => {
-    const f = new FontFace('Matter-JS', 'url(/fonts/Matter-Regular.woff)');
+    const f = new FontFace('Graphik', 'url(/fonts/Graphik-Regular.woff)');
 
     f.load()
       .then((font) => {
@@ -398,7 +398,13 @@ export const Custom404: FC<Custom404Props> = () => {
 
   return (
     <div ref={containerRef} className="absolute top-0 left-0 z-0 flex items-center justify-center w-full h-full">
-      Custom404
+      <div className="max-w-xs text-center -translate-y-1/2">
+        <h1 className="font-display text-9xl">404</h1>
+        <div className="space-y-2">
+          <p className="text-lg">¡Desastre total! Algo ha salido fatal.</p>
+          <p className="opacity-50">En realidad no, pero hemos invertido tanto tiempo en esta página que queríamos que la vieras.</p>
+        </div>
+      </div>
 
       <canvas className="absolute top-0 left-0" ref={sceneRef} />
     </div>
