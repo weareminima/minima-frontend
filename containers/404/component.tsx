@@ -194,9 +194,9 @@ export const Custom404: FC<Custom404Props> = () => {
           render: {
             fillStyle: Common.choose(Object.values(COLORS)),
             sprite: {
-              texture: '/images/pixel.png',
-              xScale: (r / imageSize) + 0.01,
-              yScale: (r / imageSize) + 0.01,
+              texture: '/images/pixel.svg',
+              xScale: (r / imageSize) * 1.5,
+              yScale: (r / imageSize) * 1.5,
             },
           },
         },
