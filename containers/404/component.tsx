@@ -136,7 +136,7 @@ export const Custom404: FC<Custom404Props> = () => {
     const w = window.innerWidth;
     const h = window.innerHeight;
 
-    const radius = 30;
+    const radius = 50;
 
     const engine = engineRef.current;
     const { world } = engine;
@@ -185,7 +185,7 @@ export const Custom404: FC<Custom404Props> = () => {
         r,
         {
           force: {
-            y: 0,
+            y: 0.1,
             x: Common.random(-0.1, 0.1),
           },
           restitution: 0.3,
