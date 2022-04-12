@@ -63,7 +63,7 @@ export const Custom404: FC<Custom404Props> = () => {
 
   const mousedownRef = useRef(null);
 
-  const drawImage = useCallback((radius, text, hover) => {
+  const drawImage = useCallback((radius, text) => {
     const drawing = document.createElement('canvas');
 
     drawing.width = radius * 2;
@@ -71,7 +71,7 @@ export const Custom404: FC<Custom404Props> = () => {
 
     const ctx = drawing.getContext('2d');
 
-    ctx.fillStyle = hover ? '#1c1c1c' : '#000';
+    ctx.fillStyle = '#000';
     // ctx.fillRect(0, 0, 150, 150);
     ctx.beginPath();
     ctx.arc(radius, radius, radius, 0, Math.PI * 2, true);
@@ -99,7 +99,7 @@ export const Custom404: FC<Custom404Props> = () => {
 
       body.render.sprite.xScale = from + s; // eslint-disable-line no-param-reassign
       body.render.sprite.yScale = from + s; // eslint-disable-line no-param-reassign
-      body.render.sprite.texture = drawImage(60, 'Home', true); // eslint-disable-line no-param-reassign
+      body.render.sprite.texture = drawImage(60, 'Home'); // eslint-disable-line no-param-reassign
 
       hoverAnimationRef.current = requestAnimationFrame(() => {
         hoverIn(body, time + 0.1, from);
@@ -122,7 +122,7 @@ export const Custom404: FC<Custom404Props> = () => {
 
       body.render.sprite.xScale = from - s; // eslint-disable-line no-param-reassign
       body.render.sprite.yScale = from - s; // eslint-disable-line no-param-reassign
-      body.render.sprite.texture = drawImage(60, 'Home', false); // eslint-disable-line no-param-reassign
+      body.render.sprite.texture = drawImage(60, 'Home'); // eslint-disable-line no-param-reassign
 
       hoverAnimationRef.current = requestAnimationFrame(() => {
         hoverOut(body, time + 0.1, from);
@@ -217,7 +217,7 @@ export const Custom404: FC<Custom404Props> = () => {
           render: {
             fillStyle: '#000',
             sprite: {
-              texture: drawImage(60, 'Home', false),
+              texture: drawImage(60, 'Home'),
               xScale: 1,
               yScale: 1,
             },
@@ -245,34 +245,11 @@ export const Custom404: FC<Custom404Props> = () => {
 
     // keep the mouse in sync with rendering
     render.mouse = mouse;
+    engine.mouse = mouse;
 
-    Events.on(mouseConstraint, 'mousedown', () => {
-      if (mouseConstraint.body) {
-        mousedownRef.current = new Date().getTime();
-      }
-    });
-
-    Events.on(mouseConstraint, 'mouseup', (event) => {
-      const { mouse: mouseEvent } = event;
-      if (mousedownRef.current) {
-        const currentTime:number = new Date().getTime();
-
-        if (currentTime - mousedownRef.current < 200) {
-          const query = Query.point(links.bodies, {
-            ...mouseEvent.mouseupPosition,
-          });
-
-          if (query.length) {
-            const { label } = query[0];
-            document.body.style.cursor = '';
-            push(label);
-          }
-        }
-      }
-    });
-
-    Events.on(mouseConstraint, 'mousemove', (event) => {
-      const { mouse: mouseEvent } = event;
+    Events.on(engine, 'afterUpdate', (event) => {
+      const { source } = event;
+      const { mouse: mouseEvent } = source;
 
       const query = Query.point(links.bodies, {
         ...mouseEvent.position,
@@ -309,6 +286,31 @@ export const Custom404: FC<Custom404Props> = () => {
           hoverOut(hoverRef.current, 0, hoverRef.current.render.sprite.xScale);
         }
         hoverRef.current = null;
+      }
+    });
+
+    Events.on(mouseConstraint, 'mousedown', () => {
+      if (mouseConstraint.body) {
+        mousedownRef.current = new Date().getTime();
+      }
+    });
+
+    Events.on(mouseConstraint, 'mouseup', (event) => {
+      const { mouse: mouseEvent } = event;
+      if (mousedownRef.current) {
+        const currentTime:number = new Date().getTime();
+
+        if (currentTime - mousedownRef.current < 200) {
+          const query = Query.point(links.bodies, {
+            ...mouseEvent.mouseupPosition,
+          });
+
+          if (query.length) {
+            const { label } = query[0];
+            document.body.style.cursor = '';
+            push(label);
+          }
+        }
       }
     });
 
