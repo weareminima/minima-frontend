@@ -6,6 +6,7 @@ import type { AppProps } from 'next/app';
 import { OverlayProvider } from '@react-aria/overlays';
 import { Hydrate } from 'react-query/hydration';
 
+import Mouse from 'components/mouse';
 import store from 'store';
 
 import 'styles/globals.css';
@@ -17,6 +18,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <OverlayProvider>
+          <Mouse />
           <Component {...pageProps} />
         </OverlayProvider>
       </Hydrate>
