@@ -1,10 +1,14 @@
 import {
-  FC, useCallback, useEffect, useRef,
+  FC, useCallback, useEffect, useRef, useState,
 } from 'react';
 
 import cx from 'classnames';
 
 import { motion } from 'framer-motion';
+
+import Icon from 'components/icon';
+
+import CURSOR_SVG from 'svgs/cursor.svg?sprite';
 
 import type { MouseProps } from './types';
 
@@ -12,6 +16,7 @@ const INTERVAL_POSITION = 5;
 const INTERVAL_ROTATION = 100;
 
 export const Mouse: FC<MouseProps> = () => {
+  const [interactive, setInteractive] = useState(false);
   const positionInterval = useRef<NodeJS.Timer>();
   const rotationInterval = useRef<NodeJS.Timer>();
 
@@ -79,7 +84,20 @@ export const Mouse: FC<MouseProps> = () => {
     prevAngle.current = angle.current;
   }, [handleMouseStyle]);
 
+  const handleInteractiveMouseEnter = useCallback(() => {
+    setInteractive(true);
+  }, []);
+
+  const handleInteractiveMouseLeave = useCallback(() => {
+    setInteractive(false);
+  }, []);
+
   useEffect(() => {
+    const interactives = document.querySelectorAll('.interactive');
+    interactives.forEach((int) => {
+      int.addEventListener('mouseenter', handleInteractiveMouseEnter);
+      int.addEventListener('mouseleave', handleInteractiveMouseLeave);
+    });
     window.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseleave', handleMouseLeave);
 
@@ -98,7 +116,6 @@ export const Mouse: FC<MouseProps> = () => {
   const variants = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
-    exit: { opacity: 0 },
   };
 
   return (
@@ -110,8 +127,16 @@ export const Mouse: FC<MouseProps> = () => {
         'fixed pointer-events-none z-50': true,
       })}
     >
-      <div ref={mouseElementRef} className="relative h-5 w-1 bg-gray-900 -translate-x-1/2 -translate-y-1/2 transition-transform">
-        <div className="absolute top-0 left-1/2 h-2 w-2 bg-projects rounded-full -translate-x-1/2 -translate-y-1/2" />
+      <div className="h-6 w-6 -translate-x-1/2 -translate-y-1/2">
+        <div
+          ref={mouseElementRef}
+          className={cx({
+            'transition-transform': true,
+            'opacity-0': interactive,
+          })}
+        >
+          <Icon icon={CURSOR_SVG} className="h-6 w-6" />
+        </div>
       </div>
     </motion.div>
   );
