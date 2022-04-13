@@ -10,7 +10,7 @@ export const Home: FC<HomeProps> = () => {
       <Link
         href="/asdfasdfasdf"
       >
-        <a href="/asdfasdfasdf" className="text-2xl leading-none">
+        <a href="/asdfasdfasdf" className="text-2xl leading-none interactive">
           404
         </a>
       </Link>

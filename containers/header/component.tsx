@@ -16,7 +16,7 @@ export const Header: FC<HeaderProps> = () => {
     >
       <Link href="/">
         <h1>
-          <a href="/" className="relative -indent-{9999} overflow-hidden">
+          <a href="/" className="relative -indent-{9999} overflow-hidden interactive">
             <Icon icon={LOGO_SVG} className="w-[88px] h-4" />
             <span className="absolute -indent-[9999px]">Minima</span>
           </a>
