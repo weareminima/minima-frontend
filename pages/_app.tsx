@@ -6,7 +6,8 @@ import type { AppProps } from 'next/app';
 import { OverlayProvider } from '@react-aria/overlays';
 import { Hydrate } from 'react-query/hydration';
 
-import Mouse from 'components/mouse';
+import Mouse from 'containers/mouse';
+
 import store from 'store';
 
 import 'styles/globals.css';

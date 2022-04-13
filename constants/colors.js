@@ -1,8 +1,8 @@
 module.exports = {
-  studio: '#FBF5A1',
-  services: '#FFDAD2',
+  studio: '#FDF4A8',
+  services: '#FFDBD4',
   method: '#EEE3FF',
-  projects: '#BFE0FF',
-  lab: '#D1E6EA',
+  projects: '#D0E4F8',
+  lab: '#DAF1E8',
   contact: '#F2F2F2',
 };

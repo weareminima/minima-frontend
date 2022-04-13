@@ -14,7 +14,7 @@ const initialState: UIState = {
   },
 };
 
-export const applicationSlice = createSlice({
+export const homeSlice = createSlice({
   name: '/home',
   initialState,
   reducers: {
@@ -28,6 +28,6 @@ export const applicationSlice = createSlice({
   },
 });
 
-export const { setFilters } = applicationSlice.actions;
+export const { setFilters } = homeSlice.actions;
 
-export default applicationSlice.reducer;
+export default homeSlice.reducer;

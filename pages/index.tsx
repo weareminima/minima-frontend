@@ -3,18 +3,18 @@ import Head from 'next/head';
 import Header from 'containers/header';
 import Home from 'containers/home';
 
-const HomePage: React.FC = () => {
+const PageHome: React.FC = () => {
   return (
     <div>
       <Head>
         <title>Minima</title>
       </Head>
 
-      <Header />
+      <Header align="left" />
 
       <Home />
     </div>
   );
 };
 
-export default HomePage;
+export default PageHome;

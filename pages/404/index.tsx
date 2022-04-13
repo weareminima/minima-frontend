@@ -3,14 +3,14 @@ import Head from 'next/head';
 import Custom404 from 'containers/404';
 import Header from 'containers/header';
 
-const HomePage: React.FC = () => {
+const Page404: React.FC = () => {
   return (
     <div>
       <Head>
         <title>Minima</title>
       </Head>
 
-      <Header />
+      <Header align="left" />
 
       <Custom404 />
 
@@ -18,4 +18,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default Page404;

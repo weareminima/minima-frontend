@@ -1,9 +1,11 @@
+import application from 'store/application/slice';
 import home from 'store/home/slice';
 
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import type { ReducersMapObject } from '@reduxjs/toolkit';
 
 const staticReducers = {
+  '/application': application,
   '/home': home,
 };
 

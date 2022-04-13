@@ -4,6 +4,11 @@ import {
 
 import cx from 'classnames';
 
+import { useRouter } from 'next/router';
+
+import { setCache } from 'store/application/slice';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+
 import { motion } from 'framer-motion';
 
 import Icon from 'components/icon';
@@ -17,6 +22,10 @@ const INTERVAL_ROTATION = 100;
 
 export const Mouse: FC<MouseProps> = () => {
   const [interactive, setInteractive] = useState(false);
+  const { cache } = useAppSelector((state) => state['/application']);
+  const dispatch = useAppDispatch();
+
+  const { pathname } = useRouter();
   const positionInterval = useRef<NodeJS.Timer>();
   const rotationInterval = useRef<NodeJS.Timer>();
 
@@ -93,11 +102,6 @@ export const Mouse: FC<MouseProps> = () => {
   }, []);
 
   useEffect(() => {
-    const interactives = document.querySelectorAll('.interactive');
-    interactives.forEach((int) => {
-      int.addEventListener('mouseenter', handleInteractiveMouseEnter);
-      int.addEventListener('mouseleave', handleInteractiveMouseLeave);
-    });
     window.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseleave', handleMouseLeave);
 
@@ -112,6 +116,19 @@ export const Mouse: FC<MouseProps> = () => {
       if (rotationInterval.current) clearInterval(rotationInterval.current);
     };
   }, []); // eslint-disable-line
+
+  useEffect(() => {
+    const interactives = document.querySelectorAll('.interactive');
+    interactives.forEach((int) => {
+      int.addEventListener('mouseenter', handleInteractiveMouseEnter);
+      int.addEventListener('mouseleave', handleInteractiveMouseLeave);
+    });
+  }, [cache, handleInteractiveMouseEnter, handleInteractiveMouseLeave]);
+  // Prevent mouse to be hidden
+  useEffect(() => {
+    setInteractive(false);
+    dispatch(setCache(new Date().getTime()));
+  }, [dispatch, pathname]);
 
   const variants = {
     initial: { opacity: 0 },
