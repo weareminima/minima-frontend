@@ -1,5 +1,6 @@
 import Head from 'next/head';
 
+import ComingSoon from 'containers/coming-soon';
 import Header from 'containers/header';
 
 const PageComingSoon: React.FC = () => {
@@ -10,6 +11,8 @@ const PageComingSoon: React.FC = () => {
       </Head>
 
       <Header align="center" />
+
+      <ComingSoon />
     </div>
   );
 };
