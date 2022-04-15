@@ -1,4 +1,6 @@
-import { FC, useEffect } from 'react';
+import {
+  FC, useCallback, useEffect, useRef,
+} from 'react';
 
 import cx from 'classnames';
 
@@ -12,6 +14,7 @@ import hourGlassAnimation from 'svgs/hour-glass.json';
 interface ComingSoonProps {}
 
 export const ComingSoon: FC<ComingSoonProps> = () => {
+  const containerRef = useRef<HTMLDivElement>();
   const options = {
     animationData: hourGlassAnimation,
     loop: true,
@@ -44,13 +47,29 @@ export const ComingSoon: FC<ComingSoonProps> = () => {
 
   const { View, play, stop } = useLottie(options);
 
+  const calculateSize = useCallback(() => {
+    const container = containerRef.current;
+    container.style.width = `${window.innerWidth}px`;
+    container.style.height = `${window.innerHeight}px`;
+  }, []);
+
   useEffect(() => {
     stop();
   }, [stop]);
 
+  useEffect(() => {
+    calculateSize();
+    window.addEventListener('resize', calculateSize);
+
+    return () => {
+      window.removeEventListener('resize', calculateSize);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div
-      className="relative w-screen h-screen justify-center items-center flex flex-grow"
+      ref={containerRef}
+      className="relative justify-center items-center flex flex-grow"
     >
       <ComingSoonBall />
 
