@@ -11937,6 +11937,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lottie-react@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "lottie-react@npm:2.2.1"
+  dependencies:
+    lottie-web: ^5.8.1
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+    react-dom: ^16.8.0 || ^17.0.0
+  checksum: 37ca04e2baf0ae18def7e82b1746175a742410e8adcadd2d8c0f4206eee4dac65a4ba1d14709134fac2d8251d514b866af1d62e6d87fea345eb7af383e569efa
+  languageName: node
+  linkType: hard
+
+"lottie-web@npm:^5.8.1":
+  version: 5.9.2
+  resolution: "lottie-web@npm:5.9.2"
+  checksum: f9d5352c15afcaaba9c59e50873ee44078dad43cff7072f98374c15428d0925b9667f94b21a2b135f87159aa1cddbd7d4975d6f6e7211d634456a077119d6055
+  languageName: node
+  linkType: hard
+
 "lower-case@npm:^2.0.2":
   version: 2.0.2
   resolution: "lower-case@npm:2.0.2"
@@ -12464,6 +12483,7 @@ __metadata:
     jsona: ^1.9.2
     jsonwebtoken: ^8.5.1
     lodash: ^4.17.21
+    lottie-react: ^2.2.1
     matter-js: ^0.18.0
     matter-wrap: ^0.2.0
     next: ^12.0.9

@@ -1,18 +1,27 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import cx from 'classnames';
 
 import { motion } from 'framer-motion';
+import { useLottie } from 'lottie-react';
+
+import hourGlassAnimation from 'svgs/hour-glass.json';
 
 interface ComingSoonProps {}
 
 export const ComingSoon: FC<ComingSoonProps> = () => {
+  const options = {
+    animationData: hourGlassAnimation,
+    loop: true,
+    autoplay: false,
+  };
+
   const sentence = {
     hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 1,
+        delayChildren: 1.5,
         staggerChildren: 0.03,
       },
     },
@@ -31,14 +40,46 @@ export const ComingSoon: FC<ComingSoonProps> = () => {
     },
   };
 
+  const { View, play, stop } = useLottie(options);
+
+  useEffect(() => {
+    stop();
+  }, [stop]);
+
   return (
     <div
       className="w-screen h-screen justify-center items-center flex flex-grow"
     >
-      <section>
+      <section className="space-y-6">
+        <motion.div
+          className="w-16 h-16 mx-auto"
+          initial={{
+            opacity: 0,
+            scale: 0,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            delay: 1,
+            type: 'spring',
+            // damping: 8,
+            // mass: 1.5,
+            // stiffness: 100,
+            duration: 1,
+            bounce: 0.5,
+          }}
+          onAnimationComplete={() => {
+            play();
+          }}
+        >
+          {View}
+        </motion.div>
+
         <motion.h1
           key="h1"
-          className="font-display font-light text-center text-5xl"
+          className="font-display font-light text-center text-5xl text-gray-900"
           variants={sentence}
           initial="hidden"
           animate="visible"
