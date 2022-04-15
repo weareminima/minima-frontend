@@ -4,15 +4,15 @@ import {
 
 import { motion } from 'framer-motion';
 
-import COLORS from 'constants/colors';
+import { COLORS } from 'constants/colors';
 
 interface ComingSoonBallProps {}
 
 export const ComingSoonBall: FC<ComingSoonBallProps> = () => {
-  const colors = Object.values(COLORS);
   const containerRef = useRef<HTMLDivElement>();
   const ballRef = useRef<HTMLDivElement>();
   const ballContentRef = useRef<HTMLDivElement>();
+  const animation = useRef<number>();
 
   const positionRef = useRef({ x: 0, y: 0 });
   const directionRef = useRef({ dx: 3, dy: 3 });
@@ -45,20 +45,38 @@ export const ComingSoonBall: FC<ComingSoonBallProps> = () => {
       };
       rotationRef.current = r;
 
-      if (x + ((ballRadius * 2) + 1) > width || x <= 0) {
+      // X walls
+      if (direction.dx > 0 && x + ((ballRadius * 2) + 1) > width) {
         directionRef.current = {
           dx: -direction.dx,
           dy: direction.dy,
         };
-        colorRef.current = (c + 1) === colors.length ? 0 : c + 1;
+        colorRef.current = (c + 1) === COLORS.length ? 0 : c + 1;
       }
 
-      if (y + ((ballRadius * 2) + 1) > height || y <= 0) {
+      if (direction.dx < 0 && x <= 0) {
+        directionRef.current = {
+          dx: -direction.dx,
+          dy: direction.dy,
+        };
+        colorRef.current = (c + 1) === COLORS.length ? 0 : c + 1;
+      }
+
+      // Y walls
+      if (direction.dy > 0 && y + ((ballRadius * 2) + 1) > height) {
         directionRef.current = {
           dx: direction.dx,
           dy: -direction.dy,
         };
-        colorRef.current = (c + 1) === colors.length ? 0 : c + 1;
+        colorRef.current = (c + 1) === COLORS.length ? 0 : c + 1;
+      }
+
+      if (direction.dy < 0 && y <= 0) {
+        directionRef.current = {
+          dx: direction.dx,
+          dy: -direction.dy,
+        };
+        colorRef.current = (c + 1) === COLORS.length ? 0 : c + 1;
       }
 
       if (r === 360) {
@@ -67,11 +85,11 @@ export const ComingSoonBall: FC<ComingSoonBallProps> = () => {
 
       ball.style.transform = `translate(${x}px, ${y}px)`;
       ballContent.style.transform = `rotate(${r}deg)`;
-      ballContent.style.backgroundColor = colors[c];
+      ballContent.style.backgroundColor = COLORS[c];
     }
 
-    requestAnimationFrame(draw);
-  }, [colors]);
+    animation.current = requestAnimationFrame(draw);
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -80,10 +98,10 @@ export const ComingSoonBall: FC<ComingSoonBallProps> = () => {
 
     const ballRadius = ball.getBoundingClientRect().width / 2;
 
-    const { width, height } = container.getBoundingClientRect();
+    const { width } = container.getBoundingClientRect();
 
     const x = Math.random() * ((width - (ballRadius * 2)) - 0) + 0;
-    const y = Math.random() * ((height - (ballRadius * 2)) - 0) + 0;
+    const y = Math.random() * -(ballRadius * 2) - ballRadius * 2;
 
     positionRef.current = {
       x,
@@ -91,7 +109,13 @@ export const ComingSoonBall: FC<ComingSoonBallProps> = () => {
     };
 
     ball.style.transform = `translate(${x}px, ${y}px)`;
-    ballContent.style.backgroundColor = colors[colorRef.current];
+    ballContent.style.backgroundColor = COLORS[colorRef.current];
+
+    return () => {
+      if (animation.current) {
+        cancelAnimationFrame(animation.current);
+      }
+    };
   }, []); // eslint-disable-line
 
   return (
@@ -99,10 +123,10 @@ export const ComingSoonBall: FC<ComingSoonBallProps> = () => {
       ref={containerRef}
       className="absolute w-full h-full overflow-hidden z-40 pointer-events-none"
     >
-      <div ref={ballRef} className="absolute w-32 h-32">
+      <div ref={ballRef} className="absolute w-40 h-40">
         <motion.div
           ref={ballContentRef}
-          className="absolute w-full h-full rounded-full flex justify-center items-center font-display text-2xl"
+          className="absolute w-full h-full rounded-full flex justify-center items-center font-display text-3xl"
           initial={{
             scale: 0,
             opacity: 0,
@@ -118,10 +142,9 @@ export const ComingSoonBall: FC<ComingSoonBallProps> = () => {
           }}
           onAnimationComplete={draw}
         >
-          <div>
-            <span>Coming </span>
-            {' '}
-            <span className="italic">soon</span>
+          <div className="relative top-1 text-center leading-none">
+            <span className="block">Coming</span>
+            <span className="block italic">soon</span>
           </div>
         </motion.div>
       </div>

@@ -20,7 +20,7 @@ import {
   Sleeping,
 } from 'matter-js';
 
-import COLORS from 'constants/colors';
+import { COLORS } from 'constants/colors';
 import Render from 'lib/matter/render';
 
 const EasingFunctions = {
@@ -192,7 +192,7 @@ export const Custom404: FC<Custom404Props> = () => {
           friction: 0.01,
           frictionAir: 0.01,
           render: {
-            fillStyle: Common.choose(Object.values(COLORS)),
+            fillStyle: Common.choose(COLORS),
             sprite: {
               texture: '/images/pixel.svg',
               xScale: (r / imageSize) * 1.5,

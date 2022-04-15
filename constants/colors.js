@@ -1,8 +1,20 @@
 module.exports = {
-  studio: '#FDF4A8',
-  services: '#FFDBD4',
-  method: '#EEE3FF',
-  projects: '#D0E4F8',
-  lab: '#DAF1E8',
-  contact: '#F2F2F2',
+  COLORS: ['#FDF4A8', '#FFDBD4', '#EEE3FF', '#D0E4F8', '#DAF1E8'],
+  TAILWIND_COLORS: {
+    yellow: {
+      500: '#FDF4A8',
+    },
+    coral: {
+      500: '#FFDBD4',
+    },
+    purple: {
+      500: '#EEE3FF',
+    },
+    blue: {
+      500: '#D0E4F8',
+    },
+    green: {
+      500: '#DAF1E8',
+    },
+  },
 };

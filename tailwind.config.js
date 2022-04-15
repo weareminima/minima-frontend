@@ -3,7 +3,7 @@ const forms = require('@tailwindcss/forms');
 const lineClamp = require('@tailwindcss/line-clamp');
 const colors = require('tailwindcss/colors');
 
-const COLORS = require('./constants/colors');
+const { TAILWIND_COLORS } = require('./constants/colors');
 
 module.exports = {
   content: ['./components/**/*.tsx', './containers/**/*.tsx', './pages/**/*.tsx'],
@@ -16,7 +16,7 @@ module.exports = {
       current: 'currentColor',
       gray: colors.zinc,
       primary: '#F9F6F0',
-      ...COLORS,
+      ...TAILWIND_COLORS,
     },
   },
   plugins: [forms, lineClamp],
