@@ -24,9 +24,9 @@ export const Header: FC<HeaderProps> = ({
       transition={{ delay: 0.5 }}
       key="header"
       className={cx({
-        'w-full z-10 flex p-4 md:p-8': true,
-        'relative justify-between': align === 'left',
-        'absolute justify-center': align === 'center',
+        'absolute w-full z-10 flex p-4 md:p-8': true,
+        'justify-between': align === 'left',
+        'justify-center': align === 'center',
       })}
     >
       <Link href="/">

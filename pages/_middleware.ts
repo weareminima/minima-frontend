@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function middleware(req) {
   const { pathname } = req.nextUrl;
-  if (pathname === '/') {
+  if (process.env.NODE_ENV === 'production' && pathname === '/') {
     return NextResponse.redirect('/coming-soon');
   }
   return NextResponse.next();
