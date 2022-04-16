@@ -9,6 +9,8 @@ import { useLottie } from 'lottie-react';
 
 import hourGlassAnimation from 'svgs/hour-glass.json';
 
+import Cards from './cards';
+
 interface HomeProps {}
 
 export const Home: FC<HomeProps> = () => {
@@ -63,6 +65,7 @@ export const Home: FC<HomeProps> = () => {
       window.removeEventListener('resize', calculateSize);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div
       ref={containerRef}
@@ -154,6 +157,8 @@ export const Home: FC<HomeProps> = () => {
           </span>
         </motion.h1>
       </section>
+
+      <Cards />
     </div>
   );
 };

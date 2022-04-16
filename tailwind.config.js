@@ -6,7 +6,7 @@ const colors = require('tailwindcss/colors');
 const { TAILWIND_COLORS } = require('./constants/colors');
 
 module.exports = {
-  content: ['./components/**/*.tsx', './containers/**/*.tsx', './pages/**/*.tsx'],
+  content: ['./components/**/*.tsx', './containers/**/*.tsx', './containers/**/*.ts', './pages/**/*.tsx'],
   theme: {
     fontFamily: {
       display: 'Garamond',
