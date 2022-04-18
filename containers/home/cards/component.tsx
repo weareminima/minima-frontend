@@ -28,7 +28,7 @@ export const Cards: FC<CardsProps> = () => {
     const radius = 300;
 
     return CARDS_METADATA.map((c, i) => {
-      const radian = ((i / CARDS_METADATA.length) * 2 * Math.PI) - (Math.PI * 0.75);
+      const radian = ((i / CARDS_METADATA.length) * 2 * Math.PI) - (Math.PI * 0.5);
 
       const x = xCenter + (radius * Math.cos(radian));
       const y = yCenter + (radius * Math.sin(radian));
