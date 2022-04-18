@@ -16,6 +16,8 @@ module.exports = {
       current: 'currentColor',
       gray: colors.zinc,
       primary: '#F9F6F0',
+      black: '#000',
+      white: '#fff',
       ...TAILWIND_COLORS,
     },
   },
