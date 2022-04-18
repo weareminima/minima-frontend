@@ -25,6 +25,8 @@ module.exports = {
     'implicit-arrow-linebreak': 0,
     'import/prefer-default-export': 0,
     'no-console': [1, { allow: ['info', 'error'] }],
+
+    'react/require-default-props': 0,
     // https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint
     'react/react-in-jsx-scope': 'off',
     // NextJs specific fix: allow jsx syntax in js and ts files
