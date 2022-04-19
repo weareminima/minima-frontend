@@ -69,7 +69,7 @@ export const ComingSoon: FC<ComingSoonProps> = () => {
   return (
     <div
       ref={containerRef}
-      className="relative justify-center items-center flex flex-grow"
+      className="relative flex items-center justify-center flex-grow"
     >
       <ComingSoonBall />
 
@@ -102,7 +102,7 @@ export const ComingSoon: FC<ComingSoonProps> = () => {
 
         <motion.h1
           key="h1"
-          className="font-display font-light text-center text-5xl text-gray-900"
+          className="font-light text-center text-gray-900 font-display text-5xl md:text-[64px] leading-none"
           variants={sentence}
           initial="hidden"
           animate="visible"
@@ -161,7 +161,7 @@ export const ComingSoon: FC<ComingSoonProps> = () => {
       </section>
 
       <motion.footer
-        className="absolute bottom-0 text-center w-full p-4 sm:p-8"
+        className="absolute bottom-0 w-full p-8 text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}

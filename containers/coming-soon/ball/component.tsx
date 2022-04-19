@@ -121,12 +121,12 @@ export const ComingSoonBall: FC<ComingSoonBallProps> = () => {
   return (
     <div
       ref={containerRef}
-      className="absolute w-full h-full overflow-hidden z-40 pointer-events-none"
+      className="absolute z-40 w-full h-full overflow-hidden pointer-events-none"
     >
       <div ref={ballRef} className="absolute w-40 h-40">
         <motion.div
           ref={ballContentRef}
-          className="absolute w-full h-full rounded-full flex justify-center items-center font-display text-3xl"
+          className="absolute flex items-center justify-center w-full h-full rounded-full font-display"
           initial={{
             scale: 0,
             opacity: 0,
@@ -142,9 +142,9 @@ export const ComingSoonBall: FC<ComingSoonBallProps> = () => {
           }}
           onAnimationComplete={draw}
         >
-          <div className="relative top-1 text-center leading-none">
+          <div className="relative text-3xl leading-none text-center top-1.5">
             <span className="block">Coming</span>
-            <span className="block italic">soon</span>
+            <span className="relative block italic -top-1">soon</span>
           </div>
         </motion.div>
       </div>
