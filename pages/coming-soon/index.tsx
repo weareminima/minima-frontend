@@ -10,7 +10,7 @@ const PageComingSoon: React.FC = () => {
         <title>Minima - Coming soon</title>
       </Head>
 
-      <Header align="center" />
+      <Header align="center" comingSoon />
 
       <ComingSoon />
     </div>

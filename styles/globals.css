@@ -20,6 +20,10 @@
     cursor: none;
   }
 
+  a {
+    cursor: none;
+  }
+
   /* Matter */
   @font-face {
     font-family: 'Graphik';

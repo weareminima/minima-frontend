@@ -9,11 +9,12 @@ import { useRouter } from 'next/router';
 import { setCache } from 'store/application/slice';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import Icon from 'components/icon';
 
 import CURSOR_SVG from 'svgs/cursor.svg?sprite';
+import EMAIL_SVG from 'svgs/email.svg?sprite';
 
 import type { MouseProps } from './types';
 
@@ -22,6 +23,8 @@ const INTERVAL_ROTATION = 100;
 
 export const Mouse: FC<MouseProps> = () => {
   const [interactive, setInteractive] = useState(false);
+  const interactiveRef = useRef(false);
+  const [interactiveType, setInteractiveType] = useState(null);
   const { cache } = useAppSelector((state) => state['/application']);
   const dispatch = useAppDispatch();
 
@@ -55,7 +58,7 @@ export const Mouse: FC<MouseProps> = () => {
     };
   }, []);
 
-  const handleMouseStyle = useCallback(() => {
+  const handleMouseStyle = () => {
     const {
       x, y,
     } = position.current;
@@ -72,10 +75,13 @@ export const Mouse: FC<MouseProps> = () => {
     }
 
     // Apply rotation
+    if (interactiveRef.current) {
+      angle.current = 90;
+    }
     mouseElementRef.current.style.transform = `rotate(${angle.current - 90}deg)`;
-  }, []);
+  };
 
-  const handleMouseAngle = useCallback(() => {
+  const handleMouseAngle = () => {
     const { x, y } = position.current;
     const { x: prevX, y: prevY } = prevPosition.current;
 
@@ -91,16 +97,21 @@ export const Mouse: FC<MouseProps> = () => {
 
     prevPosition.current = position.current;
     prevAngle.current = angle.current;
-  }, [handleMouseStyle]);
+  };
 
-  const handleInteractiveMouseEnter = useCallback(() => {
+  const handleInteractiveMouseEnter = useCallback((e) => {
     setInteractive(true);
+    setInteractiveType(e?.target?.dataset?.cursor);
+    interactiveRef.current = true;
   }, []);
 
   const handleInteractiveMouseLeave = useCallback(() => {
     setInteractive(false);
+    setInteractiveType(null);
+    interactiveRef.current = false;
   }, []);
 
+  // Check movements
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseleave', handleMouseLeave);
@@ -135,6 +146,23 @@ export const Mouse: FC<MouseProps> = () => {
     animate: { opacity: 1 },
   };
 
+  const iconVariants = {
+    initial: {
+      opacity: 0,
+      scale: 0,
+    },
+    animate: {
+      opacity: 1,
+      scale: 1,
+    },
+    exit: {
+      opacity: 0,
+      scale: 0,
+    },
+    transition: {
+      duration: 0.15,
+    },
+  };
   return (
     <motion.div
       ref={mouseRef}
@@ -144,15 +172,36 @@ export const Mouse: FC<MouseProps> = () => {
         'fixed pointer-events-none z-50': true,
       })}
     >
-      <div className="h-6 w-6 -translate-x-1/2 -translate-y-1/2">
+      <div className="w-6 h-6 -translate-x-1/2 -translate-y-1/2">
         <div
           ref={mouseElementRef}
           className={cx({
             'transition-transform': true,
-            'opacity-0': interactive,
+            'opacity-0': interactive && !interactiveType,
           })}
         >
-          <Icon icon={CURSOR_SVG} className="h-6 w-6" />
+          <AnimatePresence
+            initial={false}
+            exitBeforeEnter
+          >
+            {!interactiveType && (
+              <motion.div
+                key="cursor"
+                {...iconVariants}
+              >
+                <Icon icon={CURSOR_SVG} className="w-6 h-6" />
+              </motion.div>
+            )}
+
+            {interactiveType === 'mail' && (
+              <motion.div
+                key="mail"
+                {...iconVariants}
+              >
+                <Icon icon={EMAIL_SVG} className="w-8 h-8" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </motion.div>
