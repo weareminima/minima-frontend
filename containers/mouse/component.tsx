@@ -22,9 +22,11 @@ const INTERVAL_POSITION = 5;
 const INTERVAL_ROTATION = 100;
 
 export const Mouse: FC<MouseProps> = () => {
-  const [interactive, setInteractive] = useState(false);
   const interactiveRef = useRef(false);
+  const [interactive, setInteractive] = useState(false);
   const [interactiveType, setInteractiveType] = useState(null);
+  const [active, setActive] = useState(true);
+
   const { cache } = useAppSelector((state) => state['/application']);
   const dispatch = useAppDispatch();
 
@@ -113,6 +115,16 @@ export const Mouse: FC<MouseProps> = () => {
 
   // Check movements
   useEffect(() => {
+    // Detect touch devices
+    // https://stackoverflow.com/questions/7838680/detecting-that-the-browser-has-no-mouse-and-is-touch-only/52854585#answer-52854585
+    setActive(!window.matchMedia('(any-pointer: coarse)').matches);
+
+    window
+      .matchMedia('(any-pointer: coarse)')
+      .addEventListener('change', (e) => {
+        setActive(!e.matches);
+      });
+
     window.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseleave', handleMouseLeave);
 
@@ -177,7 +189,7 @@ export const Mouse: FC<MouseProps> = () => {
           ref={mouseElementRef}
           className={cx({
             'transition-transform': true,
-            'opacity-0': interactive && !interactiveType,
+            'opacity-0': (interactive && !interactiveType) || !active,
           })}
         >
           {!interactiveType && (
