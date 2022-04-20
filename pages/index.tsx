@@ -7,7 +7,7 @@ const PageHome: React.FC = () => {
   return (
     <div>
       <Head>
-        <title>Minima</title>
+        <title>We Are Mínima</title>
       </Head>
 
       <Header align="left" />

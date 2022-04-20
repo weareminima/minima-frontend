@@ -7,7 +7,7 @@ const Page404: React.FC = () => {
   return (
     <div>
       <Head>
-        <title>Minima</title>
+        <title>404 - We Are Mínima</title>
       </Head>
 
       <Header align="left" />
