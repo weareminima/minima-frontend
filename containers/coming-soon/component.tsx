@@ -161,13 +161,13 @@ export const ComingSoon: FC<ComingSoonProps> = () => {
       </section>
 
       <motion.footer
-        className="absolute bottom-0 w-full p-8 leading-none text-center"
+        className="absolute bottom-0 w-full px-8 py-2 leading-none text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
         <a
-          className="interactive"
+          className="interactive inline-block p-6"
           data-cursor="mail"
           href="mailto:hello@weareminima.com"
           target="_blank"

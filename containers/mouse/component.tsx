@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { setCache } from 'store/application/slice';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import Icon from 'components/icon';
 
@@ -160,7 +160,7 @@ export const Mouse: FC<MouseProps> = () => {
       scale: 0,
     },
     transition: {
-      duration: 0.15,
+      duration: 0.05,
     },
   };
   return (
@@ -180,28 +180,23 @@ export const Mouse: FC<MouseProps> = () => {
             'opacity-0': interactive && !interactiveType,
           })}
         >
-          <AnimatePresence
-            initial={false}
-            exitBeforeEnter
-          >
-            {!interactiveType && (
-              <motion.div
-                key="cursor"
-                {...iconVariants}
-              >
-                <Icon icon={CURSOR_SVG} className="w-6 h-6" />
-              </motion.div>
-            )}
+          {!interactiveType && (
+            <div
+              key="cursor"
+              {...iconVariants}
+            >
+              <Icon icon={CURSOR_SVG} className="w-6 h-6" />
+            </div>
+          )}
 
-            {interactiveType === 'mail' && (
-              <motion.div
-                key="mail"
-                {...iconVariants}
-              >
-                <Icon icon={EMAIL_SVG} className="w-8 h-8" />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {interactiveType === 'mail' && (
+            <div
+              key="mail"
+              {...iconVariants}
+            >
+              <Icon icon={EMAIL_SVG} className="w-8 h-8" />
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
