@@ -1,7 +1,9 @@
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
 import Header from 'containers/header';
-import Home from 'containers/home';
+
+const Home = dynamic(() => import('containers/home'), { ssr: false });
 
 const PageHome: React.FC = () => {
   return (

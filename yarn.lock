@@ -12510,6 +12510,7 @@ __metadata:
     react-popper: ^2.2.5
     react-query: ^3.16.0
     react-redux: ^7.2.4
+    react-scrollama: ^2.3.0
     start-server-and-test: ^1.12.1
     svg-sprite-loader: ^6.0.6
     svgo: 1.3.2
@@ -14651,6 +14652,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-intersection-observer@npm:^8.31.0":
+  version: 8.34.0
+  resolution: "react-intersection-observer@npm:8.34.0"
+  peerDependencies:
+    react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
+  checksum: 7713fecfd1512c7f5a60f9f0bf15403b8f8bbd4110bcafaeaea6de36a0e0eb60368c3638f99e9c97b75ad8fc787ea48c241dcb5c694f821d7f2976f709082cc5
+  languageName: node
+  linkType: hard
+
 "react-is@npm:17.0.2, react-is@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
@@ -14768,6 +14778,18 @@ __metadata:
   peerDependencies:
     react: ">=16.8"
   checksum: 081a89237ab4f32195d1f2173bc4b3d95637cd6942a4d1a9e90d4ac8c80faa95528255ca2ec44c1e88c1b369e712c4ca74cba5ae3acef6fc30a51a62805b95a4
+  languageName: node
+  linkType: hard
+
+"react-scrollama@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "react-scrollama@npm:2.3.0"
+  dependencies:
+    react-intersection-observer: ^8.31.0
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.2
+    react-dom: ^16.8.0 || ^17.0.2
+  checksum: f860daa9f1a38c6614d178464020f6032aa70d66a32dc15a6ce8e555d2487be058804323ca5b85d4f894f4921d326359cd1b3bce2b72d0201e24fe0e6b37d53c
   languageName: node
   linkType: hard
 

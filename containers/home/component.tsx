@@ -1,169 +1,106 @@
 import {
-  FC, useCallback, useEffect, useRef,
+  FC, useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
 
-import cx from 'classnames';
+import { Scrollama, Step } from 'react-scrollama';
 
 import { motion } from 'framer-motion';
-import { useLottie } from 'lottie-react';
 
-import hourGlassAnimation from 'svgs/hour-glass.json';
+import { CARDS } from 'constants/cards';
 
-import Cards from './cards';
-import FakeCards from './fake-cards';
+import Intro from './intro';
+import Section from './section';
 
 interface HomeProps {}
 
 export const Home: FC<HomeProps> = () => {
   const containerRef = useRef<HTMLDivElement>();
-  const options = {
-    animationData: hourGlassAnimation,
-    loop: true,
-    autoplay: false,
-  };
+  const [stepsProgress, setStepsProgress] = useState({});
 
-  const sentence = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 1.5,
-        staggerChildren: 0.025,
+  const STEPS = useMemo(() => {
+    return [
+      {
+        id: 'intro',
+        index: 0,
+        component: <Intro />,
       },
-    },
-  };
+      ...CARDS.map((c) => ({
+        id: c.id,
+        index: c.index,
+        component: <Section {...c} />,
+      })),
+    ];
+  }, []);
 
-  const letter = {
-    hidden: {
-      opacity: 0,
-      y: 5,
-      rotate: 5,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotate: 0,
-    },
-  };
-
-  const { View, play, stop } = useLottie(options);
-
-  const calculateSize = useCallback(() => {
+  const handleSize = useCallback(() => {
     const container = containerRef.current;
     container.style.width = `${window.innerWidth}px`;
     container.style.height = `${window.innerHeight}px`;
   }, []);
 
-  useEffect(() => {
-    stop();
-  }, [stop]);
+  const handleStepEnter = useCallback((props) => {
+    console.log(props);
+  }, []);
+
+  const handleStepProgress = useCallback((values) => {
+    const { data, progress } = values;
+
+    setStepsProgress({
+      ...stepsProgress,
+      [data]: progress,
+    });
+  }, [stepsProgress]);
 
   useEffect(() => {
-    calculateSize();
-    window.addEventListener('resize', calculateSize);
+    handleSize();
+    window.addEventListener('resize', handleSize);
 
     return () => {
-      window.removeEventListener('resize', calculateSize);
+      window.removeEventListener('resize', handleSize);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div
       ref={containerRef}
-      className="relative"
+      className="relative w-screen h-screen"
     >
-      <div className="fixed w-full h-full justify-center items-center flex flex-grow">
-        <section className="space-y-6">
-          <motion.div
-            className="w-16 h-16 mx-auto"
-            initial={{
-              opacity: 0,
-              scale: 0,
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-            }}
-            transition={{
-              delay: 1,
-              type: 'spring',
-              // damping: 8,
-              // mass: 1.5,
-              // stiffness: 100,
-              duration: 1,
-              bounce: 0.5,
-            }}
-            onAnimationComplete={() => {
-              play();
-            }}
-          >
-            {View}
-          </motion.div>
+      <Scrollama
+        onStepEnter={handleStepEnter}
+        onStepProgress={handleStepProgress}
+        offset={0}
+      >
+        {STEPS.map((step) => {
+          const stepProgress = stepsProgress[step.id] || 0;
 
-          <motion.h1
-            key="h1"
-            className="font-display font-light text-center text-5xl text-gray-900"
-            variants={sentence}
-            initial="hidden"
-            animate="visible"
-          >
-            <span className="block">
-              {'Good design'.split('').map((l, index) => (
-                <motion.span
-                  key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
-                  className={cx({
-                    'inline-block': l !== ' ',
-                  })}
-                  variants={letter}
+          return (
+            <Step data={step.id} key={step.id}>
+              <div className="w-full h-full">
+                <motion.div
+                  key={step.id}
+                  style={{
+                    zIndex: step.index,
+                    opacity: 1 - (stepProgress * 0.75),
+                  }}
+                  animate={{
+                    y: stepProgress * 200,
+                    scale: 1 - (stepProgress * 0.05),
+                  }}
+                  transition={{
+                    duration: 0.0,
+                    ease: 'easeInOut',
+                  }}
+                  className="relative w-full h-full origin-bottom"
                 >
-                  {l}
-                </motion.span>
-              ))}
-            </span>
-            <span className="block">
-              {'for a '.split('').map((l, index) => (
-                <motion.span
-                  key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
-                  className={cx({
-                    'inline-block': l !== ' ',
-                  })}
-                  variants={letter}
-                >
-                  {l}
-                </motion.span>
-              ))}
-              <span className="italic">
-                {'better'.split('').map((l, index) => (
-                  <motion.span
-                    key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
-                    className={cx({
-                      'inline-block': l !== ' ',
-                    })}
-                    variants={letter}
-                  >
-                    {l}
-                  </motion.span>
-                ))}
-              </span>
-              {' life.'.split('').map((l, index) => (
-                <motion.span
-                  key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
-                  className={cx({
-                    'inline-block': l !== ' ',
-                  })}
-                  variants={letter}
-                >
-                  {l}
-                </motion.span>
-              ))}
-            </span>
-          </motion.h1>
-        </section>
+                  {step.component}
+                </motion.div>
+              </div>
+            </Step>
+          );
+        })}
 
-        <Cards />
-      </div>
+      </Scrollama>
 
-      <FakeCards />
     </div>
   );
 };

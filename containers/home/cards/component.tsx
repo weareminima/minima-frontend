@@ -2,8 +2,9 @@ import {
   FC, useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
 
+import { CARDS as CARDS_METADATA } from 'constants/cards';
+
 import Card from './card';
-import { CARDS as CARDS_METADATA } from './constants';
 
 interface CardsProps {}
 
@@ -79,7 +80,7 @@ export const Cards: FC<CardsProps> = () => {
     <section
       key={`cards-${JSON.stringify(container)}`}
       ref={containerRef}
-      className="fixed z-10 w-full h-full overflow-hidden"
+      className="absolute z-10 w-full h-full overflow-hidden"
     >
       {CARDS.map((c) => {
         return (
