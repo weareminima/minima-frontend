@@ -1,13 +1,13 @@
 import {
-  FC, useCallback, useEffect, useMemo, useRef, useState,
+  FC, useCallback, useEffect, useMemo, useState,
 } from 'react';
 
 import Card from './card';
 import { CARDS as CARDS_METADATA } from './constants';
 
-interface CardsProps {}
+interface FakeCardsProps {}
 
-export const Cards: FC<CardsProps> = () => {
+export const FakeCards: FC<FakeCardsProps> = () => {
   const [container, setContainer] = useState({
     center: {
       x: 0,
@@ -17,35 +17,11 @@ export const Cards: FC<CardsProps> = () => {
     height: 0,
   });
 
-  const containerRef = useRef<HTMLDivElement>();
-
   const CARDS = useMemo(() => {
-    const {
-      center: {
-        x: xCenter, y: yCenter,
-      },
-    } = container;
-    const radius = 300;
-
-    return CARDS_METADATA.map((c, i) => {
-      const radian = ((i / CARDS_METADATA.length) * 2 * Math.PI) - (Math.PI * 0.5);
-
-      const x = xCenter + (radius * Math.cos(radian));
-      const y = yCenter + (radius * Math.sin(radian));
-
-      const x1 = xCenter + ((radius * 3) * Math.cos(radian));
-      const y1 = yCenter + ((radius * 3) * Math.sin(radian));
-
-      const rotation = (Math.random() * (30)) - 15;
-
+    return CARDS_METADATA.map((c) => {
       return {
         ...c,
         options: {
-          x,
-          y,
-          x1,
-          y1,
-          rotation,
           container,
         },
       };
@@ -78,8 +54,6 @@ export const Cards: FC<CardsProps> = () => {
   return (
     <section
       key={`cards-${JSON.stringify(container)}`}
-      ref={containerRef}
-      className="fixed z-10 w-full h-full overflow-hidden"
     >
       {CARDS.map((c) => {
         return (
@@ -93,4 +67,4 @@ export const Cards: FC<CardsProps> = () => {
   );
 };
 
-export default Cards;
+export default FakeCards;

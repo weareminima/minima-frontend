@@ -10,6 +10,7 @@ import { useLottie } from 'lottie-react';
 import hourGlassAnimation from 'svgs/hour-glass.json';
 
 import Cards from './cards';
+import FakeCards from './fake-cards';
 
 interface HomeProps {}
 
@@ -69,69 +70,45 @@ export const Home: FC<HomeProps> = () => {
   return (
     <div
       ref={containerRef}
-      className="relative justify-center items-center flex flex-grow"
+      className="relative"
     >
-      <section className="space-y-6">
-        <motion.div
-          className="w-16 h-16 mx-auto"
-          initial={{
-            opacity: 0,
-            scale: 0,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{
-            delay: 1,
-            type: 'spring',
-            // damping: 8,
-            // mass: 1.5,
-            // stiffness: 100,
-            duration: 1,
-            bounce: 0.5,
-          }}
-          onAnimationComplete={() => {
-            play();
-          }}
-        >
-          {View}
-        </motion.div>
+      <div className="fixed w-full h-full justify-center items-center flex flex-grow">
+        <section className="space-y-6">
+          <motion.div
+            className="w-16 h-16 mx-auto"
+            initial={{
+              opacity: 0,
+              scale: 0,
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+            }}
+            transition={{
+              delay: 1,
+              type: 'spring',
+              // damping: 8,
+              // mass: 1.5,
+              // stiffness: 100,
+              duration: 1,
+              bounce: 0.5,
+            }}
+            onAnimationComplete={() => {
+              play();
+            }}
+          >
+            {View}
+          </motion.div>
 
-        <motion.h1
-          key="h1"
-          className="font-display font-light text-center text-5xl text-gray-900"
-          variants={sentence}
-          initial="hidden"
-          animate="visible"
-        >
-          <span className="block">
-            {'Good design'.split('').map((l, index) => (
-              <motion.span
-                key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
-                className={cx({
-                  'inline-block': l !== ' ',
-                })}
-                variants={letter}
-              >
-                {l}
-              </motion.span>
-            ))}
-          </span>
-          <span className="block">
-            {'for a '.split('').map((l, index) => (
-              <motion.span
-                key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
-                className={cx({
-                  'inline-block': l !== ' ',
-                })}
-                variants={letter}
-              >
-                {l}
-              </motion.span>
-            ))}
-            <span className="italic">
-              {'better'.split('').map((l, index) => (
+          <motion.h1
+            key="h1"
+            className="font-display font-light text-center text-5xl text-gray-900"
+            variants={sentence}
+            initial="hidden"
+            animate="visible"
+          >
+            <span className="block">
+              {'Good design'.split('').map((l, index) => (
                 <motion.span
                   key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
                   className={cx({
@@ -143,22 +120,50 @@ export const Home: FC<HomeProps> = () => {
                 </motion.span>
               ))}
             </span>
-            {' life.'.split('').map((l, index) => (
-              <motion.span
-                key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
-                className={cx({
-                  'inline-block': l !== ' ',
-                })}
-                variants={letter}
-              >
-                {l}
-              </motion.span>
-            ))}
-          </span>
-        </motion.h1>
-      </section>
+            <span className="block">
+              {'for a '.split('').map((l, index) => (
+                <motion.span
+                  key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
+                  className={cx({
+                    'inline-block': l !== ' ',
+                  })}
+                  variants={letter}
+                >
+                  {l}
+                </motion.span>
+              ))}
+              <span className="italic">
+                {'better'.split('').map((l, index) => (
+                  <motion.span
+                    key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
+                    className={cx({
+                      'inline-block': l !== ' ',
+                    })}
+                    variants={letter}
+                  >
+                    {l}
+                  </motion.span>
+                ))}
+              </span>
+              {' life.'.split('').map((l, index) => (
+                <motion.span
+                  key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
+                  className={cx({
+                    'inline-block': l !== ' ',
+                  })}
+                  variants={letter}
+                >
+                  {l}
+                </motion.span>
+              ))}
+            </span>
+          </motion.h1>
+        </section>
 
-      <Cards />
+        <Cards />
+      </div>
+
+      <FakeCards />
     </div>
   );
 };

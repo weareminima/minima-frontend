@@ -2,32 +2,25 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
 interface UIState {
-  filters: {
-    categories: string[]
-  };
+  selected: string
 }
 
 // Define the initial state using that type
 const initialState: UIState = {
-  filters: {
-    categories: [],
-  },
+  selected: null,
 };
 
 export const homeSlice = createSlice({
   name: '/home',
   initialState,
   reducers: {
-    setFilters: (state, action: PayloadAction<Record<string, any>>) => ({
+    setSelected: (state, action: PayloadAction<string>) => ({
       ...state,
-      filters: {
-        ...state.filters,
-        ...action.payload,
-      },
+      selected: action.payload,
     }),
   },
 });
 
-export const { setFilters } = homeSlice.actions;
+export const { setSelected } = homeSlice.actions;
 
 export default homeSlice.reducer;
