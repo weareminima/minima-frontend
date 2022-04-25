@@ -102,7 +102,7 @@ export const ComingSoon: FC<ComingSoonProps> = () => {
 
         <motion.h1
           key="h1"
-          className="font-light text-center text-gray-900 font-display text-5xl md:text-[64px] leading-none"
+          className="font-light text-center text-gray-900 font-display text-5xl md:text-7xl leading-none"
           variants={sentence}
           initial="hidden"
           animate="visible"
@@ -161,7 +161,7 @@ export const ComingSoon: FC<ComingSoonProps> = () => {
       </section>
 
       <motion.footer
-        className="absolute bottom-0 w-full px-8 py-2 leading-none text-center"
+        className="absolute bottom-0 w-full px-8 py-2 leading-none text-center text-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}

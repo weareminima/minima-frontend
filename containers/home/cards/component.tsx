@@ -55,7 +55,7 @@ export const Cards: FC<CardsProps> = () => {
 
   // Resize
   const handleResize = useCallback(() => {
-    const { innerWidth: width, innerHeight: height } = window;
+    const { width, height } = containerRef.current.getBoundingClientRect();
 
     setContainer({
       center: {

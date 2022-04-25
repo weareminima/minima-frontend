@@ -56,19 +56,3 @@
     -webkit-appearance: none;
   }
 }
-
-@layer utilities {
-  /* We want a blur effect without having a high opacity background, but we still want the
-  background to be visible for the browsers that don't support backdrop-filter, so we double the
-  background opacity. This can be tested on Firefox. */
-  .bg-blur {
-    @apply bg-opacity-40;
-  }
-
-  @supports (backdrop-filter: blur(4px)) {
-    .bg-blur {
-      @apply bg-opacity-20;
-      backdrop-filter: blur(4px);
-    }
-  }
-}
