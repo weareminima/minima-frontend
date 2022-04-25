@@ -4,8 +4,6 @@ import {
 
 import { Scrollama, Step } from 'react-scrollama';
 
-import { motion } from 'framer-motion';
-
 import { CARDS } from 'constants/cards';
 
 import Intro from './intro';
@@ -16,6 +14,7 @@ interface HomeProps {}
 export const Home: FC<HomeProps> = () => {
   const containerRef = useRef<HTMLDivElement>();
   const [stepsProgress, setStepsProgress] = useState({});
+  const stepsProgressRef = useRef({});
 
   const STEPS = useMemo(() => {
     return [
@@ -39,11 +38,16 @@ export const Home: FC<HomeProps> = () => {
   }, []);
 
   const handleStepEnter = useCallback((props) => {
-    console.log(props);
+    console.info(props);
   }, []);
 
   const handleStepProgress = useCallback((values) => {
     const { data, progress } = values;
+
+    stepsProgressRef.current = {
+      ...stepsProgressRef.current,
+      [data]: progress,
+    };
 
     setStepsProgress({
       ...stepsProgress,
@@ -69,31 +73,28 @@ export const Home: FC<HomeProps> = () => {
         onStepEnter={handleStepEnter}
         onStepProgress={handleStepProgress}
         offset={0}
+        threshold={1}
       >
         {STEPS.map((step) => {
-          const stepProgress = stepsProgress[step.id] || 0;
+          const stepProgress = stepsProgressRef.current[step.id] || 0;
 
           return (
             <Step data={step.id} key={step.id}>
-              <div className="w-full h-full">
-                <motion.div
+              <div className="w-full h-full px-8">
+                <div
                   key={step.id}
                   style={{
                     zIndex: step.index,
-                    opacity: 1 - (stepProgress * 0.75),
+                    ...step.id !== 'intro' && {
+                      opacity: 1 - (stepProgress * 1),
+                      transform: `scale(${1 - (stepProgress * 0.1)}) translateY(${parseInt(`${stepProgress * 100}`, 10)}%)`,
+                      transition: 'transform 0.1s linear',
+                    },
                   }}
-                  animate={{
-                    y: stepProgress * 200,
-                    scale: 1 - (stepProgress * 0.05),
-                  }}
-                  transition={{
-                    duration: 0.0,
-                    ease: 'easeInOut',
-                  }}
-                  className="relative w-full h-full origin-bottom"
+                  className="relative w-full h-full origin-bottom will-change-transform"
                 >
                   {step.component}
-                </motion.div>
+                </div>
               </div>
             </Step>
           );
