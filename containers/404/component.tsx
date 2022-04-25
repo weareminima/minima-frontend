@@ -58,8 +58,8 @@ export const Custom404: FC<Custom404Props> = () => {
 
   const hoverRef = useRef<any>();
   const hoverAnimationRef = useRef(0);
-  const HOVER_IN = 1.5;
-  const HOVER_OUT = 1;
+  const HOVER_IN = 0.5625;
+  const HOVER_OUT = 0.5;
 
   const mousedownRef = useRef(null);
 
@@ -78,7 +78,7 @@ export const Custom404: FC<Custom404Props> = () => {
     ctx.closePath();
     ctx.fill();
     ctx.fillStyle = '#fff';
-    ctx.font = '14pt Graphik';
+    ctx.font = '28pt Graphik';
     ctx.textAlign = 'center';
     ctx.fillText(text, radius, radius + 7);
     // ctx.strokeText("Canvas Rocks!", 5, 130);
@@ -155,6 +155,7 @@ export const Custom404: FC<Custom404Props> = () => {
     });
 
     Render.run(render);
+    Render.setPixelRatio(render, 'auto');
 
     // create runner
     const runner = Runner.create();
@@ -179,6 +180,8 @@ export const Custom404: FC<Custom404Props> = () => {
       const r = Common.random(radius / 2, radius);
       const imageSize = 55;
 
+      const scale = +((((r / imageSize) * 1.5) / 8).toFixed(2));
+
       return Bodies.circle(
         x,
         y,
@@ -194,9 +197,9 @@ export const Custom404: FC<Custom404Props> = () => {
           render: {
             fillStyle: Common.choose(COLORS),
             sprite: {
-              texture: '/images/pixel.svg',
-              xScale: (r / imageSize) * 1.5,
-              yScale: (r / imageSize) * 1.5,
+              texture: '/images/pixel.png',
+              xScale: scale,
+              yScale: scale,
             },
           },
         },
@@ -218,8 +221,8 @@ export const Custom404: FC<Custom404Props> = () => {
             fillStyle: '#000',
             sprite: {
               texture: drawImage(60, 'Home'),
-              xScale: 1,
-              yScale: 1,
+              xScale: 0.5,
+              yScale: 0.5,
             },
           },
         }),
@@ -398,11 +401,14 @@ export const Custom404: FC<Custom404Props> = () => {
 
   return (
     <div ref={containerRef} className="absolute top-0 left-0 z-0 flex items-center justify-center w-full h-full">
-      <div className="max-w-xs text-center -translate-y-1/2">
+      <div className="max-w-xs text-center">
         <h1 className="font-display text-9xl">404</h1>
         <div className="space-y-2">
           <p className="text-lg">¡Desastre total! Algo ha salido fatal.</p>
-          <p className="opacity-50">En realidad no, pero hemos invertido tanto tiempo en esta página que queríamos que la vieras.</p>
+          {/* <p className="opacity-50">
+            En realidad no, pero hemos invertido tanto
+            tiempo en esta página que queríamos que la vieras.
+          </p> */}
         </div>
       </div>
 
