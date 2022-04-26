@@ -11,6 +11,7 @@
     "test": "start-server-and-test 'yarn dev' 3000 'yarn cypress:run'",
     "storybook:styles:dev": "NODE_ENV=development tailwind build ./styles/globals.css -o ./public/styles/tailwind.storybook.css",
     "storybook:styles:prod": "NODE_ENV=production tailwind build ./styles/globals.css -o ./public/styles/tailwind.storybook.css",
+    "storybook:styles:watch": "NODE_ENV=development tailwind build ./styles/globals.css -o ./public/styles/tailwind.storybook.css --watch",
     "storybook:dev": "yarn storybook:styles:dev && start-storybook -p 6006 -s ./public -c .storybook",
     "storybook:build": "yarn storybook:styles:prod && build-storybook -s ./public -c .storybook",
     "cypress:open": "cypress open",

@@ -10,13 +10,13 @@ export default {
     size: {
       control: {
         type: 'select',
-        options: ['xs', 's', 'base', 'l', 'xl'],
+        options: ['s', 'base'],
       },
     },
     theme: {
       control: {
         type: 'select',
-        options: ['primary', 'primary-alt', 'secondary', 'secondary-alt', 'white', 'danger'],
+        options: ['primary', 'primary-alt', 'clean'],
       },
     },
   },
@@ -30,18 +30,4 @@ export const Default = Template.bind({});
 Default.args = {
   children: 'Button',
   disabled: false,
-};
-
-export const FullWidth = Template.bind({});
-FullWidth.args = {
-  children: 'Button',
-  disabled: false,
-  className: 'w-full',
-};
-
-export const WithNextLinkProps = Template.bind({});
-WithNextLinkProps.args = {
-  anchorLinkProps: { shallow: true, as: 'next-link-anchor' },
-  children: 'Button',
-  href: '/',
 };

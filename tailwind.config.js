@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const forms = require('@tailwindcss/forms');
 const lineClamp = require('@tailwindcss/line-clamp');
-const colors = require('tailwindcss/colors');
 
 const { TAILWIND_COLORS } = require('./constants/colors');
 
@@ -14,10 +13,6 @@ module.exports = {
     },
     colors: {
       current: 'currentColor',
-      gray: colors.zinc,
-      dark: '#101012',
-      black: '#000',
-      white: '#fff',
       ...TAILWIND_COLORS,
     },
     fontSize: {
