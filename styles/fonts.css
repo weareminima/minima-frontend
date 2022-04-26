@@ -7,6 +7,10 @@
     font-family: Graphik, system-ui, sans-serif;
   }
 
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
+
   /* Matter */
   @font-face {
     font-family: 'Graphik';
