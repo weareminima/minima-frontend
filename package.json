@@ -11,8 +11,9 @@
     "test": "start-server-and-test 'yarn dev' 3000 'yarn cypress:run'",
     "storybook:styles:dev": "NODE_ENV=development tailwind build ./styles/globals.css -o ./public/styles/tailwind.storybook.css",
     "storybook:styles:prod": "NODE_ENV=production tailwind build ./styles/globals.css -o ./public/styles/tailwind.storybook.css",
-    "storybook:dev": "yarn storybook:styles:dev && start-storybook -p 6006 -s ./public -c .storybook",
-    "storybook:build": "yarn storybook:styles:prod && build-storybook -s ./public -c .storybook",
+    "storybook:styles:watch": "NODE_ENV=development tailwind build ./styles/globals.css -o ./public/styles/tailwind.storybook.css --watch",
+    "storybook:dev": "start-storybook -p 6006 -s ./public -c .storybook",
+    "storybook:build": "build-storybook -s ./public -c .storybook",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress:unit:open": "cypress open --config-file cypress-unit.json",
@@ -82,6 +83,9 @@
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/builder-webpack5": "^6.4.22",
+    "@storybook/manager-webpack5": "^6.4.22",
     "@types/axios": "^0.14.0",
     "@types/gtag.js": "^0.0.5",
     "@types/react": "^17.0.5",
@@ -109,5 +113,8 @@
   "husky": {
     "pre-commit": "yarn lint"
   },
-  "packageManager": "yarn@3.1.1"
+  "packageManager": "yarn@3.1.1",
+  "resolutions": {
+    "webpack": "^5"
+  }
 }
