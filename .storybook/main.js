@@ -28,6 +28,12 @@ module.exports = {
       }
     });
 
+    config.module.rules.push({
+      test: /\.mjs$/,
+      include: /node_modules/,
+      type: 'javascript/auto',
+    });
+
     // Add custom loaders for svgs
     config.module.rules.push({
       test: /\.svg$/,
