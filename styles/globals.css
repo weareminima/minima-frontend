@@ -13,6 +13,15 @@
 @layer base {
   html {
     font-family: Graphik, system-ui, sans-serif;
+    cursor: none;
+  }
+
+  body {
+    cursor: none;
+  }
+
+  a {
+    cursor: none;
   }
 
   /* Matter */
