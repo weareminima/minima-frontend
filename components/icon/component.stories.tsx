@@ -1,6 +1,6 @@
 import { Story } from '@storybook/react/types-6-0';
 
-import DOWNLOAD_SVG from 'svgs/cursor.svg';
+import CLOSE_SVG from 'svgs/close.svg';
 
 import Icon from './component';
 import { IconProps } from './types';
@@ -15,5 +15,5 @@ const Template: Story<IconProps> = (args) => <Icon {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   className: 'w-5 h-5 text-blue-500',
-  icon: DOWNLOAD_SVG,
+  icon: CLOSE_SVG,
 };

@@ -2,14 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@-webkit-keyframes autofill {
-  0%,
-  100% {
-    color: #666;
-    background: transparent;
-  }
-}
-
 @layer base {
   html {
     font-family: Graphik, system-ui, sans-serif;
@@ -22,37 +14,5 @@
 
   a {
     cursor: none;
-  }
-
-  /* Matter */
-  @font-face {
-    font-family: 'Graphik';
-    src: url('/fonts/Graphik-Regular.woff2') format('woff2'),
-      url('/fonts/Graphik-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Garamond';
-    src: url('/fonts/ITCGaramondStd-LtCond.woff2') format('woff2'),
-      url('/fonts/ITCGaramondStd-LtCond.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Garamond';
-    src: url('/fonts/ITCGaramondStd-LtCondIta.woff2') format('woff2'),
-      url('/fonts/ITCGaramondStd-LtCondIta.woff') format('woff');
-    font-weight: 300;
-    font-style: italic;
-  }
-
-  input[type='search']::-webkit-search-decoration,
-  input[type='search']::-webkit-search-cancel-button,
-  input[type='search']::-webkit-search-results-button,
-  input[type='search']::-webkit-search-results-decoration {
-    -webkit-appearance: none;
   }
 }

@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { themes } from '@storybook/theming';
 import { OverlayProvider } from '@react-aria/overlays';
 
-import '../styles/globals.css';
+import '../styles/fonts.css';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -17,12 +16,7 @@ export const parameters = {
       ],
     },
   },
-  docs: {
-    theme: themes.dark,
-  },
-  previewTabs: {
-    'storybook/docs/panel': { index: -1 },
-  },
+  previewTabs: { 'storybook/docs/panel': { index: -1 } },
 };
 
 export const decorators = [
