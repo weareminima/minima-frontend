@@ -8,12 +8,6 @@ export default {
   component: Input,
   parameters: { actions: { argTypesRegex: '^on.*' } },
   argTypes: {
-    theme: {
-      control: {
-        type: 'select',
-        options: ['dark', 'light'],
-      },
-    },
     status: {
       control: {
         type: 'select',
@@ -39,5 +33,5 @@ const Template: Story<InputProps> = (args) => <Input {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  theme: 'dark',
+  theme: 'minimal',
 };

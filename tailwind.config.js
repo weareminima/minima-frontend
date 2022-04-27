@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const forms = require('@tailwindcss/forms');
+const forms = require('@tailwindcss/custom-forms');
 const lineClamp = require('@tailwindcss/line-clamp');
 
 const { TAILWIND_COLORS } = require('./constants/colors');
@@ -30,6 +30,26 @@ module.exports = {
       '8xl': ['6rem', { lineHeight: '1' }],
       '9xl': ['7.5rem', { lineHeight: '1', letterSpacing: '-1%' }],
     },
+    customForms: (theme) => ({
+      default: {
+        checkbox: {
+          icon: (iconColor) => `<svg width="16" height="16" viewBox="0 0 8 8" fill="${iconColor}" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.35359 2.3571L3.35359 6.3571C3.15833 6.55236 2.84175 6.55236 2.64648 6.3571L0.646484 4.3571L1.35359 3.64999L3.00004 5.29644L6.64648 1.64999L7.35359 2.3571Z" /></svg>`,
+          iconColor: theme('colors.white'),
+          '&:checked': {
+            backgroundSize: '60% 60%',
+            backgroundPosition: 'center',
+          },
+        },
+        radio: {
+          icon: (iconColor) => `<svg width="16" height="16" viewBox="0 0 8 8" fill="${iconColor}" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.35359 2.3571L3.35359 6.3571C3.15833 6.55236 2.84175 6.55236 2.64648 6.3571L0.646484 4.3571L1.35359 3.64999L3.00004 5.29644L6.64648 1.64999L7.35359 2.3571Z" /></svg>`,
+          iconColor: theme('colors.white'),
+          '&:checked': {
+            backgroundSize: '60% 60%',
+            backgroundPosition: 'center',
+          },
+        },
+      },
+    }),
   },
   plugins: [forms, lineClamp],
 };

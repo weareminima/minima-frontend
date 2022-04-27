@@ -8,7 +8,6 @@ import { THEME } from './constants';
 import type { RadioProps } from './types';
 
 export const Radio: FC<RadioProps> = ({
-  theme = 'dark',
   disabled = false,
   input = {},
   meta = {},
@@ -25,8 +24,8 @@ export const Radio: FC<RadioProps> = ({
       disabled={disabled}
       className={cx({
         'form-radio': true,
-        [THEME[theme].base]: true,
-        [THEME[theme].status[st]]: true,
+        [THEME.base]: true,
+        [THEME.status[st]]: true,
         [className]: !!className,
       })}
     />

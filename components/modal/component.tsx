@@ -101,7 +101,7 @@ export const Modal: FC<ModalProps> = ({
                         className="absolute flex items-center px-4 py-4 text-sm text-gray-300 right-4 -top-4 focus:text-black hover:text-black"
                       >
                         <span className="text-xs">Close</span>
-                        <Icon icon={CLOSE_SVG} className="inline-block w-3 h-3 ml-2 text-black" />
+                        <Icon icon={CLOSE_SVG} className="inline-block w-3 h-3 ml-2 text-black stroke-current" />
                       </button>
                     </div>
                   )}

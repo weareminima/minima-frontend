@@ -33,5 +33,5 @@ const Template: Story<RadioProps> = (args) => <Radio {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  theme: 'dark',
+  theme: 'light',
 };

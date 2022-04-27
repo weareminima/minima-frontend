@@ -10,7 +10,7 @@ import { THEME } from './constants';
 import type { InputProps } from './types';
 
 export const Input: FC<InputProps> = ({
-  theme = 'dark',
+  theme = 'light',
   mode = 'normal',
   disabled = false,
   type = 'text',
