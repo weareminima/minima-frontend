@@ -22,6 +22,6 @@ const Template: Story<LabelProps> = ({ ...args }) => <Label {...args}>This is a 
 export const Default = Template.bind({});
 Default.args = {
   id: 'scenario',
-  theme: 'dark',
+  theme: 'light',
   className: 'uppercase',
 };

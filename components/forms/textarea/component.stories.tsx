@@ -10,7 +10,7 @@ export default {
     theme: {
       control: {
         type: 'select',
-        options: ['dark', 'light'],
+        options: ['dark', 'light', 'minimal'],
       },
     },
     status: {
@@ -39,5 +39,5 @@ const Template: Story<TextareaProps> = (args) => <Textarea {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  theme: 'dark',
+  theme: 'light',
 };

@@ -8,6 +8,12 @@ export default {
   component: Input,
   parameters: { actions: { argTypesRegex: '^on.*' } },
   argTypes: {
+    theme: {
+      control: {
+        type: 'select',
+        options: ['dark', 'light', 'minimal'],
+      },
+    },
     status: {
       control: {
         type: 'select',

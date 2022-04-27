@@ -6,7 +6,7 @@ import { THEME } from './constants';
 import type { LabelProps } from './types';
 
 const LabelComponent = ({
-  htmlFor, theme = 'dark', children, className,
+  htmlFor, theme = 'light', children, className,
 }: LabelProps, ref) => (
   <label
     className={cx({

@@ -25,10 +25,23 @@ const THEME = {
       disabled: 'border-gray-700 opacity-50',
     },
   },
+  minimal: {
+    base: 'w-full text-sm leading-tight text-dark bg-white focus:outline-none focus:border-dark/0 focus:ring-2 focus:ring-dark focus:ring-opacity-0',
+    status: {
+      none: 'border-dark/10',
+      valid: 'border-dark/10',
+      error: 'border-dark/10',
+      disabled: 'border-dark/10 opacity-50',
+    },
+    icon: 'text-white',
+    mode: {
+      normal: 'border-0',
+    },
+  },
 };
 
 export const Textarea: FC<TextareaProps> = ({
-  theme = 'dark',
+  theme = 'light',
   disabled = false,
   meta = {},
   input,
