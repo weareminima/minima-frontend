@@ -15,4 +15,12 @@
   a {
     cursor: none;
   }
+
+  .backface-visible {
+    backface-visibility: visible;
+  }
+
+  .backface-invisible {
+    backface-visibility: hidden;
+  }
 }

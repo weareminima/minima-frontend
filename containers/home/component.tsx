@@ -4,6 +4,8 @@ import {
 
 import { Scrollama, Step } from 'react-scrollama';
 
+import cx from 'classnames';
+
 import { CARDS } from 'constants/cards';
 
 import Intro from './intro';
@@ -80,7 +82,13 @@ export const Home: FC<HomeProps> = () => {
 
           return (
             <Step data={step.id} key={step.id}>
-              <div className="w-full h-full px-8">
+              <div
+                className={cx({
+                  'w-full px-8 h-full': true,
+                  // 'h-full': step.id === 'intro',
+                  // 'h-[200%]': step.id !== 'intro',
+                })}
+              >
                 <div
                   key={step.id}
                   style={{

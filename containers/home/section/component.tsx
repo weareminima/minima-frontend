@@ -23,7 +23,7 @@ export const Section: FC<SectionProps> = ({
     <motion.section
       key={id}
       className={cx({
-        'p-8 sticky min-h-full': true,
+        'p-8 min-h-full': true,
         [className]: !!className,
       })}
       initial={{
