@@ -1,6 +1,8 @@
 import {
-  FC, useCallback, useEffect, useMemo, useRef, useState,
+  FC, useEffect, useMemo, useRef, useState,
 } from 'react';
+
+import { useDebouncedCallback } from 'use-debounce';
 
 import { CARDS as CARDS_METADATA } from 'constants/cards';
 
@@ -54,7 +56,7 @@ export const Cards: FC<CardsProps> = () => {
   }, [container]);
 
   // Resize
-  const handleResize = useCallback(() => {
+  const handleResize = useDebouncedCallback(() => {
     const { width, height } = containerRef.current.getBoundingClientRect();
 
     setContainer({
@@ -65,7 +67,7 @@ export const Cards: FC<CardsProps> = () => {
       width,
       height,
     });
-  }, []);
+  }, 100);
 
   useEffect(() => {
     handleResize();

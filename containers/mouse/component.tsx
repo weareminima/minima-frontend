@@ -181,7 +181,7 @@ export const Mouse: FC<MouseProps> = () => {
       key="mouse"
       {...variants}
       className={cx({
-        'fixed pointer-events-none z-50': true,
+        'fixed top-0 left-0 w-full h-full pointer-events-none z-50': true,
       })}
     >
       <div className="w-6 h-6 -translate-x-1/2 -translate-y-1/2">

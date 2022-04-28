@@ -22,6 +22,7 @@
     "@dnd-kit/modifiers": "^2.0.0",
     "@dnd-kit/sortable": "^3.0.1",
     "@dnd-kit/utilities": "^2.0.0",
+    "@floating-ui/react-dom-interactions": "^0.4.0",
     "@popperjs/core": "^2.9.2",
     "@react-aria/button": "^3.3.2",
     "@react-aria/dialog": "^3.1.3",
