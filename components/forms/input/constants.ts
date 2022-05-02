@@ -27,7 +27,7 @@ export const THEME = {
     },
   },
   minimal: {
-    base: 'w-full text-sm leading-tight text-dark bg-white focus:outline-none focus:border-dark/0 focus:ring-2 focus:ring-dark focus:ring-opacity-0',
+    base: 'w-full text-sm leading-tight text-dark px-0 py-2 bg-white focus:outline-none focus:border-dark/0 focus:ring-2 focus:ring-dark focus:ring-opacity-0',
     status: {
       none: 'border-dark/10',
       valid: 'border-dark/10',

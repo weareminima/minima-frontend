@@ -1,8 +1,10 @@
 import {
-  FC, useCallback, useMemo, useState,
+  FC, useCallback, useEffect, useMemo, useState,
 } from 'react';
 
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import {
+  useForm, FormProvider, Controller, SubmitHandler,
+} from 'react-hook-form';
 
 import Input from 'components/forms/input';
 
@@ -15,6 +17,19 @@ interface ContactFormProps {}
 type Inputs = {
   name: string;
   email: string;
+  who: string;
+};
+
+type Step = {
+  id: string;
+  type: 'text' | 'radio' | 'checkbox';
+  question: string;
+  rules: any,
+  defaultValue: string;
+  options?: {
+    label: string;
+    value: string;
+  }[];
 };
 
 export const ContactForm: FC<ContactFormProps> = () => {
@@ -22,8 +37,22 @@ export const ContactForm: FC<ContactFormProps> = () => {
   const [inputs, setInputs] = useState<Inputs>({
     name: '',
     email: '',
+    who: '',
   });
-  const { handleSubmit, control } = useForm<Inputs>();
+
+  const defaultAnimationsCompleted = useMemo(() => {
+    return Object.keys(inputs).reduce((acc, k) => {
+      return {
+        ...acc,
+        [k]: false,
+      };
+    }, {});
+  }, [inputs]);
+  const [animationsCompleted, setAnimationsCompleted] = useState(defaultAnimationsCompleted);
+  const methods = useForm<Inputs>();
+  const {
+    control, watch, setFocus, handleSubmit,
+  } = methods;
 
   const onSubmit: SubmitHandler<Inputs> = useCallback((data: Inputs) => {
     if (step !== STEPS.length - 1) {
@@ -41,64 +70,109 @@ export const ContactForm: FC<ContactFormProps> = () => {
     }
   }, [step, inputs]);
 
-  const STEP = useMemo(() => STEPS[step], [step]);
+  const STEP = useMemo(() => STEPS[step] as Step, [step]);
 
   const INPUT_KEYS = useMemo(() => Object.keys(inputs), [inputs]).filter((key) => inputs[key]);
 
+  const watchWho = watch('who');
+
+  useEffect(() => {
+    handleSubmit(onSubmit)();
+  }, [watchWho]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-      <div className="p-6 space-y-4">
-        {INPUT_KEYS
-          .map((key, i) => {
-            const OLD_STEP = STEPS.find((s) => s.id === key);
-            return (
-              <div className="block space-y-4" key={key}>
-                <Question
-                  id={OLD_STEP?.id}
-                  index={i}
-                  text={OLD_STEP?.question}
-                  animation={false}
-                />
+    <FormProvider
+      {...methods}
+    >
+      <form
+        className="relative z-0"
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete="off"
+      >
+        <div className="p-6 space-y-4">
+          {INPUT_KEYS
+            .map((key, i) => {
+              const OLD_STEP = STEPS.find((s) => s.id === key) as Step;
 
-                <Answer
-                  text={inputs[key]}
-                />
-              </div>
-            );
-          })}
+              return (
+                <div className="block space-y-4" key={key}>
+                  <Question
+                    id={OLD_STEP?.id}
+                    index={i}
+                    text={OLD_STEP?.question}
+                    animation={false}
+                  />
 
-        <div>
-          <Question
-            key={STEP?.id}
-            id={STEP?.id}
-            index={INPUT_KEYS.length}
-            text={STEP?.question}
-            animation
-          />
-        </div>
-      </div>
+                  <Answer
+                    id={OLD_STEP?.id}
+                    type={OLD_STEP?.type}
+                    options={OLD_STEP?.options}
+                    value={inputs[key]}
+                  />
+                </div>
+              );
+            })}
 
-      <footer className="flex items-center justify-between p-4 border-t border-dark/10">
-        <Controller
-          key={STEP.id}
-          name={STEP.id as keyof Inputs}
-          control={control}
-          rules={STEP.rules}
-          defaultValue={STEP.defaultValue}
-          render={({ field, fieldState }) => {
-            return (
-              <Input
-                {...field}
-                className="w-full"
-                state={fieldState}
-                theme="minimal"
-                placeholder="Escribe aquí"
+          <div className="space-y-4">
+            <Question
+              id={STEP?.id}
+              key={STEP?.id}
+              index={INPUT_KEYS.length}
+              text={STEP?.question}
+              animation
+              onAnimationComplete={() => {
+                if (STEP?.type === 'text') {
+                  setFocus(STEP?.id as keyof Inputs);
+                }
+
+                setAnimationsCompleted({
+                  ...animationsCompleted,
+                  [STEP?.id]: true,
+                });
+              }}
+            />
+
+            {STEP?.options && animationsCompleted[STEP?.id] && (
+              <Answer
+                id={STEP?.id}
+                type={STEP?.type}
+                options={STEP?.options}
+                value={inputs[STEP?.id]}
               />
-            );
-          }}
-        />
-      </footer>
-    </form>
+            )}
+          </div>
+        </div>
+
+        <footer className="sticky bottom-0 z-10 flex items-center justify-between px-6 py-4 bg-white border-t border-dark/10">
+          {STEP?.type === 'text' && (
+            <Controller
+              key={STEP.id}
+              name={STEP.id as keyof Inputs}
+              control={control}
+              rules={STEP.rules}
+              defaultValue={STEP.defaultValue}
+              render={({ field, fieldState }) => {
+                return (
+                  <Input
+                    {...field}
+                    className="w-full"
+                    state={fieldState}
+                    theme="minimal"
+                    placeholder="Escribe aquí"
+                  />
+                );
+              }}
+            />
+          )}
+
+          {STEP?.type === 'radio' && (
+            <div className="py-2 text-sm leading-tight text-dark">
+              Selecciona una opción
+            </div>
+          )}
+        </footer>
+      </form>
+    </FormProvider>
   );
 };
 

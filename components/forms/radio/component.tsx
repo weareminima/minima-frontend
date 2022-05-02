@@ -9,6 +9,7 @@ export const Radio = forwardRef((
   {
     disabled = false,
     className,
+    state,
     ...props
   }: RadioProps,
   ref: Ref<HTMLInputElement>,

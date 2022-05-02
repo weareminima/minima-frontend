@@ -10,11 +10,13 @@ import useTimeout from 'hooks/timeout';
 
 import { COLORS } from 'constants/colors';
 
-interface QuestionProps {
+export interface QuestionProps {
   id: string;
   index: number;
   text: string;
   animation: boolean;
+  onAnimationStart?: () => void;
+  onAnimationComplete?: () => void;
 }
 
 export const Question: FC<QuestionProps> = ({
@@ -22,11 +24,12 @@ export const Question: FC<QuestionProps> = ({
   index,
   text,
   animation,
+  onAnimationStart,
+  onAnimationComplete,
 }: QuestionProps) => {
   const [TEXT, setTEXT] = useState('...');
   const COLOR = COLORS[index % COLORS.length];
-  const DURATION = animation ? 0.5 : 0;
-  const TIMEOUT = animation ? (Math.random() * 250) + 750 : 0;
+  const TIMEOUT = animation ? (Math.random() * 250) + 500 : 0;
 
   useTimeout(() => {
     setTEXT(text);
@@ -40,29 +43,36 @@ export const Question: FC<QuestionProps> = ({
       animate="visible"
       variants={{
         hidden: {
-          width: 44,
+          width: 47,
         },
         visible: {
           width: '100%',
           transition: {
-            duration: DURATION,
+            duration: 0,
             delay: TIMEOUT / 1000,
           },
         },
       }}
+      onAnimationStart={onAnimationStart}
+      onAnimationComplete={onAnimationComplete}
     >
       <div
         key={`${id}-question`}
         className={cx({
-          'inline-flex items-center rounded-3xl h-10 px-4 border text-sm whitespace-nowrap w-full max-w-fit': true,
+          'inline-flex relative items-center rounded-3xl py-2 px-4 text-sm w-full max-w-fit': true,
         })}
-        style={{
-          backgroundColor: COLOR,
-          borderRadius: '24px 24px 24px 4px',
-          borderColor: COLOR,
-        }}
       >
-        {TEXT}
+        <div
+          className="absolute top-0 left-0 z-0 w-full h-full border"
+          style={{
+            backgroundColor: COLOR,
+            borderRadius: '24px 24px 24px 4px',
+            borderColor: COLOR,
+          }}
+        />
+        <span className="relative z-10">
+          {TEXT}
+        </span>
       </div>
     </motion.div>
   );

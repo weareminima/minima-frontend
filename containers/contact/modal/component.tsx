@@ -52,7 +52,7 @@ export const ContactModal: FC<ContactModalProps> = ({
         className="w-1/3 bg-white shadow-2xl pointer-events-auto grow rounded-3xl max-w-md max-h-[600px] overflow-y-auto overflow-x-hidden flex flex-col justify-between"
       >
         {/* HEADER */}
-        <header className="flex items-center justify-between p-4 border-b border-dark/10">
+        <header className="sticky top-0 z-10 flex items-center justify-between p-4 bg-white border-b border-dark/10">
           <h2 className="flex items-center space-x-2 text-base">
             <Icon icon={CONTACT_ISOTYPE_2_SVG} className="w-8 h-8" />
             <span>Mínima</span>
