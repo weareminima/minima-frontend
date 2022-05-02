@@ -8,7 +8,7 @@ import { OverlayProvider } from '@react-aria/overlays';
 import { Hydrate } from 'react-query/hydration';
 
 import Favicon from 'containers/favicon';
-import Mouse from 'containers/mouse';
+// import Mouse from 'containers/mouse';
 
 import store from 'store';
 
@@ -26,7 +26,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => (
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
           </Head>
 
-          <Mouse />
+          {/* <Mouse /> */}
           <Favicon />
           <Component {...pageProps} />
         </OverlayProvider>

@@ -1,8 +1,6 @@
-import { FC } from 'react';
+import { forwardRef, Ref } from 'react';
 
 import cx from 'classnames';
-
-import useStatus from '../utils';
 
 import type { TextareaProps } from './types';
 
@@ -40,29 +38,32 @@ const THEME = {
   },
 };
 
-export const Textarea: FC<TextareaProps> = ({
-  theme = 'light',
-  disabled = false,
-  meta = {},
-  input,
-  className,
-  ...props
-}: TextareaProps) => {
-  const st = useStatus({ meta, disabled });
+export const Textarea = forwardRef((
+  {
+    theme = 'light',
+    disabled = false,
+    className,
+    ...props
+  }: TextareaProps,
+  ref: Ref<HTMLTextAreaElement>,
+) => {
+  // const st = useStatus({ meta, disabled });
 
   return (
     <textarea
-      {...input}
       {...props}
+      ref={ref}
       disabled={disabled}
       className={cx({
         'form-textarea w-full': true,
         [THEME[theme].base]: true,
-        [THEME[theme].status[st]]: true,
+        // [THEME[theme].status[st]]: true,
         [className]: !!className,
       })}
     />
   );
-};
+});
+
+Textarea.displayName = 'Textarea';
 
 export default Textarea;

@@ -6,6 +6,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   mode?: 'dashed' | 'normal';
   input?: Record<string, unknown>;
   meta?: Record<string, unknown>;
+  state?: Record<string, any>;
   icon?: {
     id: string;
     viewBox: string;

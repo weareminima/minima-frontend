@@ -4,6 +4,8 @@ import {
 
 import { motion } from 'framer-motion';
 
+import ContactForm from 'containers/contact/form';
+
 import Icon from 'components/icon';
 
 import CLOSE_SVG from 'svgs/close.svg?sprite';
@@ -47,7 +49,7 @@ export const ContactModal: FC<ContactModalProps> = ({
             delay: 0,
           },
         }}
-        className="w-1/3 bg-white shadow-2xl pointer-events-auto grow rounded-3xl max-w-md max-h-[600px] overflow-y-auto overflow-x-hidden"
+        className="w-1/3 bg-white shadow-2xl pointer-events-auto grow rounded-3xl max-w-md max-h-[600px] overflow-y-auto overflow-x-hidden flex flex-col justify-between"
       >
         {/* HEADER */}
         <header className="flex items-center justify-between p-4 border-b border-dark/10">
@@ -63,7 +65,7 @@ export const ContactModal: FC<ContactModalProps> = ({
           </button>
         </header>
 
-        {/* FORM */}
+        <ContactForm />
       </motion.div>
     </div>
   );

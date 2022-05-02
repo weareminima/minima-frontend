@@ -55,7 +55,7 @@ export const Card: FC<CardProps> = ({
         transition: {
           type: 'spring',
           ...prevAnimate !== 'single' && {
-            delay: 2 + (index * 0.02),
+            delay: 2 + (index * 0.05),
           },
           ...prevAnimate === 'single' && {
             delay: 0.3,
@@ -89,7 +89,7 @@ export const Card: FC<CardProps> = ({
         scale: 1,
         rotate: rotation,
         width: 208,
-        height: 256,
+        height: 208,
       },
       visible: {
         x: '-50%',
@@ -97,7 +97,7 @@ export const Card: FC<CardProps> = ({
         scale: 1,
         rotate: rotation,
         width: 208,
-        height: 256,
+        height: 208,
         transition: {
           type: 'spring',
           duration: 0.25,

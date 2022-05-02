@@ -4,6 +4,7 @@ import {
 
 import cx from 'classnames';
 
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { setCache } from 'store/application/slice';
@@ -176,42 +177,57 @@ export const Mouse: FC<MouseProps> = () => {
     },
   };
   return (
-    <motion.div
-      ref={mouseRef}
-      key="mouse"
-      {...variants}
-      className={cx({
-        'fixed top-0 left-0 w-full h-full pointer-events-none z-50': true,
-      })}
-    >
-      <div className="w-6 h-6 -translate-x-1/2 -translate-y-1/2">
-        <div
-          ref={mouseElementRef}
-          className={cx({
-            'transition-transform': true,
-            'opacity-0': (interactive && !interactiveType) || !active,
-          })}
-        >
-          {!interactiveType && (
-            <div
-              key="cursor"
-              {...iconVariants}
-            >
-              <Icon icon={CURSOR_SVG} className="w-6 h-6" />
-            </div>
-          )}
+    <>
+      <Head>
+        <style>
+          {`
+            body {
+              cursor: none;
+            }
 
-          {interactiveType === 'mail' && (
-            <div
-              key="mail"
-              {...iconVariants}
-            >
-              <Icon icon={EMAIL_SVG} className="w-8 h-8" />
-            </div>
-          )}
+            a {
+              cursor: none;
+            }
+          `}
+        </style>
+      </Head>
+      <motion.div
+        ref={mouseRef}
+        key="mouse"
+        {...variants}
+        className={cx({
+          'fixed top-0 left-0 w-full h-full pointer-events-none z-50': true,
+        })}
+      >
+        <div className="w-6 h-6 -translate-x-1/2 -translate-y-1/2">
+          <div
+            ref={mouseElementRef}
+            className={cx({
+              'transition-transform': true,
+              'opacity-0': (interactive && !interactiveType) || !active,
+            })}
+          >
+            {!interactiveType && (
+              <div
+                key="cursor"
+                {...iconVariants}
+              >
+                <Icon icon={CURSOR_SVG} className="w-6 h-6" />
+              </div>
+            )}
+
+            {interactiveType === 'mail' && (
+              <div
+                key="mail"
+                {...iconVariants}
+              >
+                <Icon icon={EMAIL_SVG} className="w-8 h-8" />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </>
   );
 };
 
