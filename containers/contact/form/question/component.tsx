@@ -29,7 +29,7 @@ export const Question: FC<QuestionProps> = ({
 }: QuestionProps) => {
   const [TEXT, setTEXT] = useState('...');
   const COLOR = COLORS[index % COLORS.length];
-  const TIMEOUT = animation ? (Math.random() * 250) + 500 : 0;
+  const TIMEOUT = animation ? 500 : 0;
 
   useTimeout(() => {
     setTEXT(text);

@@ -1,5 +1,5 @@
 import {
-  FC,
+  FC, useRef,
 } from 'react';
 
 import { motion } from 'framer-motion';
@@ -23,6 +23,8 @@ export const ContactModal: FC<ContactModalProps> = ({
   floating,
   floatingProps,
 }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   return (
     <div
       ref={floating}
@@ -30,6 +32,7 @@ export const ContactModal: FC<ContactModalProps> = ({
       {...floatingProps}
     >
       <motion.div
+        ref={scrollRef}
         key="contact-modal-content"
         initial={{
           opacity: 0,
@@ -65,7 +68,9 @@ export const ContactModal: FC<ContactModalProps> = ({
           </button>
         </header>
 
-        <ContactForm />
+        <ContactForm
+          scrollRef={scrollRef}
+        />
       </motion.div>
     </div>
   );

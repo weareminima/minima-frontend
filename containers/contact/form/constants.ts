@@ -42,10 +42,10 @@ export const STEPS = [
     ],
   },
   {
-    id: 'message',
+    id: 'description',
     question: 'Cuéntanos tu idea, la extensión de un tuit está bien ;)',
     defaultValue: '',
-    type: 'text',
+    type: 'textarea',
     rules: {
       required: true,
     },

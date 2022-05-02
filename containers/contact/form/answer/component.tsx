@@ -11,7 +11,7 @@ import Radio from 'components/forms/radio';
 
 interface AnswerProps {
   id: string;
-  type: 'text' | 'radio' | 'checkbox';
+  type: 'text' | 'textarea' | 'radio' | 'checkbox';
   value: string;
   options?: {
     label: string;
@@ -29,7 +29,7 @@ export const Answer: FC<AnswerProps> = ({
 
   return (
     <div className="flex justify-end">
-      {type === 'text' && (
+      {(type === 'text' || type === 'textarea') && (
         <div
           className={cx({
             'inline-flex items-center rounded-3xl py-2 px-4 max-w-full overflow-hidden whitespace-nowrap border border-dark/10 text-sm': true,

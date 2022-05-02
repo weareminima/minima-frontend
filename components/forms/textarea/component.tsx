@@ -24,7 +24,7 @@ const THEME = {
     },
   },
   minimal: {
-    base: 'w-full text-sm leading-tight text-dark bg-white focus:outline-none focus:border-dark/0 focus:ring-2 focus:ring-dark focus:ring-opacity-0',
+    base: 'w-full resize-none px-0 py-2 h-auto text-sm leading-tight text-dark bg-white focus:outline-none focus:border-dark/0 focus:ring-2 focus:ring-dark focus:ring-opacity-0',
     status: {
       none: 'border-dark/10',
       valid: 'border-dark/10',
@@ -43,12 +43,12 @@ export const Textarea = forwardRef((
     theme = 'light',
     disabled = false,
     className,
+    state,
+    onChange,
     ...props
   }: TextareaProps,
   ref: Ref<HTMLTextAreaElement>,
 ) => {
-  // const st = useStatus({ meta, disabled });
-
   return (
     <textarea
       {...props}
@@ -60,6 +60,16 @@ export const Textarea = forwardRef((
         // [THEME[theme].status[st]]: true,
         [className]: !!className,
       })}
+      onChange={(e) => {
+        if (onChange) {
+          onChange(e);
+        }
+
+        if (theme === 'minimal') {
+          e.target.style.height = '';
+          e.target.style.height = `${e.target.scrollHeight}px`; // eslint-disable-line
+        }
+      }}
     />
   );
 });

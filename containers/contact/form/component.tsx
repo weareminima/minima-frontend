@@ -1,5 +1,5 @@
 import {
-  FC, useCallback, useEffect, useMemo, useState,
+  FC, useCallback, useEffect, useMemo, useState, RefObject,
 } from 'react';
 
 import {
@@ -7,22 +7,26 @@ import {
 } from 'react-hook-form';
 
 import Input from 'components/forms/input';
+import TextArea from 'components/forms/textarea';
 
 import Answer from './answer';
 import { STEPS } from './constants';
 import Question from './question';
 
-interface ContactFormProps {}
+interface ContactFormProps {
+  scrollRef: RefObject<HTMLDivElement>;
+}
 
 type Inputs = {
   name: string;
   email: string;
   who: string;
+  description: string;
 };
 
 type Step = {
   id: string;
-  type: 'text' | 'radio' | 'checkbox';
+  type: 'text' | 'textarea' | 'radio' | 'checkbox';
   question: string;
   rules: any,
   defaultValue: string;
@@ -32,12 +36,15 @@ type Step = {
   }[];
 };
 
-export const ContactForm: FC<ContactFormProps> = () => {
+export const ContactForm: FC<ContactFormProps> = ({
+  scrollRef,
+}: ContactFormProps) => {
   const [step, setStep] = useState(0);
   const [inputs, setInputs] = useState<Inputs>({
     name: '',
     email: '',
     who: '',
+    description: '',
   });
 
   const defaultAnimationsCompleted = useMemo(() => {
@@ -48,6 +55,7 @@ export const ContactForm: FC<ContactFormProps> = () => {
       };
     }, {});
   }, [inputs]);
+
   const [animationsCompleted, setAnimationsCompleted] = useState(defaultAnimationsCompleted);
   const methods = useForm<Inputs>();
   const {
@@ -75,10 +83,15 @@ export const ContactForm: FC<ContactFormProps> = () => {
   const INPUT_KEYS = useMemo(() => Object.keys(inputs), [inputs]).filter((key) => inputs[key]);
 
   const watchWho = watch('who');
+  const watchDescription = watch('description');
 
   useEffect(() => {
     handleSubmit(onSubmit)();
   }, [watchWho]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    scrollRef.current.scrollTop = scrollRef.current.scrollHeight; // eslint-disable-line
+  }, [scrollRef, animationsCompleted, watchDescription]);
 
   return (
     <FormProvider
@@ -155,6 +168,27 @@ export const ContactForm: FC<ContactFormProps> = () => {
                 return (
                   <Input
                     {...field}
+                    className="w-full"
+                    state={fieldState}
+                    theme="minimal"
+                    placeholder="Escribe aquí"
+                  />
+                );
+              }}
+            />
+          )}
+          {STEP?.type === 'textarea' && (
+            <Controller
+              key={STEP.id}
+              name={STEP.id as keyof Inputs}
+              control={control}
+              rules={STEP.rules}
+              defaultValue={STEP.defaultValue}
+              render={({ field, fieldState }) => {
+                return (
+                  <TextArea
+                    {...field}
+                    rows={1}
                     className="w-full"
                     state={fieldState}
                     theme="minimal"
