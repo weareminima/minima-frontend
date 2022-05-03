@@ -13,7 +13,7 @@ import Radio from 'components/forms/radio';
 
 interface AnswerProps {
   id: string;
-  type: 'text' | 'textarea' | 'radio' | 'checkbox';
+  type: 'text' | 'textarea' | 'radio' | 'checkbox' | 'submit';
   value: string;
   options?: {
     label: string;

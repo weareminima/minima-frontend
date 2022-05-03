@@ -104,4 +104,9 @@ export const STEPS = [
       },
     ],
   },
+  {
+    id: 'submit',
+    question: '¡Estupendo!',
+    type: 'submit',
+  },
 ];

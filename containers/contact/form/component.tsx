@@ -29,7 +29,7 @@ type Inputs = {
 
 type Step = {
   id: string;
-  type: 'text' | 'textarea' | 'radio' | 'checkbox';
+  type: 'text' | 'textarea' | 'radio' | 'checkbox' | 'submit';
   question: string;
   rules: any,
   defaultValue: string;
@@ -228,6 +228,32 @@ export const ContactForm: FC<ContactFormProps> = ({
           {STEP?.type === 'radio' && (
             <div className="py-2 text-sm leading-tight text-dark">
               Selecciona una opción
+            </div>
+          )}
+
+          {STEP?.type === 'submit' && (
+            <div className="w-full space-y-2">
+              <Button
+                type="submit"
+                theme="primary"
+                size="base"
+                className="w-full"
+              >
+                Enviar formulario
+              </Button>
+
+              <div
+                className="text-xs text-center text-dark/40"
+              >
+                Al enviar el formulario aceptas la
+                {' '}
+                <a
+                  className="text-dark"
+                  href="/privacy-policy"
+                >
+                  política de privacidad
+                </a>
+              </div>
             </div>
           )}
         </footer>
