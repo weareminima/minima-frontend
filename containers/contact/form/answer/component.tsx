@@ -32,7 +32,7 @@ export const Answer: FC<AnswerProps> = ({
       {(type === 'text' || type === 'textarea') && (
         <div
           className={cx({
-            'inline-flex items-center rounded-3xl py-2 px-4 max-w-full overflow-hidden whitespace-nowrap border border-dark/10 text-sm': true,
+            'inline-flex items-center rounded-3xl py-2 px-4 max-w-[260px] overflow-hidden border border-dark/10 text-sm ': true,
           })}
           style={{
             borderRadius: '24px 24px 4px 24px',
@@ -44,7 +44,7 @@ export const Answer: FC<AnswerProps> = ({
       {type === 'radio' && (
         <div
           className={cx({
-            'inline-flex items-center rounded-3xl p-4 max-w-full overflow-hidden border border-dark/10 text-sm': true,
+            'inline-flex items-center rounded-3xl py-2 px-4 max-w-full overflow-hidden border border-dark/10 text-sm': true,
           })}
           style={{
             borderRadius: '24px 24px 4px 24px',

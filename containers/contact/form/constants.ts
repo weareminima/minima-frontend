@@ -50,4 +50,58 @@ export const STEPS = [
       required: true,
     },
   },
+  {
+    id: 'time',
+    question: '¿Cuánto tiempo tenemos?',
+    defaultValue: '',
+    rules: {
+      required: true,
+    },
+    type: 'radio',
+    options: [
+      {
+        value: '1',
+        label: '1 mes',
+      },
+      {
+        value: '2-3',
+        label: '2-3 meses',
+      },
+      {
+        value: '3-6',
+        label: '3-6 meses',
+      },
+      {
+        value: '+6',
+        label: '+6 meses',
+      },
+    ],
+  },
+  {
+    id: 'budget',
+    question: '¿Cuál es tu presupuesto?',
+    defaultValue: '',
+    rules: {
+      required: true,
+    },
+    type: 'radio',
+    options: [
+      {
+        value: '<10k',
+        label: '< 10k',
+      },
+      {
+        value: '10k-30k',
+        label: '10k - 30k',
+      },
+      {
+        value: '30k-60k',
+        label: '30k - 60k',
+      },
+      {
+        value: '>60k',
+        label: '> 60k',
+      },
+    ],
+  },
 ];

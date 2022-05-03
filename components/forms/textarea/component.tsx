@@ -42,8 +42,8 @@ export const Textarea = forwardRef((
   {
     theme = 'light',
     disabled = false,
-    className,
     state,
+    className,
     onChange,
     ...props
   }: TextareaProps,

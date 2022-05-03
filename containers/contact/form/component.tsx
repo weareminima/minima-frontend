@@ -6,6 +6,7 @@ import {
   useForm, FormProvider, Controller, SubmitHandler,
 } from 'react-hook-form';
 
+import Button from 'components/button';
 import Input from 'components/forms/input';
 import TextArea from 'components/forms/textarea';
 
@@ -22,6 +23,8 @@ type Inputs = {
   email: string;
   who: string;
   description: string;
+  time: string;
+  budget: string;
 };
 
 type Step = {
@@ -45,6 +48,8 @@ export const ContactForm: FC<ContactFormProps> = ({
     email: '',
     who: '',
     description: '',
+    time: '',
+    budget: '',
   });
 
   const defaultAnimationsCompleted = useMemo(() => {
@@ -57,10 +62,22 @@ export const ContactForm: FC<ContactFormProps> = ({
   }, [inputs]);
 
   const [animationsCompleted, setAnimationsCompleted] = useState(defaultAnimationsCompleted);
-  const methods = useForm<Inputs>();
+
+  const methods = useForm<Inputs>({
+    mode: 'all',
+  });
   const {
-    control, watch, setFocus, handleSubmit,
+    control, watch, setFocus, handleSubmit, formState,
   } = methods;
+
+  const STEP = useMemo(() => STEPS[step] as Step, [step]);
+
+  const INPUT_KEYS = useMemo(() => Object.keys(inputs), [inputs]).filter((key) => inputs[key]);
+
+  const watchAll = watch();
+  const watchWho = watch('who');
+  const watchTime = watch('time');
+  const watchBudget = watch('budget');
 
   const onSubmit: SubmitHandler<Inputs> = useCallback((data: Inputs) => {
     if (step !== STEPS.length - 1) {
@@ -78,20 +95,13 @@ export const ContactForm: FC<ContactFormProps> = ({
     }
   }, [step, inputs]);
 
-  const STEP = useMemo(() => STEPS[step] as Step, [step]);
-
-  const INPUT_KEYS = useMemo(() => Object.keys(inputs), [inputs]).filter((key) => inputs[key]);
-
-  const watchWho = watch('who');
-  const watchDescription = watch('description');
-
   useEffect(() => {
     handleSubmit(onSubmit)();
-  }, [watchWho]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [watchWho, watchTime, watchBudget]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight; // eslint-disable-line
-  }, [scrollRef, animationsCompleted, watchDescription]);
+  }, [scrollRef, animationsCompleted, watchAll]);
 
   return (
     <FormProvider
@@ -156,7 +166,7 @@ export const ContactForm: FC<ContactFormProps> = ({
           </div>
         </div>
 
-        <footer className="sticky bottom-0 z-10 flex items-center justify-between px-6 py-4 bg-white border-t border-dark/10">
+        <footer className="sticky bottom-0 z-10 flex items-center justify-between px-6 py-4 space-x-5 bg-white border-t border-dark/10">
           {STEP?.type === 'text' && (
             <Controller
               key={STEP.id}
@@ -197,6 +207,17 @@ export const ContactForm: FC<ContactFormProps> = ({
                 );
               }}
             />
+          )}
+
+          {(STEP?.type === 'text' || STEP?.type === 'textarea') && (
+            <Button
+              type="submit"
+              theme="primary"
+              size="s"
+              disabled={!formState.isValid}
+            >
+              Enviar
+            </Button>
           )}
 
           {STEP?.type === 'radio' && (
