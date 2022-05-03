@@ -100,7 +100,10 @@ export const ContactForm: FC<ContactFormProps> = ({
   }, [watchWho, watchTime, watchBudget]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    scrollRef.current.scrollTop = scrollRef.current.scrollHeight; // eslint-disable-line
+    scrollRef.current.scrollTo({
+      top: scrollRef.current.scrollHeight,
+      behavior: 'smooth',
+    });
   }, [scrollRef, animationsCompleted, watchAll]);
 
   return (
@@ -131,6 +134,7 @@ export const ContactForm: FC<ContactFormProps> = ({
                     type={OLD_STEP?.type}
                     options={OLD_STEP?.options}
                     value={inputs[key]}
+                    animation={OLD_STEP?.type !== 'radio'}
                   />
                 </div>
               );
@@ -161,6 +165,7 @@ export const ContactForm: FC<ContactFormProps> = ({
                 type={STEP?.type}
                 options={STEP?.options}
                 value={inputs[STEP?.id]}
+                animation
               />
             )}
           </div>

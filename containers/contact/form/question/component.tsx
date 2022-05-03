@@ -29,7 +29,7 @@ export const Question: FC<QuestionProps> = ({
 }: QuestionProps) => {
   const [TEXT, setTEXT] = useState('...');
   const COLOR = COLORS[index % COLORS.length];
-  const TIMEOUT = animation ? 500 : 0;
+  const TIMEOUT = animation ? 750 : 0;
 
   useTimeout(() => {
     setTEXT(text);
@@ -56,11 +56,22 @@ export const Question: FC<QuestionProps> = ({
       onAnimationStart={onAnimationStart}
       onAnimationComplete={onAnimationComplete}
     >
-      <div
+      <motion.div
         key={`${id}-question`}
         className={cx({
           'inline-flex relative items-center rounded-3xl py-2 px-4 text-sm w-full max-w-fit': true,
         })}
+        initial={{
+          opacity: animation ? 0 : 1,
+          scale: animation ? 0.85 : 1,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{
+          duration: 0.25,
+        }}
       >
         <div
           className="absolute top-0 left-0 z-0 w-full h-full border"
@@ -73,7 +84,7 @@ export const Question: FC<QuestionProps> = ({
         <span className="relative z-10">
           {TEXT}
         </span>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

@@ -6,6 +6,8 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import cx from 'classnames';
 
+import { motion } from 'framer-motion';
+
 import Label from 'components/forms/label';
 import Radio from 'components/forms/radio';
 
@@ -17,20 +19,34 @@ interface AnswerProps {
     label: string;
     value: string;
   }[];
+  animation: boolean;
 }
 
 export const Answer: FC<AnswerProps> = ({
   id,
   type,
-  options,
   value,
+  options,
+  animation,
 }: AnswerProps) => {
   const { control } = useFormContext();
 
   return (
     <div className="flex justify-end">
       {(type === 'text' || type === 'textarea') && (
-        <div
+        <motion.div
+          key={`${id}-answer`}
+          initial={{
+            opacity: animation ? 0 : 1,
+            scale: animation ? 0.85 : 1,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.25,
+          }}
           className={cx({
             'inline-flex items-center rounded-3xl py-2 px-4 max-w-[260px] overflow-hidden border border-dark/10 text-sm ': true,
           })}
@@ -39,10 +55,22 @@ export const Answer: FC<AnswerProps> = ({
           }}
         >
           {value}
-        </div>
+        </motion.div>
       )}
       {type === 'radio' && (
-        <div
+        <motion.div
+          key={`${id}-answer`}
+          initial={{
+            opacity: animation ? 0 : 1,
+            scale: animation ? 0.85 : 1,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 0.25,
+          }}
           className={cx({
             'inline-flex items-center rounded-3xl py-2 px-4 max-w-full overflow-hidden border border-dark/10 text-sm': true,
           })}
@@ -74,7 +102,7 @@ export const Answer: FC<AnswerProps> = ({
                             field.onChange(e.target.value);
                           }}
                         />
-                        <Label>
+                        <Label className="text-sm">
                           {l}
                         </Label>
                       </div>
@@ -84,7 +112,7 @@ export const Answer: FC<AnswerProps> = ({
               );
             })}
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   );
