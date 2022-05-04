@@ -29,7 +29,7 @@ export const Question: FC<QuestionProps> = ({
 }: QuestionProps) => {
   const [TEXT, setTEXT] = useState('...');
   const COLOR = COLORS[index % COLORS.length];
-  const TIMEOUT = animation ? 750 : 0;
+  const TIMEOUT = animation ? 1250 : 0;
 
   useTimeout(() => {
     setTEXT(text);
@@ -70,7 +70,8 @@ export const Question: FC<QuestionProps> = ({
           scale: 1,
         }}
         transition={{
-          duration: 0.25,
+          duration: animation ? 0.25 : 0,
+          delay: animation ? 0.5 : 0,
         }}
       >
         <div
