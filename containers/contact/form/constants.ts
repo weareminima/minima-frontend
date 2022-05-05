@@ -1,4 +1,4 @@
-export const STEPS = [
+export const DEFAULT_STEPS = [
   {
     id: 'name',
     question: '¡Hola! ¿cómo te llamas?',
@@ -47,8 +47,11 @@ export const STEPS = [
       },
     ],
   },
+];
+
+export const FUTURE_CLIENT_STEPS = [
   {
-    id: 'description',
+    id: 'description_client',
     question: 'Cuéntanos tu idea, la extensión de un tuit está bien ;)',
     defaultValue: '',
     type: 'textarea',
@@ -112,6 +115,46 @@ export const STEPS = [
         label: '> 60k',
       },
     ],
+  },
+  {
+    id: 'submit',
+    question: '¡Estupendo!',
+    type: 'submit',
+  },
+];
+
+export const FREELANCE_STEPS = [
+  {
+    id: 'description_freelance',
+    question: '¿Cómo quieres colaborar con nosotros?',
+    defaultValue: '',
+    type: 'textarea',
+    inputProps: {
+      rows: 1,
+    },
+    rules: {
+      required: true,
+    },
+  },
+  {
+    id: 'submit',
+    question: '¡Estupendo!',
+    type: 'submit',
+  },
+];
+
+export const COMPANY_STEPS = [
+  {
+    id: 'description_company',
+    question: '¿Cómo quieres colaborar con nosotros?',
+    defaultValue: '',
+    type: 'textarea',
+    inputProps: {
+      rows: 1,
+    },
+    rules: {
+      required: true,
+    },
   },
   {
     id: 'submit',

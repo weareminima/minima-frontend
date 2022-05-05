@@ -33,7 +33,7 @@ export const Question: FC<QuestionProps> = ({
 
   useTimeout(() => {
     setTEXT(text);
-  }, TIMEOUT);
+  }, TIMEOUT + 1);
 
   return (
     <motion.div

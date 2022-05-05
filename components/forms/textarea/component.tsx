@@ -1,4 +1,6 @@
-import { forwardRef, Ref } from 'react';
+import {
+  forwardRef, Ref, useEffect, useImperativeHandle, useRef,
+} from 'react';
 
 import cx from 'classnames';
 
@@ -49,10 +51,20 @@ export const Textarea = forwardRef((
   }: TextareaProps,
   ref: Ref<HTMLTextAreaElement>,
 ) => {
+  const textareaRef = useRef<HTMLTextAreaElement>();
+  useImperativeHandle(ref, () => textareaRef.current);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = '';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // eslint-disable-line
+    }
+  }, []);
+
   return (
     <textarea
       {...props}
-      ref={ref}
+      ref={textareaRef}
       disabled={disabled}
       className={cx({
         'form-textarea w-full': true,

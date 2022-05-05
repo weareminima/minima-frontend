@@ -20,6 +20,7 @@ interface AnswerProps {
     value: string;
   }[];
   animation: boolean;
+  disabled: boolean;
 }
 
 export const Answer: FC<AnswerProps> = ({
@@ -28,6 +29,7 @@ export const Answer: FC<AnswerProps> = ({
   value,
   options,
   animation,
+  disabled,
 }: AnswerProps) => {
   const { control } = useFormContext();
 
@@ -98,6 +100,7 @@ export const Answer: FC<AnswerProps> = ({
                           theme="light"
                           value={v}
                           defaultChecked={v === value}
+                          disabled={disabled}
                           onChange={(e) => {
                             field.onChange(e.target.value);
                           }}

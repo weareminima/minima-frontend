@@ -1,17 +1,24 @@
 import {
-  FC, useCallback, useEffect, useMemo, useState, RefObject,
+  FC, useCallback, useEffect, useMemo, useState, RefObject, useRef,
 } from 'react';
 
 import {
   useForm, FormProvider, Controller, SubmitHandler,
 } from 'react-hook-form';
 
+import cx from 'classnames';
+
 import Button from 'components/button';
 import Input from 'components/forms/input';
 import TextArea from 'components/forms/textarea';
 
 import Answer from './answer';
-import { STEPS } from './constants';
+import {
+  DEFAULT_STEPS,
+  FUTURE_CLIENT_STEPS,
+  FREELANCE_STEPS,
+  COMPANY_STEPS,
+} from './constants';
 import Question from './question';
 
 interface ContactFormProps {
@@ -22,9 +29,14 @@ type Inputs = {
   name: string;
   email: string;
   who: string;
-  description: string;
-  time: string;
-  budget: string;
+  // future-client
+  description_client?: string;
+  time?: string;
+  budget?: string;
+  // freelance
+  description_freelance?: string;
+  // company
+  description_company?: string;
 };
 
 type Step = {
@@ -44,61 +56,113 @@ export const ContactForm: FC<ContactFormProps> = ({
   scrollRef,
 }: ContactFormProps) => {
   const [step, setStep] = useState(0);
+  const stepRef = useRef<string>('name');
   const [inputs, setInputs] = useState<Inputs>({
-    name: '',
-    email: '',
+    name: 'Miguel',
+    email: 'barrenechea.miguel@gmail.com',
     who: '',
-    description: '',
+    description_client: '',
     time: '',
     budget: '',
+    description_freelance: '',
+    description_company: '',
   });
 
-  const defaultAnimationsCompleted = useMemo(() => {
-    return Object.keys(inputs).reduce((acc, k) => {
-      return {
-        ...acc,
-        [k]: false,
-      };
-    }, {});
-  }, [inputs]);
-
-  const [animationsCompleted, setAnimationsCompleted] = useState(defaultAnimationsCompleted);
+  const [animating, setAnimating] = useState(false);
+  const [animationsCompleted, setAnimationsCompleted] = useState({});
 
   const methods = useForm<Inputs>({
     mode: 'all',
+    defaultValues: inputs,
   });
   const {
-    control, watch, setFocus, handleSubmit, formState,
+    control, watch, setFocus, handleSubmit, formState, trigger, resetField,
   } = methods;
-
-  const STEP = useMemo(() => STEPS[step] as Step, [step]);
-
-  const INPUT_KEYS = useMemo(() => Object.keys(inputs), [inputs]).filter((key) => inputs[key]);
 
   const watchAll = watch();
   const watchWho = watch('who');
   const watchTime = watch('time');
   const watchBudget = watch('budget');
 
+  const STEPS = useMemo(() => {
+    return [
+      ...DEFAULT_STEPS,
+      ...watchWho === 'future-client' ? FUTURE_CLIENT_STEPS : [],
+      ...watchWho === 'freelance' ? FREELANCE_STEPS : [],
+      ...watchWho === 'company' ? COMPANY_STEPS : [],
+    ];
+  }, [watchWho]);
+
+  watch((data, { name }) => {
+    stepRef.current = name;
+  });
+
+  const STEP = useMemo(() => STEPS[step] as Step, [step, STEPS]);
+
+  const INPUT_KEYS = useMemo(() => {
+    return STEPS.filter((s, i) => inputs[s.id] && i < step, []).map((s) => s.id);
+  }, [step, STEPS, inputs]);
+
   const onSubmit: SubmitHandler<Inputs> = useCallback((data: Inputs) => {
-    if (step !== STEPS.length - 1) {
+    if (stepRef.current !== 'submit') {
       setInputs({
         ...inputs,
         ...data,
       });
 
-      setStep(step + 1);
+      const nextStep = STEPS.findIndex((s) => s.id === stepRef.current) + 1;
+
+      setStep(nextStep);
     } else {
       console.info('submit', {
         ...inputs,
         ...data,
       });
     }
-  }, [step, inputs]);
+  }, [inputs, STEPS]);
 
   useEffect(() => {
-    handleSubmit(onSubmit)();
-  }, [watchWho, watchTime, watchBudget]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (watchWho) {
+      const nextStep = STEPS.findIndex((s) => s.id === 'who') + 1;
+
+      // Reset values
+      STEPS
+        .forEach((s, i) => {
+          if (i >= nextStep) {
+            resetField(s.id as keyof Inputs);
+          }
+        });
+
+      // Reset animations completed
+      const aCompleted = STEPS
+        .reduce((acc, s, i) => {
+          return {
+            ...acc,
+            [s.id]: i < nextStep,
+          };
+        }, {});
+
+      setStep(nextStep);
+      setAnimationsCompleted(aCompleted);
+      handleSubmit(onSubmit)();
+    }
+  }, [watchWho]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (
+      (watchTime && step <= STEPS.findIndex((s) => s.id === 'time'))
+    ) {
+      handleSubmit(onSubmit)();
+    }
+  }, [watchTime]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (
+      (watchBudget && step <= STEPS.findIndex((s) => s.id === 'budget'))
+    ) {
+      handleSubmit(onSubmit)();
+    }
+  }, [watchBudget]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     scrollRef.current.scrollTo({
@@ -136,6 +200,7 @@ export const ContactForm: FC<ContactFormProps> = ({
                     options={OLD_STEP?.options}
                     value={inputs[key]}
                     animation={OLD_STEP?.type !== 'radio'}
+                    disabled={animating}
                   />
                 </div>
               );
@@ -148,10 +213,20 @@ export const ContactForm: FC<ContactFormProps> = ({
               index={INPUT_KEYS.length}
               text={STEP?.question}
               animation
+              onAnimationStart={() => {
+                setAnimating(true);
+              }}
               onAnimationComplete={() => {
                 if (STEP?.type === 'text' || STEP?.type === 'textarea') {
-                  setFocus(STEP?.id as keyof Inputs);
+                  setTimeout(() => {
+                    setFocus(STEP?.id as keyof Inputs);
+                  }, 0);
+
+                  trigger(STEP?.id as keyof Inputs);
+                  stepRef.current = STEP?.id;
                 }
+
+                setAnimating(false);
 
                 setAnimationsCompleted({
                   ...animationsCompleted,
@@ -167,6 +242,7 @@ export const ContactForm: FC<ContactFormProps> = ({
                 options={STEP?.options}
                 value={inputs[STEP?.id]}
                 animation
+                disabled={animating}
               />
             )}
           </div>
@@ -175,20 +251,20 @@ export const ContactForm: FC<ContactFormProps> = ({
         <footer className="sticky bottom-0 z-10 flex items-center justify-between px-6 py-4 space-x-5 bg-white border-t border-dark/10">
           {STEP?.type === 'text' && (
             <Controller
-              key={STEP.id}
-              name={STEP.id as keyof Inputs}
+              key={STEP?.id}
+              name={STEP?.id as keyof Inputs}
               control={control}
-              rules={STEP.rules}
-              defaultValue={STEP.defaultValue}
+              rules={STEP?.rules}
               render={({ field, fieldState }) => {
                 return (
                   <Input
                     {...field}
-                    {...STEP.inputProps}
+                    {...STEP?.inputProps}
                     className="w-full"
                     state={fieldState}
                     theme="minimal"
                     placeholder="Escribe aquí"
+                    disabled={animating}
                   />
                 );
               }}
@@ -196,11 +272,10 @@ export const ContactForm: FC<ContactFormProps> = ({
           )}
           {STEP?.type === 'textarea' && (
             <Controller
-              key={STEP.id}
-              name={STEP.id as keyof Inputs}
+              key={STEP?.id}
+              name={STEP?.id as keyof Inputs}
               control={control}
-              rules={STEP.rules}
-              defaultValue={STEP.defaultValue}
+              rules={STEP?.rules}
               render={({ field, fieldState }) => {
                 return (
                   <TextArea
@@ -210,6 +285,7 @@ export const ContactForm: FC<ContactFormProps> = ({
                     state={fieldState}
                     theme="minimal"
                     placeholder="Escribe aquí"
+                    disabled={animating}
                   />
                 );
               }}
@@ -234,7 +310,13 @@ export const ContactForm: FC<ContactFormProps> = ({
           )}
 
           {STEP?.type === 'submit' && (
-            <div className="w-full space-y-2">
+            <div
+              className={cx({
+                'w-full space-y-2 transition-opacity': true,
+                'opacity-0': !animationsCompleted[STEP?.id],
+                'opacity-100': animationsCompleted[STEP?.id],
+              })}
+            >
               <Button
                 type="submit"
                 theme="primary"
