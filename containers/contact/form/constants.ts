@@ -4,6 +4,9 @@ export const STEPS = [
     question: '¡Hola! ¿cómo te llamas?',
     defaultValue: '',
     type: 'text',
+    inputProps: {
+      type: 'text',
+    },
     rules: {
       required: true,
     },
@@ -13,6 +16,9 @@ export const STEPS = [
     question: '¿Cuál es tu email?',
     defaultValue: '',
     type: 'text',
+    inputProps: {
+      type: 'email',
+    },
     rules: {
       required: true,
       email: true,
@@ -46,6 +52,9 @@ export const STEPS = [
     question: 'Cuéntanos tu idea, la extensión de un tuit está bien ;)',
     defaultValue: '',
     type: 'textarea',
+    inputProps: {
+      rows: 1,
+    },
     rules: {
       required: true,
     },

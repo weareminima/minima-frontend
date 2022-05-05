@@ -28,7 +28,7 @@ export const ContactModal: FC<ContactModalProps> = ({
   return (
     <div
       ref={floating}
-      className="flex flex-col items-end justify-end w-full h-full p-8 pointer-events-none"
+      className="flex flex-col items-end justify-end w-full h-full overflow-hidden pointer-events-none md:p-6 lg:p-8"
       {...floatingProps}
     >
       <motion.div
@@ -52,7 +52,7 @@ export const ContactModal: FC<ContactModalProps> = ({
             delay: 0,
           },
         }}
-        className="w-1/3 bg-white shadow-2xl pointer-events-auto grow rounded-3xl max-w-md max-h-[600px] overflow-y-auto overflow-x-hidden flex flex-col justify-between"
+        className="w-full md:w-1/3 bg-white shadow-2xl pointer-events-auto grow md:rounded-3xl max-w-md md:max-h-[600px] overflow-y-auto overflow-x-hidden scroll-smooth flex flex-col justify-between"
       >
         {/* HEADER */}
         <header className="sticky top-0 z-10 flex items-center justify-between p-4 bg-white border-b border-dark/10">

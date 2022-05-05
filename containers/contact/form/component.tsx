@@ -33,6 +33,7 @@ type Step = {
   question: string;
   rules: any,
   defaultValue: string;
+  inputProps: Record<string, any>;
   options?: {
     label: string;
     value: string;
@@ -148,7 +149,7 @@ export const ContactForm: FC<ContactFormProps> = ({
               text={STEP?.question}
               animation
               onAnimationComplete={() => {
-                if (STEP?.type === 'text') {
+                if (STEP?.type === 'text' || STEP?.type === 'textarea') {
                   setFocus(STEP?.id as keyof Inputs);
                 }
 
@@ -183,6 +184,7 @@ export const ContactForm: FC<ContactFormProps> = ({
                 return (
                   <Input
                     {...field}
+                    {...STEP.inputProps}
                     className="w-full"
                     state={fieldState}
                     theme="minimal"
