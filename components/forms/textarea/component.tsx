@@ -46,6 +46,7 @@ export const Textarea = forwardRef((
     disabled = false,
     state,
     className,
+    value,
     onChange,
     ...props
   }: TextareaProps,
@@ -59,11 +60,12 @@ export const Textarea = forwardRef((
       textareaRef.current.style.height = '';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // eslint-disable-line
     }
-  }, []);
+  }, [value]);
 
   return (
     <textarea
       {...props}
+      value={value}
       ref={textareaRef}
       disabled={disabled}
       className={cx({

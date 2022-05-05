@@ -52,7 +52,7 @@ export const ContactModal: FC<ContactModalProps> = ({
             delay: 0,
           },
         }}
-        className="w-full md:w-1/3 bg-white shadow-2xl pointer-events-auto grow md:rounded-3xl max-w-md md:max-h-[600px] overflow-y-auto overflow-x-hidden scroll-smooth flex flex-col justify-between"
+        className="relative w-full md:w-1/3 bg-white shadow-2xl pointer-events-auto grow md:rounded-3xl max-w-md md:max-h-[600px] overflow-y-auto overflow-x-hidden scroll-smooth flex flex-col justify-between"
       >
         {/* HEADER */}
         <header className="sticky top-0 z-10 flex items-center justify-between p-4 bg-white border-b border-dark/10">

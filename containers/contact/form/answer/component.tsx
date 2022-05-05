@@ -98,6 +98,7 @@ export const Answer: FC<AnswerProps> = ({
                           {...field}
                           state={fieldState}
                           theme="light"
+                          id={v}
                           value={v}
                           defaultChecked={v === value}
                           disabled={disabled}
@@ -105,7 +106,7 @@ export const Answer: FC<AnswerProps> = ({
                             field.onChange(e.target.value);
                           }}
                         />
-                        <Label className="text-sm">
+                        <Label htmlFor={v} className="text-sm">
                           {l}
                         </Label>
                       </div>
