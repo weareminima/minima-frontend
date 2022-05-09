@@ -8,6 +8,7 @@ import {
 
 import cx from 'classnames';
 
+import { yupResolver } from '@hookform/resolvers/yup';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import Button from 'components/button';
@@ -27,6 +28,7 @@ import {
   FUTURE_CLIENT_STEPS,
   FREELANCE_STEPS,
   COMPANY_STEPS,
+  useSchema,
 } from './constants';
 import Question from './question';
 
@@ -35,13 +37,13 @@ interface ContactFormProps {
 }
 
 type Inputs = {
-  name: string;
-  email: string;
-  who: string;
+  name?: string;
+  email?: string;
+  who?: string;
   // future-client
   description_client?: string;
-  time?: string;
-  budget?: string;
+  time_client?: string;
+  budget_client?: string;
   // freelance
   description_freelance?: string;
   // company
@@ -66,17 +68,20 @@ export const ContactForm: FC<ContactFormProps> = ({
 }: ContactFormProps) => {
   const [step, setStep] = useState(0);
   const stepRef = useRef<string>('name');
+  const inputsRef = useRef<Inputs>({} as Inputs);
 
   const [inputs, setInputs] = useState<Inputs>({
-    name: 'Miguel',
-    email: 'barrenechea.miguel@gmail.com',
-    who: '',
-    description_client: '',
-    time: '',
-    budget: '',
-    description_freelance: '',
-    description_company: '',
+    name: undefined,
+    email: undefined,
+    who: undefined,
+    description_client: undefined,
+    time_client: undefined,
+    budget_client: undefined,
+    description_freelance: undefined,
+    description_company: undefined,
   });
+
+  const SCHEMA = useSchema(inputs);
 
   const [animating, setAnimating] = useState(false);
   const [animationsCompleted, setAnimationsCompleted] = useState({});
@@ -87,6 +92,12 @@ export const ContactForm: FC<ContactFormProps> = ({
   const methods = useForm<Inputs>({
     mode: 'all',
     defaultValues: inputs,
+    resolver: async (data, context, options) => {
+      // you can debug your validation schema here
+      // console.log('formData', data);
+      // console.log('validation result', await yupResolver(SCHEMA)(data, context, options));
+      return yupResolver(SCHEMA)(data, context, options);
+    },
   });
   const {
     control, watch, setFocus, handleSubmit, formState, trigger, resetField,
@@ -94,8 +105,8 @@ export const ContactForm: FC<ContactFormProps> = ({
 
   const watchAll = watch();
   const watchWho = watch('who');
-  const watchTime = watch('time');
-  const watchBudget = watch('budget');
+  const watchTime = watch('time_client');
+  const watchBudget = watch('budget_client');
 
   const STEPS = useMemo(() => {
     return [
@@ -107,6 +118,7 @@ export const ContactForm: FC<ContactFormProps> = ({
   }, [watchWho]);
 
   watch((data, { name }) => {
+    inputsRef.current = data;
     stepRef.current = name;
   });
 
@@ -148,6 +160,7 @@ export const ContactForm: FC<ContactFormProps> = ({
       STEPS
         .forEach((s, i) => {
           if (i >= nextStep) {
+            console.log(s.id);
             resetField(s.id as keyof Inputs);
           }
         });
@@ -163,13 +176,14 @@ export const ContactForm: FC<ContactFormProps> = ({
 
       setStep(nextStep);
       setAnimationsCompleted(aCompleted);
+      setInputs(inputsRef.current);
       handleSubmit(onSubmit)();
     }
   }, [watchWho]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (
-      (watchTime && step <= STEPS.findIndex((s) => s.id === 'time'))
+      (watchTime && step <= STEPS.findIndex((s) => s.id === 'time_client'))
     ) {
       handleSubmit(onSubmit)();
     }
@@ -177,7 +191,7 @@ export const ContactForm: FC<ContactFormProps> = ({
 
   useEffect(() => {
     if (
-      (watchBudget && step <= STEPS.findIndex((s) => s.id === 'budget'))
+      (watchBudget && step <= STEPS.findIndex((s) => s.id === 'budget_client'))
     ) {
       handleSubmit(onSubmit)();
     }

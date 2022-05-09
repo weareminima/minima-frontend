@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+import * as yup from 'yup';
+
 export const DEFAULT_STEPS = [
   {
     id: 'name',
@@ -63,7 +66,7 @@ export const FUTURE_CLIENT_STEPS = [
     },
   },
   {
-    id: 'time',
+    id: 'time_client',
     question: '¿Cuánto tiempo tenemos?',
     defaultValue: '',
     rules: {
@@ -90,7 +93,7 @@ export const FUTURE_CLIENT_STEPS = [
     ],
   },
   {
-    id: 'budget',
+    id: 'budget_client',
     question: '¿Cuál es tu presupuesto?',
     defaultValue: '',
     rules: {
@@ -162,3 +165,60 @@ export const COMPANY_STEPS = [
     type: 'submit',
   },
 ];
+
+export const useSchema = (inputs) => {
+  const {
+    name,
+    email,
+    who,
+    description_client,
+    time_client,
+  } = inputs;
+
+  console.log(inputs);
+
+  const schema = yup.object().shape({
+    name: yup.string().min(3).required(),
+    ...name && {
+      email: yup.string().email().required(),
+    },
+    ...name && email && {
+      who: yup.string().required(),
+    },
+    ...name && email && who && {
+      // future-client
+      description_client: yup.string().when('who', {
+        is: 'future-client',
+        then: yup.string().min(10).required(),
+      }),
+    },
+    ...name && email && who && description_client && {
+      time_client: yup.string().when('who', {
+        is: 'future-client',
+        then: yup.string().required(),
+      }),
+    },
+    ...name && email && who && description_client && time_client && {
+      budget_client: yup.string().when('who', {
+        is: 'future-client',
+        then: yup.string().required(),
+      }),
+    },
+    // freelance
+    ...name && email && who && {
+      description_freelance: yup.string().when('who', {
+        is: 'freelance',
+        then: yup.string().min(10).required(),
+      }),
+    },
+    // company
+    ...name && email && who && {
+      description_company: yup.string().when('who', {
+        is: 'company',
+        then: yup.string().min(10).required(),
+      }),
+    },
+  });
+
+  return schema;
+};
