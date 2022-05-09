@@ -166,7 +166,37 @@ export const COMPANY_STEPS = [
   },
 ];
 
-export const useSchema = (inputs) => {
+const SCHEMA = {
+  name: yup.string().min(3).required(),
+  email: yup.string().email().required(),
+  who: yup.string().required(),
+  description_client: yup.string().when('who', {
+    is: 'future-client',
+    then: yup.string().min(10).required(),
+  }),
+  // future-client
+  time_client: yup.string().when('who', {
+    is: 'future-client',
+    then: yup.string().required(),
+  }),
+
+  budget_client: yup.string().when('who', {
+    is: 'future-client',
+    then: yup.string().required(),
+  }),
+  // freelance
+  description_freelance: yup.string().when('who', {
+    is: 'freelance',
+    then: yup.string().min(10).required(),
+  }),
+  // company
+  description_company: yup.string().when('who', {
+    is: 'company',
+    then: yup.string().min(10).required(),
+  }),
+};
+
+export const useSchema = (inputs, editableStep) => {
   const {
     name,
     email,
@@ -175,45 +205,51 @@ export const useSchema = (inputs) => {
     time_client,
   } = inputs;
 
+  if (editableStep) {
+    return yup.object().shape({
+      [editableStep]: SCHEMA[editableStep],
+    });
+  }
+
   const schema = yup.object().shape({
-    name: yup.string().min(3).required(),
+    name: SCHEMA.name,
     ...name && {
-      email: yup.string().email().required(),
+      email: SCHEMA.email,
     },
     ...name && email && {
-      who: yup.string().required(),
+      who: SCHEMA.who,
     },
     ...name && email && who && {
       // future-client
       description_client: yup.string().when('who', {
         is: 'future-client',
-        then: yup.string().min(10).required(),
+        then: SCHEMA.description_client,
       }),
     },
     ...name && email && who && description_client && {
       time_client: yup.string().when('who', {
         is: 'future-client',
-        then: yup.string().required(),
+        then: SCHEMA.time_client,
       }),
     },
     ...name && email && who && description_client && time_client && {
       budget_client: yup.string().when('who', {
         is: 'future-client',
-        then: yup.string().required(),
+        then: SCHEMA.budget_client,
       }),
     },
     // freelance
     ...name && email && who && {
       description_freelance: yup.string().when('who', {
         is: 'freelance',
-        then: yup.string().min(10).required(),
+        then: SCHEMA.description_freelance,
       }),
     },
     // company
     ...name && email && who && {
       description_company: yup.string().when('who', {
         is: 'company',
-        then: yup.string().min(10).required(),
+        then: SCHEMA.description_company,
       }),
     },
   });

@@ -67,6 +67,7 @@ export const ContactForm: FC<ContactFormProps> = ({
   scrollRef,
 }: ContactFormProps) => {
   const [step, setStep] = useState(0);
+  const [editableStep, setEditableStep] = useState<string>();
   const stepRef = useRef<string>('name');
   const inputsRef = useRef<Inputs>({} as Inputs);
 
@@ -81,7 +82,7 @@ export const ContactForm: FC<ContactFormProps> = ({
     description_company: undefined,
   });
 
-  const SCHEMA = useSchema(inputs);
+  const SCHEMA = useSchema(inputs, editableStep);
 
   const [animating, setAnimating] = useState(false);
   const [animationsCompleted, setAnimationsCompleted] = useState({});
@@ -117,40 +118,76 @@ export const ContactForm: FC<ContactFormProps> = ({
     ];
   }, [watchWho]);
 
-  watch((data, { name }) => {
-    inputsRef.current = data;
-    stepRef.current = name;
-  });
-
   const STEP = useMemo(() => STEPS[step] as Step, [step, STEPS]);
+  const EDITABLE_STEP = useMemo(() => {
+    if (typeof editableStep !== 'undefined' && editableStep !== null) {
+      return STEPS.find((s) => s.id === editableStep) as Step;
+    }
+    return STEP as Step;
+  }, [editableStep, STEP, STEPS]);
 
   const INPUT_KEYS = useMemo(() => {
     return STEPS.filter((s, i) => inputs[s.id] && i < step, []).map((s) => s.id);
   }, [step, STEPS, inputs]);
 
   const onSubmit: SubmitHandler<Inputs> = useCallback((data: Inputs) => {
-    if (stepRef.current !== 'submit') {
+    if (!editableStep) {
+      if (stepRef.current !== 'submit') {
+        setInputs({
+          ...inputs,
+          ...data,
+        });
+
+        const nextStep = STEPS.findIndex((s) => s.id === stepRef.current) + 1;
+
+        setStep(nextStep);
+      } else {
+        setSubmitting(true);
+        console.info('submit', {
+          ...inputs,
+          ...data,
+        });
+
+        setTimeout(() => {
+          setSubmitting(false);
+          setSubmitted(true);
+        }, 2000);
+      }
+    }
+
+    if (editableStep) {
+      setEditableStep(undefined);
       setInputs({
         ...inputs,
-        ...data,
+        [editableStep]: data[editableStep],
       });
-
-      const nextStep = STEPS.findIndex((s) => s.id === stepRef.current) + 1;
-
-      setStep(nextStep);
-    } else {
-      setSubmitting(true);
-      console.info('submit', {
-        ...inputs,
-        ...data,
-      });
-
       setTimeout(() => {
-        setSubmitting(false);
-        setSubmitted(true);
-      }, 2000);
+        if (STEP?.id && (STEP?.type === 'text' || STEP?.type === 'textarea')) {
+          setFocus(STEP?.id as keyof Inputs);
+        }
+        trigger();
+      }, 0);
     }
-  }, [inputs, STEPS]);
+  }, [inputs, STEP, STEPS, editableStep, setFocus, trigger]);
+
+  useEffect(() => {
+    if (editableStep) {
+      setTimeout(() => {
+        setFocus(EDITABLE_STEP?.id as keyof Inputs);
+      }, 0);
+    }
+  }, [editableStep, setFocus, EDITABLE_STEP]);
+
+  useEffect(() => {
+    const subcription = watch((data, { name }) => {
+      inputsRef.current = data;
+      if (!editableStep) stepRef.current = name;
+    });
+
+    return () => {
+      subcription.unsubscribe();
+    };
+  }, [watch, editableStep]);
 
   useEffect(() => {
     if (watchWho) {
@@ -197,11 +234,13 @@ export const ContactForm: FC<ContactFormProps> = ({
   }, [watchBudget]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    scrollRef.current.scrollTo({
-      top: scrollRef.current.scrollHeight,
-      behavior: 'smooth',
-    });
-  }, [scrollRef, animationsCompleted, watchAll]);
+    if (!editableStep) {
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, [scrollRef, animationsCompleted, watchAll, editableStep]);
 
   return (
     <FormProvider
@@ -237,6 +276,9 @@ export const ContactForm: FC<ContactFormProps> = ({
                         value={inputs[key]}
                         animation={OLD_STEP?.type !== 'radio'}
                         disabled={animating}
+                        onEdit={() => {
+                          setEditableStep(OLD_STEP?.id);
+                        }}
                       />
                     </div>
                   );
@@ -286,17 +328,17 @@ export const ContactForm: FC<ContactFormProps> = ({
             </div>
 
             <footer className="sticky bottom-0 z-10 flex items-center justify-between px-6 py-4 space-x-5 bg-white border-t border-dark/10">
-              {STEP?.type === 'text' && (
+              {EDITABLE_STEP?.type === 'text' && (
                 <Controller
-                  key={STEP?.id}
-                  name={STEP?.id as keyof Inputs}
+                  key={EDITABLE_STEP?.id}
+                  name={EDITABLE_STEP?.id as keyof Inputs}
                   control={control}
-                  rules={STEP?.rules}
+                  rules={EDITABLE_STEP?.rules}
                   render={({ field, fieldState }) => {
                     return (
                       <Input
                         {...field}
-                        {...STEP?.inputProps}
+                        {...EDITABLE_STEP?.inputProps}
                         className="w-full"
                         state={fieldState}
                         theme="minimal"
@@ -307,12 +349,12 @@ export const ContactForm: FC<ContactFormProps> = ({
                   }}
                 />
               )}
-              {STEP?.type === 'textarea' && (
+              {EDITABLE_STEP?.type === 'textarea' && (
                 <Controller
-                  key={STEP?.id}
-                  name={STEP?.id as keyof Inputs}
+                  key={EDITABLE_STEP?.id}
+                  name={EDITABLE_STEP?.id as keyof Inputs}
                   control={control}
-                  rules={STEP?.rules}
+                  rules={EDITABLE_STEP?.rules}
                   render={({ field, fieldState }) => {
                     return (
                       <TextArea
@@ -329,7 +371,7 @@ export const ContactForm: FC<ContactFormProps> = ({
                 />
               )}
 
-              {(STEP?.type === 'text' || STEP?.type === 'textarea') && (
+              {(EDITABLE_STEP?.type === 'text' || EDITABLE_STEP?.type === 'textarea') && (
                 <Button
                   type="submit"
                   theme="primary"
@@ -340,13 +382,13 @@ export const ContactForm: FC<ContactFormProps> = ({
                 </Button>
               )}
 
-              {STEP?.type === 'radio' && (
+              {EDITABLE_STEP?.type === 'radio' && (
                 <div className="py-2 text-sm leading-tight text-dark">
                   Selecciona una opción
                 </div>
               )}
 
-              {STEP?.type === 'submit' && (
+              {EDITABLE_STEP?.type === 'submit' && (
                 <div
                   className={cx({
                     'relative w-full space-y-2 transition-opacity': true,

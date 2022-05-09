@@ -21,6 +21,7 @@ interface AnswerProps {
   }[];
   animation: boolean;
   disabled: boolean;
+  onEdit?: () => void;
 }
 
 export const Answer: FC<AnswerProps> = ({
@@ -30,6 +31,7 @@ export const Answer: FC<AnswerProps> = ({
   options,
   animation,
   disabled,
+  onEdit,
 }: AnswerProps) => {
   const { control } = useFormContext();
 
@@ -50,11 +52,12 @@ export const Answer: FC<AnswerProps> = ({
             duration: 0.25,
           }}
           className={cx({
-            'inline-flex items-center rounded-3xl py-2 px-4 max-w-[260px] overflow-hidden border border-dark/10 text-sm ': true,
+            'inline-flex items-center rounded-3xl py-2 px-4 max-w-[260px] overflow-hidden border border-dark/10 hover:border-dark/40 text-sm ': true,
           })}
           style={{
             borderRadius: '24px 24px 4px 24px',
           }}
+          onClick={onEdit}
         >
           {value}
         </motion.div>
