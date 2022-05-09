@@ -161,6 +161,7 @@ export const ContactForm: FC<ContactFormProps> = ({
         ...inputs,
         [editableStep]: data[editableStep],
       });
+      stepRef.current = STEP?.id;
       setTimeout(() => {
         if (STEP?.id && (STEP?.type === 'text' || STEP?.type === 'textarea')) {
           setFocus(STEP?.id as keyof Inputs);
@@ -176,7 +177,7 @@ export const ContactForm: FC<ContactFormProps> = ({
         setFocus(EDITABLE_STEP?.id as keyof Inputs);
       }, 0);
     }
-  }, [editableStep, setFocus, EDITABLE_STEP]);
+  }, [editableStep, EDITABLE_STEP, setFocus]);
 
   useEffect(() => {
     const subcription = watch((data, { name }) => {
