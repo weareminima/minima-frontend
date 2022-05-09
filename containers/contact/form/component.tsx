@@ -160,7 +160,6 @@ export const ContactForm: FC<ContactFormProps> = ({
       STEPS
         .forEach((s, i) => {
           if (i >= nextStep) {
-            console.log(s.id);
             resetField(s.id as keyof Inputs);
           }
         });

@@ -175,8 +175,6 @@ export const useSchema = (inputs) => {
     time_client,
   } = inputs;
 
-  console.log(inputs);
-
   const schema = yup.object().shape({
     name: yup.string().min(3).required(),
     ...name && {
