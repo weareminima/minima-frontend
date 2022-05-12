@@ -1,5 +1,5 @@
 import {
-  FC, useEffect,
+  FC, useCallback, useEffect, useRef,
 } from 'react';
 
 import cx from 'classnames';
@@ -7,7 +7,7 @@ import cx from 'classnames';
 import { motion } from 'framer-motion';
 import { useLottie } from 'lottie-react';
 
-import Cards from 'containers/home/cards';
+import Cards from 'containers/home/intro/cards';
 
 import hourGlassAnimation from 'svgs/hour-glass.json';
 
@@ -15,6 +15,7 @@ interface IntroProps {
 }
 
 export const Intro: FC<IntroProps> = () => {
+  const containerRef = useRef<HTMLDivElement>();
   const options = {
     animationData: hourGlassAnimation,
     loop: true,
@@ -47,12 +48,30 @@ export const Intro: FC<IntroProps> = () => {
 
   const { View, play, stop } = useLottie(options);
 
+  const handleSize = useCallback(() => {
+    const container = containerRef.current;
+    container.style.width = `${window.innerWidth}px`;
+    container.style.height = `${window.innerHeight}px`;
+  }, []);
+
   useEffect(() => {
     stop();
   }, [stop]);
 
+  useEffect(() => {
+    handleSize();
+    window.addEventListener('resize', handleSize);
+
+    return () => {
+      window.removeEventListener('resize', handleSize);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    <section className="w-full h-full justify-center items-center flex flex-grow">
+    <section
+      ref={containerRef}
+      className="fixed top-0 left-0 flex items-center justify-center flex-grow w-full h-full"
+    >
       <div className="space-y-6">
         <motion.div
           className="w-16 h-16 mx-auto"
@@ -82,7 +101,7 @@ export const Intro: FC<IntroProps> = () => {
 
         <motion.h1
           key="h1"
-          className="font-display font-light text-center text-5xl text-gray-900"
+          className="text-5xl font-light text-center text-gray-900 font-display"
           variants={sentence}
           initial="hidden"
           animate="visible"

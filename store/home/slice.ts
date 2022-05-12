@@ -1,26 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define a type for the slice state
+
+type Step = {
+  id: string;
+  x: number;
+  y: number;
+  rotation: number;
+};
 interface UIState {
-  selected: string
+  step: Step;
 }
 
 // Define the initial state using that type
 const initialState: UIState = {
-  selected: null,
+  step: null,
 };
 
 export const homeSlice = createSlice({
   name: '/home',
   initialState,
   reducers: {
-    setSelected: (state, action: PayloadAction<string>) => ({
+    setStep: (state, action: PayloadAction<Step>) => ({
       ...state,
-      selected: action.payload,
+      step: action.payload,
     }),
   },
 });
 
-export const { setSelected } = homeSlice.actions;
+export const { setStep } = homeSlice.actions;
 
 export default homeSlice.reducer;
