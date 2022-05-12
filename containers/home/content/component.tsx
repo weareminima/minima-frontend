@@ -1,5 +1,5 @@
 import {
-  FC, useMemo,
+  FC, useMemo, useRef,
 } from 'react';
 
 import cx from 'classnames';
@@ -25,14 +25,16 @@ interface ContentProps {
 const MAGIC = {
   header: 80,
   margin: {
-    top: 0,
+    top: 32,
     right: 32,
-    bottom: 0,
+    bottom: 32,
     left: 32,
   },
 };
 
 export const Content: FC<ContentProps> = () => {
+  const scrollRef = useRef<HTMLDivElement>();
+
   const { step } = useAppSelector((state) => state['/home']);
   const dispatch = useAppDispatch();
 
@@ -57,12 +59,12 @@ export const Content: FC<ContentProps> = () => {
         opacity: 1,
       },
       animate: {
-        x: MAGIC.margin.left,
-        y: MAGIC.header,
+        x: 0,
+        y: 0,
         z: 0,
         rotate: 0,
-        width: width - MAGIC.margin.left - MAGIC.margin.right,
-        height: height - MAGIC.header,
+        width,
+        height,
         opacity: 1,
       },
       exit: {
@@ -84,7 +86,7 @@ export const Content: FC<ContentProps> = () => {
         <motion.div
           key={id}
           className={cx({
-            'absolute z-10': true,
+            'absolute z-20 overflow-hidden': true,
           })}
           variants={variants}
           initial="initial"
@@ -96,19 +98,106 @@ export const Content: FC<ContentProps> = () => {
             bounce: 0,
           }}
         >
+          <motion.div
+            initial={{
+              height: 0,
+            }}
+            animate={{
+              height: MAGIC.header,
+            }}
+            exit={{
+              height: 0,
+            }}
+            className={cx({
+              'bg-white absolute z-20 mx-auto': true,
+            })}
+            style={{
+              width: width - MAGIC.margin.left - MAGIC.margin.right,
+            }}
+          />
+          {/* BACKGROUND */}
           <div
             className={cx({
-              'interactive w-full h-full rounded-xl p-6 overflow-auto': true,
+              'flex flex-col absolute interactive w-full h-full top-0 left-0 z-0': true,
             })}
           >
-            <div
+            <motion.div
+              initial={{
+                marginTop: 0,
+                marginLeft: 0,
+                marginRight: 0,
+              }}
+              animate={{
+                marginTop: MAGIC.header,
+                marginLeft: MAGIC.margin.left,
+                marginRight: MAGIC.margin.right,
+              }}
+              exit={{
+                marginTop: 0,
+                marginLeft: 0,
+                marginRight: 0,
+              }}
               className={cx({
-                'absolute interactive w-full h-full rounded-xl p-6 top-0 left-0 z-0': true,
+                'grow rounded-xl': true,
                 [CARD.className]: !!CARD.className,
               })}
             />
-            <div className="relative z-10">
-              <header className="flex items-start justify-between">
+          </div>
+
+          {/* SCROLL */}
+          <motion.div
+            ref={scrollRef}
+            initial={{
+              overflow: 'hidden',
+            }}
+            animate={{
+              overflow: 'auto',
+            }}
+            exit={{
+              overflow: 'hidden',
+            }}
+            className={cx({
+              'interactive w-full h-full rounded-xl': true,
+            })}
+          >
+            <motion.div
+              initial={{
+                marginTop: 0,
+                paddingTop: 24,
+                paddingRight: 24,
+                paddingBottom: 24,
+                paddingLeft: 24,
+              }}
+              animate={{
+                marginTop: MAGIC.header,
+                paddingTop: MAGIC.margin.top,
+                paddingRight: MAGIC.margin.right * 2,
+                paddingBottom: MAGIC.margin.bottom,
+                paddingLeft: MAGIC.margin.left * 2,
+
+              }}
+              exit={{
+                marginTop: 0,
+                paddingTop: 24,
+                paddingRight: 24,
+                paddingBottom: 24,
+                paddingLeft: 24,
+              }}
+              layout
+              className="relative z-10 p-6"
+            >
+              <motion.header
+                initial={{
+                  top: 0,
+                }}
+                animate={{
+                  top: MAGIC.header + MAGIC.margin.top,
+                }}
+                exit={{
+                  top: 0,
+                }}
+                className="sticky left-0 flex items-start justify-between"
+              >
                 <div className="flex space-x-2">
                   <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{CARD?.index}</div>
                   <h2 className="flex items-center h-6 px-3 text-sm leading-none border border-gray-900 rounded-xl">{CARD?.title}</h2>
@@ -136,6 +225,7 @@ export const Content: FC<ContentProps> = () => {
                   type="button"
                   onClick={() => {
                     dispatch(setStep(null));
+                    scrollRef.current.scrollTop = 0;
                   }}
                 >
                   <Icon
@@ -143,17 +233,169 @@ export const Content: FC<ContentProps> = () => {
                     className="block w-4 h-4 stroke-current text-dark"
                   />
                 </motion.button>
-              </header>
-              <div className="h-96" />
-              <div className="h-96" />
-              <div className="h-96" />
-              <div className="h-96" />
-              <div className="h-96" />
-              <div className="h-96" />
-              <div className="h-96" />
-              <div className="h-96" />
-            </div>
-          </div>
+              </motion.header>
+
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  display: 'none',
+                }}
+                animate={{
+                  opacity: 1,
+                  transition: {
+                    duration: 0.5,
+                  },
+                  transitionEnd: {
+                    display: 'block',
+                  },
+                }}
+                exit={{
+                  opacity: 0,
+                  display: 'none',
+                }}
+                className="space-y-20 overflow-hidden"
+              >
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+                <div className="text-xl">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Perspiciatis quidem praesentium veritatis ipsam, autem ex
+                  consequuntur atque iste rem repellendus aliquam!
+                  Non magni ex dicta, minima quod error adipisci iusto.
+                </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

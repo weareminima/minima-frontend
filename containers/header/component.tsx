@@ -26,7 +26,7 @@ export const Header: FC<HeaderProps> = ({
       transition={{ delay: 0.5 }}
       key="header"
       className={cx({
-        'fixed top-0 left-0 w-full z-20 flex p-4 md:p-6 lg:p-8': true,
+        'fixed top-0 left-0 w-full z-30 flex p-4 md:p-6 lg:p-8': true,
         'justify-between': align === 'left',
         'justify-center': align === 'center',
       })}
