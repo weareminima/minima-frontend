@@ -98,14 +98,20 @@ export const Content: FC<ContentProps> = () => {
             bounce: 0,
           }}
         >
+          {/* HEADER SPACE */}
           <motion.div
             initial={{
+              display: 'none',
               height: 0,
             }}
             animate={{
               height: MAGIC.header,
+              transitionEnd: {
+                display: 'block',
+              },
             }}
             exit={{
+              display: 'none',
               height: 0,
             }}
             className={cx({

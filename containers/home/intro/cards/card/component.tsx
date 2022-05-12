@@ -1,11 +1,11 @@
 import {
-  FC, useCallback, useMemo, useState,
+  FC, useCallback, useEffect, useMemo, useState,
 } from 'react';
 
 import cx from 'classnames';
 
 import { setStep } from 'store/home/slice';
-import { useAppDispatch } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import {
   motion,
@@ -26,8 +26,11 @@ export const Card: FC<CardProps> = ({
   title,
   options,
 }: CardProps) => {
+  const [animation, setAnimation] = useState('visible');
   const [prevAnimation, setPrevAnimation] = useState('hidden');
+
   const dispatch = useAppDispatch();
+  const { step } = useAppSelector((state) => state['/home']);
 
   const {
     x, y, rotation,
@@ -59,9 +62,21 @@ export const Card: FC<CardProps> = ({
           ...prevAnimation === 'hidden' && {
             delay: 2 + (index * 0.05),
           },
-          ...prevAnimation === 'visible' && {
+          ...prevAnimation !== 'hidden' && {
             delay: 0,
           },
+        },
+      },
+      invisible: {
+        x: '-50%',
+        y: '-50%',
+        z: 0,
+        rotate: rotation,
+        width: 208,
+        height: 208,
+        opacity: 0,
+        transition: {
+          duration: 0.25,
         },
       },
       hover: ({ rotation: hoverRotation }) => {
@@ -99,6 +114,14 @@ export const Card: FC<CardProps> = ({
     }
   }, []);
 
+  useEffect(() => {
+    if (!step) {
+      setAnimation('visible');
+    } else {
+      setAnimation('invisible');
+    }
+  }, [step]);
+
   return (
     <div
       key={id}
@@ -117,7 +140,7 @@ export const Card: FC<CardProps> = ({
           rotation,
         }}
         initial="hidden"
-        animate="visible"
+        animate={animation}
         whileHover="hover"
         variants={styleVariants}
         className={cx({
