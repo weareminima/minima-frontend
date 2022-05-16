@@ -5,7 +5,12 @@ const lineClamp = require('@tailwindcss/line-clamp');
 const { TAILWIND_COLORS } = require('./constants/colors');
 
 module.exports = {
-  content: ['./components/**/*.@(tsx|ts)', './containers/**/*.@(tsx|ts)', './pages/**/*.tsx'],
+  content: [
+    './components/**/*.@(tsx|ts)',
+    './containers/**/*.@(tsx|ts)',
+    './constants/**/*.@(tsx|ts)',
+    './pages/**/*.tsx',
+  ],
   theme: {
     fontFamily: {
       display: 'Garamond',

@@ -8,26 +8,49 @@ type Step = {
   y: number;
   rotation: number;
 };
-interface UIState {
-  step: Step;
+interface HomeInitialState {
+  step: string;
+  stepTop: string;
+  stepBottom: string;
+  steps: Step[];
 }
 
 // Define the initial state using that type
-const initialState: UIState = {
+const initialState: HomeInitialState = {
   step: null,
+  stepTop: null,
+  stepBottom: null,
+  steps: [],
 };
 
 export const homeSlice = createSlice({
   name: '/home',
   initialState,
   reducers: {
-    setStep: (state, action: PayloadAction<Step>) => ({
+    setStep: (state, action: PayloadAction<string>) => ({
       ...state,
       step: action.payload,
+    }),
+    setStepTop: (state, action: PayloadAction<string>) => ({
+      ...state,
+      stepTop: action.payload,
+    }),
+    setStepBottom: (state, action: PayloadAction<string>) => ({
+      ...state,
+      stepBottom: action.payload,
+    }),
+    setSteps: (state, action: PayloadAction<Step[]>) => ({
+      ...state,
+      steps: action.payload,
     }),
   },
 });
 
-export const { setStep } = homeSlice.actions;
+export const {
+  setStep,
+  setStepTop,
+  setStepBottom,
+  setSteps,
+} = homeSlice.actions;
 
 export default homeSlice.reducer;

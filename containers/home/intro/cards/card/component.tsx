@@ -100,13 +100,8 @@ export const Card: FC<CardProps> = ({
   }, [rotation, index, prevAnimation]);
 
   const handleClick = useCallback(() => {
-    dispatch(setStep({
-      id,
-      x,
-      y,
-      rotation,
-    }));
-  }, [dispatch, id, x, y, rotation]);
+    dispatch(setStep(id));
+  }, [dispatch, id]);
 
   const handleAnimationComplete = useCallback((a) => {
     if (typeof a === 'string') {

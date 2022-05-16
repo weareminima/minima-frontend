@@ -1,3 +1,8 @@
+export const CARD_SIZE = {
+  width: 208,
+  height: 208,
+};
+
 export const CARDS = [
   {
     index: 1,

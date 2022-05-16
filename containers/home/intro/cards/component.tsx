@@ -2,6 +2,9 @@ import {
   FC, useEffect, useMemo, useRef, useState,
 } from 'react';
 
+import { setSteps } from 'store/home/slice';
+import { useAppDispatch } from 'store/hooks';
+
 import { useDebouncedCallback } from 'use-debounce';
 
 import { CARDS as CARDS_METADATA } from 'constants/cards';
@@ -11,6 +14,8 @@ import Card from './card';
 interface CardsProps {}
 
 export const Cards: FC<CardsProps> = () => {
+  const dispatch = useAppDispatch();
+
   const [container, setContainer] = useState({
     center: {
       x: 0,
@@ -68,6 +73,15 @@ export const Cards: FC<CardsProps> = () => {
       height,
     });
   }, 100);
+
+  useEffect(() => {
+    dispatch(setSteps(CARDS.map((s) => ({
+      id: s.id,
+      x: s.options.x,
+      y: s.options.y,
+      rotation: s.options.rotation,
+    }))));
+  }, [CARDS, dispatch]);
 
   useEffect(() => {
     handleResize();
