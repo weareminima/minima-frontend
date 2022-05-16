@@ -13,7 +13,7 @@ import {
 
 import useWindowSize from 'hooks/window';
 
-import { CARDS } from 'constants/cards';
+import { CARDS, CARD_SIZE } from 'constants/cards';
 
 import Item from './item';
 
@@ -38,11 +38,11 @@ export const Content: FC<ContentProps> = () => {
   const variants = useMemo(() => {
     return {
       initial: {
-        x: x - 104,
-        y: y - 104,
+        x: x - (CARD_SIZE.width / 2),
+        y: y - (CARD_SIZE.height / 2),
         rotate: 0,
-        width: 208,
-        height: 208,
+        width: CARD_SIZE.width,
+        height: CARD_SIZE.height,
         opacity: 1,
       },
       animate: {
@@ -55,11 +55,11 @@ export const Content: FC<ContentProps> = () => {
         opacity: 1,
       },
       exit: {
-        x: x - 104,
-        y: y - 104,
+        x: x - (CARD_SIZE.width / 2),
+        y: y - (CARD_SIZE.height / 2),
         rotate: rotation,
-        width: 208,
-        height: 208,
+        width: CARD_SIZE.width,
+        height: CARD_SIZE.height,
         opacity: 1,
       },
     };
@@ -72,6 +72,7 @@ export const Content: FC<ContentProps> = () => {
       {step && (
         <motion.div
           key="content"
+          layout
           className={cx({
             'absolute z-20 overflow-hidden': true,
           })}
@@ -80,7 +81,6 @@ export const Content: FC<ContentProps> = () => {
           animate="animate"
           exit="exit"
           transition={{
-            type: 'spring',
             duration: 0.5,
             bounce: 0,
           }}

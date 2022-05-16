@@ -88,6 +88,7 @@ export function useScrollDirection({
 
 // SCROLL DEBOUNCE BOTTOM
 export function useTopBottomScrollListener<T extends HTMLDivElement>(
+  enabled: boolean,
   onTop: () => void,
   onBottom: () => void,
   options?: {
@@ -123,11 +124,11 @@ export function useTopBottomScrollListener<T extends HTMLDivElement>(
       );
       const bottomPosition = Math.round(scrollNode.scrollHeight - offset);
 
-      if (topPosition === scrollContainerTopPosition) {
+      if (topPosition === scrollContainerTopPosition && enabled) {
         debouncedOnTop();
       }
 
-      if (bottomPosition <= scrollContainerBottomPosition) {
+      if (bottomPosition <= scrollContainerBottomPosition && enabled) {
         debouncedOnBottom();
       }
     } else {
@@ -135,7 +136,7 @@ export function useTopBottomScrollListener<T extends HTMLDivElement>(
       const scrollContainerBottomPosition = Math.round(scrollNode.scrollTop + window.innerHeight);
       const bottomPosition = Math.round(scrollNode.scrollHeight - offset);
 
-      if (bottomPosition <= scrollContainerBottomPosition) {
+      if (bottomPosition <= scrollContainerBottomPosition && enabled) {
         debouncedOnBottom();
       }
     }

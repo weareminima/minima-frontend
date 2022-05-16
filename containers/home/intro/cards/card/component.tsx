@@ -76,7 +76,7 @@ export const Card: FC<CardProps> = ({
         height: 208,
         opacity: 0,
         transition: {
-          duration: 0.25,
+          duration: 0,
         },
       },
       hover: ({ rotation: hoverRotation }) => {

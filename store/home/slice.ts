@@ -12,6 +12,7 @@ interface HomeInitialState {
   step: string;
   stepTop: string;
   stepBottom: string;
+  stepDirection: 'up' | 'down';
   steps: Step[];
 }
 
@@ -20,6 +21,7 @@ const initialState: HomeInitialState = {
   step: null,
   stepTop: null,
   stepBottom: null,
+  stepDirection: null,
   steps: [],
 };
 
@@ -39,6 +41,10 @@ export const homeSlice = createSlice({
       ...state,
       stepBottom: action.payload,
     }),
+    setStepDirection: (state, action: PayloadAction<'up' | 'down'>) => ({
+      ...state,
+      stepDirection: action.payload,
+    }),
     setSteps: (state, action: PayloadAction<Step[]>) => ({
       ...state,
       steps: action.payload,
@@ -50,6 +56,7 @@ export const {
   setStep,
   setStepTop,
   setStepBottom,
+  setStepDirection,
   setSteps,
 } = homeSlice.actions;
 

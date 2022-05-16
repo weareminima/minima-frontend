@@ -25,8 +25,11 @@ export const ContentScroller: FC<ContentScrollerProps> = ({
     setTimeout(() => {
       const scroller = scrollRef.current;
       const content = contentRef.current;
-      content.style.height = `${height * 2}px`;
-      scroller.scrollTop = height / 2;
+
+      if (scroller && content) {
+        content.style.height = `${height * 2}px`;
+        scroller.scrollTop = height / 2;
+      }
     }, 250);
   }, [height]); // eslint-disable-line react-hooks/exhaustive-deps
 
