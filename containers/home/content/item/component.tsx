@@ -54,7 +54,7 @@ export const ContentItem: FC<ContentItemProps> = ({
   const {
     step, stepTop, stepBottom, stepDirection, steps,
   } = useAppSelector((state) => state['/home']);
-  const { width, height } = useWindowSize();
+  const { height } = useWindowSize();
 
   const dispatch = useAppDispatch();
 
@@ -218,7 +218,9 @@ export const ContentItem: FC<ContentItemProps> = ({
       scrollRef.current.style.overflow = 'hidden';
     } else {
       setTimeout(() => {
-        scrollRef.current.style.overflow = 'auto';
+        if (scrollRef.current) {
+          scrollRef.current.style.overflow = 'auto';
+        }
       }, 200);
     }
 
@@ -228,14 +230,6 @@ export const ContentItem: FC<ContentItemProps> = ({
   }, [scrollRef]);
 
   const handleAnimationComplete = useCallback((a: string) => {
-    if (a === 'exit') {
-      dispatch(setState({
-        stepDirection: null,
-        stepTop: null,
-        stepBottom: null,
-      }));
-    }
-
     if (
       a === 'initialTop'
       || a === 'initialBottom'
@@ -297,7 +291,7 @@ export const ContentItem: FC<ContentItemProps> = ({
         onAnimationComplete={handleAnimationComplete}
       >
         {/* HEADER SPACE */}
-        <motion.div
+        {/* <motion.div
           key="white-space"
           initial={{
             height: 0,
@@ -319,7 +313,7 @@ export const ContentItem: FC<ContentItemProps> = ({
             display: step === id || stepTop === id ? 'block' : 'none',
             opacity: step === id && stepTop ? 0 : 1,
           }}
-        />
+        /> */}
 
         {/* BACKGROUND */}
         <div
@@ -383,19 +377,10 @@ export const ContentItem: FC<ContentItemProps> = ({
             layout
             className="relative z-10 p-6"
           >
-            <motion.header
+            <header
               key="header"
-              initial={{
-                top: 0,
-              }}
-              animate={{
-                top: MAGIC.header,
-              }}
-              exit={{
-                top: 0,
-              }}
               className={cx({
-                'sticky left-0 flex items-start justify-between py-6': true,
+                'sticky top-20 left-0 flex items-start justify-between py-6': true,
                 [className]: !!className,
               })}
             >
@@ -426,7 +411,7 @@ export const ContentItem: FC<ContentItemProps> = ({
                 type="button"
                 onClick={() => {
                   dispatch(setState({
-                    step: null,
+                    open: false,
                     stepDirection: null,
                     stepTop: null,
                     stepBottom: null,
@@ -439,7 +424,7 @@ export const ContentItem: FC<ContentItemProps> = ({
                   className="block w-4 h-4 stroke-current text-dark"
                 />
               </motion.button>
-            </motion.header>
+            </header>
 
             <motion.div
               initial={{
@@ -448,11 +433,10 @@ export const ContentItem: FC<ContentItemProps> = ({
               }}
               animate={{
                 opacity: 1,
+                display: 'block',
                 transition: {
+                  delay: 0.5,
                   duration: 0.75,
-                },
-                transitionEnd: {
-                  display: 'block',
                 },
               }}
               exit={{

@@ -9,6 +9,7 @@ type Step = {
   rotation: number;
 };
 interface HomeInitialState {
+  open: boolean;
   step: string;
   stepTop: string;
   stepBottom: string;
@@ -18,6 +19,7 @@ interface HomeInitialState {
 
 // Define the initial state using that type
 const initialState: HomeInitialState = {
+  open: false,
   step: null,
   stepTop: null,
   stepBottom: null,
@@ -29,6 +31,10 @@ export const homeSlice = createSlice({
   name: '/home',
   initialState,
   reducers: {
+    setOpen: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      open: action.payload,
+    }),
     setStep: (state, action: PayloadAction<string>) => ({
       ...state,
       step: action.payload,
@@ -57,6 +63,7 @@ export const homeSlice = createSlice({
 });
 
 export const {
+  setOpen,
   setStep,
   setSteps,
   setState,

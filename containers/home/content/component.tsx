@@ -1,10 +1,11 @@
 import {
-  FC, useMemo,
+  FC, useCallback, useMemo,
 } from 'react';
 
 import cx from 'classnames';
 
-import { useAppSelector } from 'store/hooks';
+import { setState } from 'store/home/slice';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import {
   AnimatePresence,
@@ -22,7 +23,7 @@ interface ContentProps {
 
 export const Content: FC<ContentProps> = () => {
   const {
-    step, steps,
+    open, step, steps,
   } = useAppSelector((state) => state['/home']);
 
   const STEP = useMemo(() => {
@@ -34,6 +35,8 @@ export const Content: FC<ContentProps> = () => {
   } = STEP;
 
   const { width, height } = useWindowSize();
+
+  const dispatch = useAppDispatch();
 
   const variants = useMemo(() => {
     return {
@@ -65,11 +68,23 @@ export const Content: FC<ContentProps> = () => {
     };
   }, [x, y, rotation, width, height]);
 
+  const handleAnimationComplete = useCallback((a: string) => {
+    if (a === 'exit') {
+      dispatch(setState({
+        open: false,
+        step: null,
+        stepDirection: null,
+        stepTop: null,
+        stepBottom: null,
+      }));
+    }
+  }, [dispatch]);
+
   return (
     <AnimatePresence
       exitBeforeEnter
     >
-      {step && (
+      {open && (
         <motion.div
           key="content"
           layout
@@ -84,6 +99,7 @@ export const Content: FC<ContentProps> = () => {
             duration: 0.5,
             bounce: 0,
           }}
+          onAnimationComplete={handleAnimationComplete}
         >
           {CARDS.map((card) => {
             return (

@@ -4,7 +4,7 @@ import {
 
 import cx from 'classnames';
 
-import { setStep } from 'store/home/slice';
+import { setOpen, setStep } from 'store/home/slice';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import {
@@ -30,7 +30,7 @@ export const Card: FC<CardProps> = ({
   const [prevAnimation, setPrevAnimation] = useState('hidden');
 
   const dispatch = useAppDispatch();
-  const { step } = useAppSelector((state) => state['/home']);
+  const { open } = useAppSelector((state) => state['/home']);
 
   const {
     x, y, rotation,
@@ -76,7 +76,7 @@ export const Card: FC<CardProps> = ({
         height: 208,
         opacity: 0,
         transition: {
-          duration: 0,
+          duration: 0.25,
         },
       },
       hover: ({ rotation: hoverRotation }) => {
@@ -101,6 +101,7 @@ export const Card: FC<CardProps> = ({
 
   const handleClick = useCallback(() => {
     dispatch(setStep(id));
+    dispatch(setOpen(true));
   }, [dispatch, id]);
 
   const handleAnimationComplete = useCallback((a) => {
@@ -110,12 +111,12 @@ export const Card: FC<CardProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!step) {
+    if (!open) {
       setAnimation('visible');
     } else {
       setAnimation('invisible');
     }
-  }, [step]);
+  }, [open]);
 
   return (
     <div
