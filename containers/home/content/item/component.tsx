@@ -1,11 +1,12 @@
 import {
-  FC, useCallback, useEffect, useMemo, useRef, useState,
+  FC, useCallback, useMemo, useRef,
 } from 'react';
 
 import cx from 'classnames';
 
 import {
-  setStep, setStepBottom, setStepDirection, setStepTop,
+  setState,
+  setStepBottom, setStepDirection, setStepTop,
 } from 'store/home/slice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 
@@ -31,6 +32,7 @@ interface ContentItemProps {
 
 const MAGIC = {
   header: 80,
+  cardHeader: 72,
   margin: {
     top: 32,
     right: 32,
@@ -47,6 +49,7 @@ export const ContentItem: FC<ContentItemProps> = ({
   title,
   className,
 }) => {
+  const currentAnimation = useRef('');
   const prevAnimation = useRef('');
   const {
     step, stepTop, stepBottom, stepDirection, steps,
@@ -55,22 +58,20 @@ export const ContentItem: FC<ContentItemProps> = ({
 
   const dispatch = useAppDispatch();
 
-  const [STEP, setSTEP] = useState(step);
-
   const CURRENT_STEP_INDEX = useMemo(() => {
     return steps.findIndex((s) => s.id === step);
   }, [step, steps]);
 
   const animate = useMemo(() => {
-    if (id === STEP && stepTop && !stepDirection) return 'currentTop';
-    if (id === STEP && stepTop && stepDirection === 'up') return 'finalCurrentTop';
-    if (id === STEP && stepTop && stepDirection === 'down') return 'initialCurrentTop';
+    if (id === step && stepTop && !stepDirection) return 'currentTop';
+    if (id === step && stepTop && stepDirection === 'up') return 'finalCurrentTop';
+    if (id === step && stepTop && stepDirection === 'down') return 'initialCurrentTop';
 
-    if (id === STEP && stepBottom && !stepDirection) return 'currentBottom';
-    if (id === STEP && stepBottom && stepDirection === 'up') return 'initialCurrentBottom';
-    if (id === STEP && stepBottom && stepDirection === 'down') return 'finalCurrentBottom';
+    if (id === step && stepBottom && !stepDirection) return 'currentBottom';
+    if (id === step && stepBottom && stepDirection === 'up') return 'initialCurrentBottom';
+    if (id === step && stepBottom && stepDirection === 'down') return 'finalCurrentBottom';
 
-    if (id === STEP) return 'animate';
+    if (id === step) return 'animate';
 
     // top card
     if (id === stepTop && stepDirection === 'up') return 'animate';
@@ -83,7 +84,7 @@ export const ContentItem: FC<ContentItemProps> = ({
     if (id === stepBottom && !stepDirection) return 'bottom';
 
     return 'invisible';
-  }, [id, STEP, stepTop, stepBottom, stepDirection]);
+  }, [id, step, stepTop, stepBottom, stepDirection]);
 
   const scrollRef = useTopBottomScrollListener(
     step === id,
@@ -142,7 +143,7 @@ export const ContentItem: FC<ContentItemProps> = ({
       },
       currentTop: {
         x: 0,
-        y: MAGIC.header,
+        y: MAGIC.cardHeader * 0.90,
         top: 0,
         opacity: 1,
       },
@@ -173,7 +174,7 @@ export const ContentItem: FC<ContentItemProps> = ({
         y: 0,
         top: 0,
         scale: 0.95,
-        opacity: 0,
+        opacity: 0.5,
       },
 
       // New content
@@ -196,7 +197,7 @@ export const ContentItem: FC<ContentItemProps> = ({
       },
       bottom: {
         x: 0,
-        y: [height, height - 100 - MAGIC.header],
+        y: [height, height - MAGIC.header - MAGIC.cardHeader],
         opacity: 1,
         visibility: 'visible' as any,
         transition: {
@@ -207,68 +208,73 @@ export const ContentItem: FC<ContentItemProps> = ({
     };
   }, [height]);
 
-  const handleAnimationComplete = useCallback((currentAnimation) => {
-    if (typeof currentAnimation !== 'string') {
-      return null;
-    }
-
-    if (currentAnimation === 'exit') {
+  const handleAnimationStart = useCallback((a: string) => {
+    if (
+      a === 'invisible'
+      || a === 'exit'
+      || a === 'currentTop'
+      || a === 'currentBottom'
+    ) {
+      scrollRef.current.style.overflow = 'hidden';
+    } else {
       setTimeout(() => {
-        setStep(null);
-        dispatch(setStep(null));
-        dispatch(setStepTop(null));
-        dispatch(setStepBottom(null));
+        scrollRef.current.style.overflow = 'auto';
       }, 200);
     }
 
-    if (
-      currentAnimation === 'initialTop'
-      || currentAnimation === 'initialBottom'
-    ) {
-      dispatch(setStepDirection(null));
-      dispatch(setStepTop(null));
-      dispatch(setStepBottom(null));
+    if (typeof a === 'string') {
+      currentAnimation.current = a;
+    }
+  }, [scrollRef]);
+
+  const handleAnimationComplete = useCallback((a: string) => {
+    if (a === 'exit') {
+      dispatch(setState({
+        stepDirection: null,
+        stepTop: null,
+        stepBottom: null,
+      }));
     }
 
     if (
-      currentAnimation === 'animate'
+      a === 'initialTop'
+      || a === 'initialBottom'
+    ) {
+      dispatch(setState({
+        stepDirection: null,
+        stepTop: null,
+        stepBottom: null,
+      }));
+    }
+
+    if (
+      a === 'animate'
       && (prevAnimation.current === 'bottom' || prevAnimation.current === 'top')
     ) {
-      dispatch(setStep(id));
-      dispatch(setStepDirection(null));
-      dispatch(setStepTop(null));
-      dispatch(setStepBottom(null));
+      dispatch(setState({
+        step: id,
+        stepDirection: null,
+        stepTop: null,
+        stepBottom: null,
+      }));
     }
 
-    if (
-      currentAnimation !== 'invisible'
-      && currentAnimation !== 'exit'
-    ) {
-      scrollRef.current.style.overflow = 'auto';
-    } else {
-      scrollRef.current.style.overflow = 'hidden';
+    if (a === 'top') {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
 
-    if (typeof currentAnimation === 'string') {
-      prevAnimation.current = currentAnimation;
+    if (typeof a === 'string') {
+      prevAnimation.current = a;
     }
-
-    return prevAnimation.current;
   }, [id, dispatch, scrollRef]);
 
   const handleScrollDirectionChange = useCallback((d) => {
     dispatch(setStepDirection(d));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (step) {
-      setSTEP(step);
-    }
-  }, [step]);
-
   return (
     <>
-      {(stepTop || stepBottom) && (id === step) && (
+      {(stepTop || stepBottom) && (id === step) && !stepDirection && (
         <Scroller
           onScrollDirectionChange={handleScrollDirectionChange}
         />
@@ -287,10 +293,12 @@ export const ContentItem: FC<ContentItemProps> = ({
         transition={{
           duration: DURATION,
         }}
+        onAnimationStart={handleAnimationStart}
         onAnimationComplete={handleAnimationComplete}
       >
         {/* HEADER SPACE */}
         <motion.div
+          key="white-space"
           initial={{
             height: 0,
           }}
@@ -299,6 +307,9 @@ export const ContentItem: FC<ContentItemProps> = ({
           }}
           exit={{
             height: 0,
+          }}
+          transition={{
+            duration: 0,
           }}
           className={cx({
             'bg-white absolute z-20 mx-auto': true,
@@ -309,6 +320,7 @@ export const ContentItem: FC<ContentItemProps> = ({
             opacity: step === id && stepTop ? 0 : 1,
           }}
         />
+
         {/* BACKGROUND */}
         <div
           className={cx({
@@ -316,6 +328,7 @@ export const ContentItem: FC<ContentItemProps> = ({
           })}
         >
           <motion.div
+            key="background"
             initial={{
               marginTop: 0,
               marginLeft: 0,
@@ -346,6 +359,7 @@ export const ContentItem: FC<ContentItemProps> = ({
           })}
         >
           <motion.div
+            key="header-container"
             initial={{
               marginTop: 0,
               paddingTop: 0,
@@ -355,11 +369,9 @@ export const ContentItem: FC<ContentItemProps> = ({
             }}
             animate={{
               marginTop: MAGIC.header,
-              paddingTop: 0,
               paddingRight: MAGIC.margin.right * 2,
               paddingBottom: MAGIC.margin.bottom,
               paddingLeft: MAGIC.margin.left * 2,
-
             }}
             exit={{
               marginTop: 0,
@@ -372,6 +384,7 @@ export const ContentItem: FC<ContentItemProps> = ({
             className="relative z-10 p-6"
           >
             <motion.header
+              key="header"
               initial={{
                 top: 0,
               }}
@@ -412,10 +425,12 @@ export const ContentItem: FC<ContentItemProps> = ({
                 }}
                 type="button"
                 onClick={() => {
-                  dispatch(setStep(null));
-                  dispatch(setStepTop(null));
-                  dispatch(setStepBottom(null));
-                  dispatch(setStepDirection(null));
+                  dispatch(setState({
+                    step: null,
+                    stepDirection: null,
+                    stepTop: null,
+                    stepBottom: null,
+                  }));
                   scrollRef.current.scrollTop = 0;
                 }}
               >

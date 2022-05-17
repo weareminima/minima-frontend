@@ -30,7 +30,7 @@ export const ContentScroller: FC<ContentScrollerProps> = ({
         content.style.height = `${height * 2}px`;
         scroller.scrollTop = height / 2;
       }
-    }, 250);
+    }, 50);
   }, [height]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

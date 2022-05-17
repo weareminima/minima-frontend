@@ -49,15 +49,20 @@ export const homeSlice = createSlice({
       ...state,
       steps: action.payload,
     }),
+    setState: (state, action: PayloadAction<Partial<HomeInitialState>>) => ({
+      ...state,
+      ...action.payload,
+    }),
   },
 });
 
 export const {
   setStep,
+  setSteps,
+  setState,
   setStepTop,
   setStepBottom,
   setStepDirection,
-  setSteps,
 } = homeSlice.actions;
 
 export default homeSlice.reducer;
