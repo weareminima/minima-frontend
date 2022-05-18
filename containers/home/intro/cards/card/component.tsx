@@ -11,6 +11,8 @@ import {
   motion,
 } from 'framer-motion';
 
+import { CARD_SIZE } from 'constants/cards';
+
 interface CardProps {
   id: string;
   className?: string;
@@ -40,20 +42,20 @@ export const Card: FC<CardProps> = ({
     return {
       hidden: {
         x: '-50%',
-        y: '-50%',
+        y: -(CARD_SIZE.height / 2) - 80,
         z: 500,
         rotate: rotation,
-        width: 208,
-        height: 208,
+        width: CARD_SIZE.width,
+        height: CARD_SIZE.height,
         opacity: 0,
       },
       visible: {
         x: '-50%',
-        y: '-50%',
+        y: -(CARD_SIZE.height / 2) - 80,
         z: 0,
         rotate: rotation,
-        width: 208,
-        height: 208,
+        width: CARD_SIZE.width,
+        height: CARD_SIZE.height,
         opacity: 1,
         transition: {
           type: 'spring',
@@ -69,11 +71,11 @@ export const Card: FC<CardProps> = ({
       },
       invisible: {
         x: '-50%',
-        y: '-50%',
+        y: -(CARD_SIZE.height / 2) - 80,
         z: 0,
         rotate: rotation,
-        width: 208,
-        height: 208,
+        width: CARD_SIZE.width,
+        height: CARD_SIZE.height,
         opacity: 0,
         transition: {
           duration: 0.25,
@@ -83,16 +85,16 @@ export const Card: FC<CardProps> = ({
         const sign = hoverRotation / hoverRotation;
         return {
           x: '-50%',
-          y: '-50%',
+          y: -(CARD_SIZE.height / 2) - 80,
           scale: 1.1,
           rotate: [hoverRotation, -sign * 4, sign * 3, -sign * 2, 0],
           transition: {
             type: 'spring',
             rotate: {
               times: [0.8, 0.9, 1],
-              duration: 0.3,
+              duration: 0.5,
             },
-            duration: 0.3,
+            duration: 0.5,
           },
         };
       },
@@ -140,16 +142,22 @@ export const Card: FC<CardProps> = ({
         whileHover="hover"
         variants={styleVariants}
         className={cx({
-          'interactive cursor-pointer flex flex-col justify-between w-52 h-64 rounded-xl -translate-x-1/2 -translate-y-1/2 p-6': true,
-          [className]: !!className,
+          'interactive cursor-pointer flex flex-col rounded-3xl -translate-x-1/2 -translate-y-1/2 p-6 pt-20 box-content': true,
         })}
         onClick={handleClick}
         onAnimationComplete={handleAnimationComplete}
       >
-        <header className="flex space-x-2">
-          <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{index}</div>
-          <h2 className="flex items-center h-6 px-3 text-sm leading-none border border-gray-900 rounded-xl">{title}</h2>
-        </header>
+        <div
+          className={cx({
+            'flex flex-col p-6 grow rounded-3xl justify-between': true,
+            [className]: !!className,
+          })}
+        >
+          <header className="flex space-x-2">
+            <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{index}</div>
+            <h2 className="flex items-center h-6 px-3 text-sm leading-none border border-gray-900 rounded-xl">{title}</h2>
+          </header>
+        </div>
       </motion.div>
     </div>
   );

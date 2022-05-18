@@ -41,28 +41,30 @@ export const Content: FC<ContentProps> = () => {
   const variants = useMemo(() => {
     return {
       initial: {
-        x: x - (CARD_SIZE.width / 2),
-        y: y - (CARD_SIZE.height / 2),
+        x: x - (CARD_SIZE.width / 2) - 24,
+        y: y - (CARD_SIZE.height / 2) - 80,
         rotate: 0,
-        width: CARD_SIZE.width,
-        height: CARD_SIZE.height,
+        scale: 1.1,
+        width: CARD_SIZE.width + 48,
+        height: CARD_SIZE.height + 24 + 80,
         opacity: 1,
       },
       animate: {
         x: 0,
         y: 0,
-        z: 0,
         rotate: 0,
+        scale: 1,
         width,
         height,
         opacity: 1,
       },
       exit: {
-        x: x - (CARD_SIZE.width / 2),
-        y: y - (CARD_SIZE.height / 2),
+        x: x - (CARD_SIZE.width / 2) - 24,
+        y: y - (CARD_SIZE.height / 2) - 80,
         rotate: rotation,
-        width: CARD_SIZE.width,
-        height: CARD_SIZE.height,
+        scale: 1,
+        width: CARD_SIZE.width + 48,
+        height: CARD_SIZE.height + 24 + 80,
         opacity: 1,
       },
     };
@@ -89,7 +91,7 @@ export const Content: FC<ContentProps> = () => {
           key="content"
           layout
           className={cx({
-            'absolute z-20 overflow-hidden': true,
+            'absolute z-20 overflow-auto': true,
           })}
           variants={variants}
           initial="initial"
