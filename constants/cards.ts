@@ -10,6 +10,7 @@ export const CARDS = [
     title: 'Estudio',
     subtitle: 'Born to design what matters',
     className: 'bg-yellow-500',
+    gradient: 'from-yellow-500 to-yellow-500/0',
   },
   {
     index: 2,
@@ -17,6 +18,7 @@ export const CARDS = [
     title: 'Servicios',
     subtitle: 'Born to design what matters',
     className: 'bg-coral-500',
+    gradient: 'from-coral-500 to-coral-500/0',
   },
   {
     index: 3,
@@ -24,6 +26,7 @@ export const CARDS = [
     title: 'Método',
     subtitle: 'Born to design what matters',
     className: 'bg-purple-500',
+    gradient: 'from-purple-500 to-purple-500/0',
   },
   {
     index: 4,
@@ -31,6 +34,7 @@ export const CARDS = [
     title: 'Proyectos',
     subtitle: 'Born to design what matters',
     className: 'bg-blue-500',
+    gradient: 'from-blue-500 to-blue-500/0',
   },
   {
     index: 5,
@@ -38,6 +42,7 @@ export const CARDS = [
     title: 'Lab',
     subtitle: 'Born to design what matters',
     className: 'bg-green-500',
+    gradient: 'from-green-500 to-green-500/0',
   },
   {
     index: 6,
@@ -45,5 +50,6 @@ export const CARDS = [
     title: 'Contacto',
     subtitle: 'Born to design what matters',
     className: 'bg-gray-100',
+    gradient: 'from-gray-100 to-gray-100/0',
   },
 ];

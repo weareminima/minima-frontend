@@ -11,6 +11,7 @@ import {
   AnimatePresence,
   motion,
 } from 'framer-motion';
+import { Scroll } from 'scrollex';
 
 import useWindowSize from 'hooks/window';
 
@@ -91,7 +92,7 @@ export const Content: FC<ContentProps> = () => {
           key="content"
           layout
           className={cx({
-            'absolute z-20 overflow-auto': true,
+            'absolute z-20 overflow-hidden': true,
           })}
           variants={variants}
           initial="initial"
@@ -103,14 +104,20 @@ export const Content: FC<ContentProps> = () => {
           }}
           onAnimationComplete={handleAnimationComplete}
         >
-          {CARDS.map((card) => {
-            return (
-              <Item
-                key={card.id}
-                {...card}
-              />
-            );
-          })}
+          <Scroll.Container
+            scrollAxis="y"
+            className="w-full h-full"
+            throttleAmount={0}
+          >
+            {CARDS.map((card) => {
+              return (
+                <Item
+                  key={card.id}
+                  {...card}
+                />
+              );
+            })}
+          </Scroll.Container>
         </motion.div>
       )}
     </AnimatePresence>
