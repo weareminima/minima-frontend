@@ -10,20 +10,16 @@ type Step = {
 };
 interface HomeInitialState {
   open: boolean;
+  ready: boolean;
   step: string;
-  stepTop: string;
-  stepBottom: string;
-  stepDirection: 'up' | 'down';
   steps: Step[];
 }
 
 // Define the initial state using that type
 const initialState: HomeInitialState = {
   open: false,
+  ready: false,
   step: null,
-  stepTop: null,
-  stepBottom: null,
-  stepDirection: null,
   steps: [],
 };
 
@@ -35,21 +31,13 @@ export const homeSlice = createSlice({
       ...state,
       open: action.payload,
     }),
+    setReady: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      ready: action.payload,
+    }),
     setStep: (state, action: PayloadAction<string>) => ({
       ...state,
       step: action.payload,
-    }),
-    setStepTop: (state, action: PayloadAction<string>) => ({
-      ...state,
-      stepTop: action.payload,
-    }),
-    setStepBottom: (state, action: PayloadAction<string>) => ({
-      ...state,
-      stepBottom: action.payload,
-    }),
-    setStepDirection: (state, action: PayloadAction<'up' | 'down'>) => ({
-      ...state,
-      stepDirection: action.payload,
     }),
     setSteps: (state, action: PayloadAction<Step[]>) => ({
       ...state,
@@ -64,12 +52,10 @@ export const homeSlice = createSlice({
 
 export const {
   setOpen,
+  setReady,
   setStep,
   setSteps,
   setState,
-  setStepTop,
-  setStepBottom,
-  setStepDirection,
 } = homeSlice.actions;
 
 export default homeSlice.reducer;

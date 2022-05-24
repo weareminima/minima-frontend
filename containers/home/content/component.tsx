@@ -1,5 +1,5 @@
 import {
-  FC, useCallback, useMemo,
+  FC, useCallback, useMemo, useRef, useState,
 } from 'react';
 
 import cx from 'classnames';
@@ -23,12 +23,20 @@ interface ContentProps {
 }
 
 export const Content: FC<ContentProps> = () => {
+  const [scrollReady, setScrollReady] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>();
   const {
-    open, step, steps,
+    open, ready, step, steps,
   } = useAppSelector((state) => state['/home']);
 
   const STEP = useMemo(() => {
-    return steps.find((s) => s.id === step) || {} as any;
+    const S = steps.find((s) => s.id === step) || {} as any;
+    const C = CARDS.find((c) => c.id === step) || {} as any;
+
+    return {
+      ...S,
+      ...C,
+    };
   }, [step, steps]);
 
   const {
@@ -72,16 +80,34 @@ export const Content: FC<ContentProps> = () => {
   }, [x, y, rotation, width, height]);
 
   const handleAnimationComplete = useCallback((a: string) => {
+    if (a === 'animate') {
+      dispatch(setState({
+        ready: true,
+      }));
+
+      setTimeout(() => {
+        scrollRef.current.style.scrollBehavior = 'auto';
+        const { top } = document.getElementById(STEP.id)?.getBoundingClientRect();
+        scrollRef.current.scrollTo(0, top);
+        scrollRef.current.style.scrollBehavior = 'smooth';
+      }, 0);
+
+      setTimeout(() => {
+        setScrollReady(true);
+      }, 1);
+    }
+
     if (a === 'exit') {
       dispatch(setState({
         open: false,
+        ready: false,
         step: null,
-        stepDirection: null,
-        stepTop: null,
-        stepBottom: null,
       }));
+      setScrollReady(false);
     }
-  }, [dispatch]);
+  }, [STEP.id, dispatch]);
+
+  console.log(!(ready && scrollReady));
 
   return (
     <AnimatePresence
@@ -104,20 +130,44 @@ export const Content: FC<ContentProps> = () => {
           }}
           onAnimationComplete={handleAnimationComplete}
         >
-          <Scroll.Container
-            scrollAxis="y"
-            className="w-full h-full"
-            throttleAmount={0}
-          >
-            {CARDS.map((card) => {
-              return (
-                <Item
-                  key={card.id}
-                  {...card}
-                />
-              );
-            })}
-          </Scroll.Container>
+          {ready && (
+            <Scroll.Container
+              ref={scrollRef}
+              key="scroll"
+              scrollAxis="y"
+              className="z-0 w-full h-full bg-white"
+              throttleAmount={0}
+            >
+              {CARDS.map((card) => {
+                return (
+                  <Item
+                    key={card.id}
+                    {...card}
+                  />
+                );
+              })}
+            </Scroll.Container>
+          )}
+
+          {!(ready && scrollReady) && (
+            <div
+              className={cx({
+                'absolute top-0 left-0 w-full h-full pt-20 p-6 z-10': true,
+              })}
+            >
+              <div
+                className={cx({
+                  'w-full h-full rounded-3xl overflow-hidden p-6': true,
+                  [STEP.className]: true,
+                })}
+              >
+                <header className="flex space-x-2">
+                  <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{STEP.index}</div>
+                  <h2 className="flex items-center h-6 px-3 text-sm leading-none border border-gray-900 rounded-xl">{STEP.title}</h2>
+                </header>
+              </div>
+            </div>
+          )}
         </motion.div>
       )}
     </AnimatePresence>

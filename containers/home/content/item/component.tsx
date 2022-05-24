@@ -43,12 +43,10 @@ const keyframes: Record<string, Keyframes> = {
       [section.bottomAt('container-bottom') - SIZES.header - SIZES.footer]: {
         scale: 1,
         opacity: 1,
-        backdropFilter: 'blur(0px)',
       },
       [section.bottomAt('container-bottom') + (container.height) - SIZES.header - SIZES.footer]: {
         scale: 0.95,
         opacity: 0,
-        backdropFilter: 'blur(10px)',
       },
     };
   },
@@ -86,6 +84,11 @@ export const ContentItem: FC<ContentItemProps> = ({
       <Scroll.Item
         key="background"
         keyframes={keyframes.background}
+        springs={{
+          translateY: {
+            duration: 0,
+          },
+        }}
         className={cx({
           'fixed w-full h-full top-0 left-0 z-0 pt-20 px-6 pb-6 overflow-hidden rounded-3xl': true,
         })}
@@ -135,12 +138,15 @@ export const ContentItem: FC<ContentItemProps> = ({
                 type="button"
                 onClick={() => {
                   dispatch(setState({
-                    open: false,
-                    stepDirection: null,
-                    stepTop: null,
-                    stepBottom: null,
+                    ready: false,
+                    step: id,
                   }));
-                  // scrollRef.current.scrollTop = 0;
+
+                  setTimeout(() => {
+                    dispatch(setState({
+                      open: false,
+                    }));
+                  }, 0);
                 }}
               >
                 <Icon
@@ -309,6 +315,7 @@ export const ContentItem: FC<ContentItemProps> = ({
 
       {/* CONTENT SCOLLABLE */}
       <div
+        id={id}
         className="relative z-20 w-full px-6 pt-20 opacity-0 pointer-events-none"
       >
         <header
@@ -347,15 +354,6 @@ export const ContentItem: FC<ContentItemProps> = ({
                 },
               }}
               type="button"
-              onClick={() => {
-                dispatch(setState({
-                  open: false,
-                  stepDirection: null,
-                  stepTop: null,
-                  stepBottom: null,
-                }));
-                // scrollRef.current.scrollTop = 0;
-              }}
             >
               <Icon
                 icon={CLOSE_SVG}
