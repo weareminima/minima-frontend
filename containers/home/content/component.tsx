@@ -17,6 +17,7 @@ import useWindowSize from 'hooks/window';
 
 import { CARDS, CARD_SIZE } from 'constants/cards';
 
+import FakeItem from './fake-item';
 import Item from './item';
 
 interface ContentProps {
@@ -107,8 +108,6 @@ export const Content: FC<ContentProps> = () => {
     }
   }, [STEP.id, dispatch]);
 
-  console.log(!(ready && scrollReady));
-
   return (
     <AnimatePresence
       exitBeforeEnter
@@ -150,23 +149,7 @@ export const Content: FC<ContentProps> = () => {
           )}
 
           {!(ready && scrollReady) && (
-            <div
-              className={cx({
-                'absolute top-0 left-0 w-full h-full pt-20 p-6 z-10': true,
-              })}
-            >
-              <div
-                className={cx({
-                  'w-full h-full rounded-3xl overflow-hidden p-6': true,
-                  [STEP.className]: true,
-                })}
-              >
-                <header className="flex space-x-2">
-                  <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{STEP.index}</div>
-                  <h2 className="flex items-center h-6 px-3 text-sm leading-none border border-gray-900 rounded-xl">{STEP.title}</h2>
-                </header>
-              </div>
-            </div>
+            <FakeItem />
           )}
         </motion.div>
       )}

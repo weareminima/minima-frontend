@@ -1,5 +1,5 @@
 import {
-  FC, useCallback, useEffect, useMemo, useState,
+  FC, ReactNode, useCallback, useEffect, useMemo, useState,
 } from 'react';
 
 import cx from 'classnames';
@@ -11,6 +11,7 @@ import {
   motion,
 } from 'framer-motion';
 
+import Tag from 'components/tag';
 import { CARD_SIZE } from 'constants/cards';
 
 interface CardProps {
@@ -18,6 +19,7 @@ interface CardProps {
   className?: string;
   index: number;
   title: string;
+  subtitle: ReactNode;
   options: Record<string, any>;
 }
 
@@ -26,6 +28,7 @@ export const Card: FC<CardProps> = ({
   className = '',
   index,
   title,
+  subtitle,
   options,
 }: CardProps) => {
   const [animation, setAnimation] = useState('visible');
@@ -59,8 +62,8 @@ export const Card: FC<CardProps> = ({
         opacity: 1,
         transition: {
           type: 'spring',
-          bounce: 0.5,
-          duration: 0.75,
+          bounce: 0.25,
+          duration: 1,
           ...prevAnimation === 'hidden' && {
             delay: 2 + (index * 0.05),
           },
@@ -83,6 +86,7 @@ export const Card: FC<CardProps> = ({
       },
       hover: ({ rotation: hoverRotation }) => {
         const sign = hoverRotation / hoverRotation;
+
         return {
           x: '-50%',
           y: -(CARD_SIZE.height / 2) - 80,
@@ -143,6 +147,7 @@ export const Card: FC<CardProps> = ({
         variants={styleVariants}
         className={cx({
           'interactive cursor-pointer flex flex-col rounded-3xl -translate-x-1/2 -translate-y-1/2 p-6 pt-20 box-content': true,
+          'pointer-events-none': prevAnimation === 'hidden' || prevAnimation === 'invisible',
         })}
         onClick={handleClick}
         onAnimationComplete={handleAnimationComplete}
@@ -155,8 +160,14 @@ export const Card: FC<CardProps> = ({
         >
           <header className="flex space-x-2">
             <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{index}</div>
-            <h2 className="flex items-center h-6 px-3 text-sm leading-none border border-gray-900 rounded-xl">{title}</h2>
+            <Tag>
+              {title}
+            </Tag>
+
           </header>
+          <div>
+            {subtitle}
+          </div>
         </div>
       </motion.div>
     </div>

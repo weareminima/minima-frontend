@@ -15,6 +15,7 @@ import {
 import { Keyframes, Scroll } from 'scrollex';
 
 import Icon from 'components/icon';
+import Tag from 'components/tag';
 
 import CLOSE_SVG from 'svgs/close.svg?sprite';
 
@@ -90,7 +91,7 @@ export const ContentItem: FC<ContentItemProps> = ({
           },
         }}
         className={cx({
-          'fixed w-full h-full top-0 left-0 z-0 pt-20 px-6 pb-6 overflow-hidden rounded-3xl': true,
+          'fixed w-full h-full top-0 left-0 z-0 pt-20 px-6 pb-6 overflow-hidden rounded-3xl will-change-transform': true,
         })}
       >
         <div
@@ -113,7 +114,10 @@ export const ContentItem: FC<ContentItemProps> = ({
             >
               <div className="flex space-x-2">
                 <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{index}</div>
-                <h2 className="flex items-center h-6 px-3 text-sm leading-none border border-gray-900 rounded-xl">{title}</h2>
+                <Tag>
+                  {title}
+                </Tag>
+
               </div>
 
               <motion.button
@@ -161,7 +165,7 @@ export const ContentItem: FC<ContentItemProps> = ({
           <Scroll.Item
             key="content"
             keyframes={keyframes.content}
-            className="p-6 space-y-20 overflow-hidden"
+            className="p-6 space-y-20 overflow-hidden will-change-transform"
           >
             <div className="text-xl">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
