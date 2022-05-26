@@ -2,8 +2,8 @@ import {
   FC,
 } from 'react';
 
-import Content from './content';
 import Intro from './intro';
+import Scroller from './scroller';
 
 interface HomeProps {}
 
@@ -14,7 +14,7 @@ export const Home: FC<HomeProps> = () => {
     >
       <Intro />
 
-      <Content />
+      <Scroller />
 
     </div>
   );
