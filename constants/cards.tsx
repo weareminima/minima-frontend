@@ -15,6 +15,7 @@ export const CARDS = [
         <i className="font-italic font-display">matters</i>
       </p>
     ),
+    description: 'Somos un estudio de diseño de marcas, productos y servicios para proyectos con integridad de propósito.',
     className: 'bg-yellow-500',
     gradient: 'from-yellow-500 to-yellow-500/0',
   },
@@ -29,6 +30,7 @@ export const CARDS = [
         <i className="font-italic font-display">real</i>
       </p>
     ),
+    description: 'Las historias que diseñamos se resumen en los principios que las guían.',
     className: 'bg-coral-500',
     gradient: 'from-coral-500 to-coral-500/0',
   },
@@ -43,6 +45,7 @@ export const CARDS = [
         <i className="font-italic font-display">matters</i>
       </p>
     ),
+    description: 'Las historias que diseñamos se resumen en los principios que las guían.',
     className: 'bg-purple-500',
     gradient: 'from-purple-500 to-purple-500/0',
   },
@@ -57,6 +60,7 @@ export const CARDS = [
         <i className="font-italic font-display">matters</i>
       </p>
     ),
+    description: 'Las historias que diseñamos se resumen en los principios que las guían.',
     className: 'bg-blue-500',
     gradient: 'from-blue-500 to-blue-500/0',
   },
@@ -71,6 +75,7 @@ export const CARDS = [
         <i className="font-italic font-display">matters</i>
       </p>
     ),
+    description: 'Las historias que diseñamos se resumen en los principios que las guían.',
     className: 'bg-green-500',
     gradient: 'from-green-500 to-green-500/0',
   },
@@ -85,6 +90,7 @@ export const CARDS = [
         <i className="font-italic font-display">here</i>
       </p>
     ),
+    description: 'Las historias que diseñamos se resumen en los principios que las guían.',
     className: 'bg-gray-100',
     gradient: 'from-gray-100 to-gray-100/0',
   },

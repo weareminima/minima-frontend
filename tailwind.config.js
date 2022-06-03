@@ -32,7 +32,7 @@ module.exports = {
       '5xl': ['3rem', { lineHeight: '1' }],
       '6xl': ['3.75rem', { lineHeight: '1' }],
       '7xl': ['4rem', { lineHeight: '1', letterSpacing: '-1%' }],
-      '8xl': ['6rem', { lineHeight: '1' }],
+      '8xl': ['5rem', { lineHeight: '1' }],
       '9xl': ['7.5rem', { lineHeight: '1', letterSpacing: '-1%' }],
     },
     customForms: (theme) => ({

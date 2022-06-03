@@ -19,7 +19,23 @@ import Tag from 'components/tag';
 
 import CLOSE_SVG from 'svgs/close.svg?sprite';
 
-import Content from './content';
+import {
+  ContentContact,
+  ContentLab,
+  ContentMethod,
+  ContentProjects,
+  ContentServices,
+  ContentStudio,
+} from './content';
+
+const CONTENT = {
+  studio: <ContentStudio />,
+  services: <ContentServices />,
+  method: <ContentMethod />,
+  projects: <ContentProjects />,
+  lab: <ContentLab />,
+  contact: <ContentContact />,
+};
 
 const SIZES = {
   header: 80,
@@ -163,9 +179,9 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           <Scroll.Item
             key="content"
             keyframes={keyframes.content}
-            className="p-6 space-y-20 grow will-change-transform"
+            className="px-6 pb-6 space-y-20 grow will-change-transform"
           >
-            <Content />
+            {CONTENT[id]}
           </Scroll.Item>
 
           {/* FOOTER */}
@@ -202,9 +218,9 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
         </header>
 
         <div
-          className="p-6 space-y-20 overflow-hidden"
+          className="px-6 pb-6 space-y-20 overflow-hidden"
         >
-          <Content />
+          {CONTENT[id]}
         </div>
       </div>
     </Scroll.Section>

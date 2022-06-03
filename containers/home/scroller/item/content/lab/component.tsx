@@ -2,16 +2,28 @@ import {
   FC,
 } from 'react';
 
-interface ContentItemProps {
+import { useAppSelector } from 'store/hooks';
 
-}
+import useStep from 'hooks/steps';
 
-export const ContentItem: FC<ContentItemProps> = () => {
+import HeroItem from 'containers/home/scroller/item/content/common/hero';
+
+interface ContentItemLabProps {}
+
+export const ContentItemLab: FC<ContentItemLabProps> = () => {
+  const {
+    steps,
+  } = useAppSelector((state) => state['/home']);
+
+  const STEP = useStep({ step: 'lab', steps });
+
   return (
     <>
-      <div className="w-full h-[calc(100vh_-_80px_-_48px_-_72px)]">
-        Hello
-      </div>
+      <HeroItem
+        subtitle={STEP.subtitle}
+        description={STEP.description}
+      />
+
       <div className="text-xl">
         Lorem ipsum dolor sit amet consectetur adipisicing elit.
         Perspiciatis quidem praesentium veritatis ipsam, autem ex
@@ -154,4 +166,4 @@ export const ContentItem: FC<ContentItemProps> = () => {
   );
 };
 
-export default ContentItem;
+export default ContentItemLab;

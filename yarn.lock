@@ -12750,6 +12750,7 @@ __metadata:
     react-aria: ^3.6.0
     react-dom: ^17.0.2
     react-hook-form: ^7.30.0
+    react-intersection-observer: 8.34.0
     react-masonry-css: ^1.0.16
     react-popper: ^2.2.5
     react-query: ^3.16.0
@@ -14802,7 +14803,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-intersection-observer@npm:^8.31.0":
+"react-intersection-observer@npm:8.34.0, react-intersection-observer@npm:^8.31.0":
   version: 8.34.0
   resolution: "react-intersection-observer@npm:8.34.0"
   peerDependencies:
