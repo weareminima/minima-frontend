@@ -10,7 +10,7 @@ import {
   motion,
 } from 'framer-motion';
 
-interface SectionItemProps {
+interface ImgTxtProps {
   image: {
     src: string;
     alt: string;
@@ -19,7 +19,7 @@ interface SectionItemProps {
   reverse?: boolean;
 }
 
-export const SectionItem: FC<SectionItemProps> = ({
+export const ImgTxt: FC<ImgTxtProps> = ({
   image,
   children,
   reverse,
@@ -90,4 +90,4 @@ export const SectionItem: FC<SectionItemProps> = ({
   );
 };
 
-export default SectionItem;
+export default ImgTxt;

@@ -7,7 +7,8 @@ import { useAppSelector } from 'store/hooks';
 import useStep from 'hooks/steps';
 
 import HeroItem from 'containers/home/scroller/item/content/common/hero';
-import SectionItem from 'containers/home/scroller/item/content/common/section';
+import Img from 'containers/home/scroller/item/content/common/img';
+import ImgTxt from 'containers/home/scroller/item/content/common/img-txt';
 
 import Tag from 'components/tag';
 
@@ -27,7 +28,7 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
         description={STEP.description}
       />
 
-      <SectionItem
+      <ImgTxt
         image={{
           src: '/images/services/hero.png',
           alt: 'Hero',
@@ -53,9 +54,9 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
             </p>
           </div>
         </>
-      </SectionItem>
+      </ImgTxt>
 
-      <SectionItem
+      <ImgTxt
         image={{
           src: '/images/services/hero.png',
           alt: 'Hero',
@@ -82,9 +83,9 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
             </p>
           </div>
         </>
-      </SectionItem>
+      </ImgTxt>
 
-      <SectionItem
+      <ImgTxt
         image={{
           src: '/images/services/hero.png',
           alt: 'Hero',
@@ -110,7 +111,14 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
             </p>
           </div>
         </>
-      </SectionItem>
+      </ImgTxt>
+
+      <Img
+        image={{
+          src: '/images/services/hero.png',
+          alt: 'Hero',
+        }}
+      />
     </>
   );
 };
