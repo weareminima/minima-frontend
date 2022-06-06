@@ -13,6 +13,7 @@ import {
 } from 'framer-motion';
 import { Scroll } from 'scrollex';
 
+import usePreloadImages from 'hooks/images';
 import useWindowSize from 'hooks/window';
 
 import { CARDS, CARD_SIZE } from 'constants/cards';
@@ -47,6 +48,8 @@ export const Scroller: FC<ScrollerProps> = () => {
   const { width, height } = useWindowSize();
 
   const dispatch = useAppDispatch();
+
+  usePreloadImages();
 
   const variants = useMemo(() => {
     return {

@@ -101,7 +101,9 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
         keyframes={keyframes.background}
         springs={{
           translateY: {
-            duration: 0,
+            mass: 0.01,
+            damping: 10,
+            stiffness: 150,
           },
         }}
         className={cx({
