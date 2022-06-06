@@ -25,7 +25,7 @@ export const Img: FC<ImgProps> = ({
   });
 
   return (
-    <div ref={sectionRef} className="py-20">
+    <div ref={sectionRef}>
       <motion.div
         key="image"
         initial="initial"

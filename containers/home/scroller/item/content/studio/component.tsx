@@ -8,9 +8,7 @@ import useStep from 'hooks/steps';
 
 import HeroItem from 'containers/home/scroller/item/content/common/hero';
 import Img from 'containers/home/scroller/item/content/common/img';
-import ImgTxt from 'containers/home/scroller/item/content/common/img-txt';
-
-import Tag from 'components/tag';
+import Txt3Columns from 'containers/home/scroller/item/content/common/txt-3-columns';
 
 interface ContentItemStudioProps { }
 
@@ -28,97 +26,33 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
         description={STEP.description}
       />
 
-      <ImgTxt
-        image={{
-          src: '/images/services/hero.png',
-          alt: 'Hero',
-        }}
-      >
-        <>
-          <div className="mb-8">
-            <Tag>
-              Principio nº1
-            </Tag>
-          </div>
-
-          <h3 className="mb-4 text-6xl font-display">
-            Diseñame despacio que tengo prisa
-          </h3>
-
-          <div className="space-y-4">
-            <p className="text-base">
-              El diseño ágil ha sido muy útil en muchos casos y corrompido en tantos otros. La velocidad se ha establecido como una de las cualidades de mayor valor, poniéndose en multitud de ocasiones como excusa para sacrificar el espacio destinado a la reflexión. Defendemos la mejora progresiva mediante versiones orientadas a la verdadera entrega de valor, pero rechazamos el trabajo desorientado y movido por la inercia de un plan sin rumbo. Disponer del tiempo para establecer la dirección no debería ser negociable en el momento en el que su recorte suponga un deterioro crítico de la calidad.
-            </p>
-            <p className="text-base">
-              En contra de las metodologías dominantes actuales que premian la rapidez y la inmediatez, nosotras reivindicamos un diseño más juicioso y pausado para un mayor control y un mejor resultado.
-            </p>
-          </div>
-        </>
-      </ImgTxt>
-
-      <ImgTxt
-        image={{
-          src: '/images/services/hero.png',
-          alt: 'Hero',
-        }}
-        reverse
-      >
-        <>
-          <div className="mb-8">
-            <Tag>
-              Principio nº2
-            </Tag>
-          </div>
-
-          <h3 className="mb-4 text-6xl font-display">
-            Diseñame despacio que tengo prisa
-          </h3>
-
-          <div className="space-y-4">
-            <p className="text-base">
-              El diseño ágil ha sido muy útil en muchos casos y corrompido en tantos otros. La velocidad se ha establecido como una de las cualidades de mayor valor, poniéndose en multitud de ocasiones como excusa para sacrificar el espacio destinado a la reflexión. Defendemos la mejora progresiva mediante versiones orientadas a la verdadera entrega de valor, pero rechazamos el trabajo desorientado y movido por la inercia de un plan sin rumbo. Disponer del tiempo para establecer la dirección no debería ser negociable en el momento en el que su recorte suponga un deterioro crítico de la calidad.
-            </p>
-            <p className="text-base">
-              En contra de las metodologías dominantes actuales que premian la rapidez y la inmediatez, nosotras reivindicamos un diseño más juicioso y pausado para un mayor control y un mejor resultado.
-            </p>
-          </div>
-        </>
-      </ImgTxt>
-
-      <ImgTxt
-        image={{
-          src: '/images/services/hero.png',
-          alt: 'Hero',
-        }}
-      >
-        <>
-          <div className="mb-8">
-            <Tag>
-              Principio nº3
-            </Tag>
-          </div>
-
-          <h3 className="mb-4 text-6xl font-display">
-            Diseñame despacio que tengo prisa
-          </h3>
-
-          <div className="space-y-4">
-            <p className="text-base">
-              El diseño ágil ha sido muy útil en muchos casos y corrompido en tantos otros. La velocidad se ha establecido como una de las cualidades de mayor valor, poniéndose en multitud de ocasiones como excusa para sacrificar el espacio destinado a la reflexión. Defendemos la mejora progresiva mediante versiones orientadas a la verdadera entrega de valor, pero rechazamos el trabajo desorientado y movido por la inercia de un plan sin rumbo. Disponer del tiempo para establecer la dirección no debería ser negociable en el momento en el que su recorte suponga un deterioro crítico de la calidad.
-            </p>
-            <p className="text-base">
-              En contra de las metodologías dominantes actuales que premian la rapidez y la inmediatez, nosotras reivindicamos un diseño más juicioso y pausado para un mayor control y un mejor resultado.
-            </p>
-          </div>
-        </>
-      </ImgTxt>
-
       <Img
         image={{
-          src: '/images/services/hero.png',
+          src: '/images/studio/full-screen.png',
           alt: 'Hero',
         }}
       />
+
+      <Txt3Columns>
+        <div id="column1">
+          <h3 className="text-6xl font-display">
+            Pero, ¿qué significa hacer buen diseño?
+          </h3>
+        </div>
+        <div id="column2">
+          <p>
+            En Mínima entendemos el diseño como la herramienta más propia del ser humano, capaz de modelar la realidad en todas sus dimensiones. Pero el diseño no solo es el resultado, es también la intención que lo impulsa y el impacto que genera. Esto conlleva una responsabilidad de la que nos vemos alejados por estar entretenidos con temáticas de segundo orden. Por esta razón, tendemos a olvidar que el diseño es tan funcional y estético como social, político o ecológico.
+          </p>
+        </div>
+        <div id="column3" className="space-y-2.5">
+          <p className="text-2xl italic font-display">
+            Es por esto que reivindicamos recuperar su verdadero sentido: intervenir de forma consciente, comprometida y responsable no solo en un presente más sano sino en un futuro más próspero.
+          </p>
+          <p>
+            Nace así Mínima como voluntad para reflexionar, hacer y participar en el bienestar de los individuos, la sociedad y el entorno, porque sabemos que un buen diseño comienza con un gran propósito.
+          </p>
+        </div>
+      </Txt3Columns>
     </>
   );
 };

@@ -182,7 +182,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           <Scroll.Item
             key="content"
             keyframes={keyframes.content}
-            className="px-6 pb-6 space-y-20 grow will-change-transform"
+            className="px-6 pb-6 grow will-change-transform"
           >
             {CONTENT[id]}
           </Scroll.Item>
@@ -221,7 +221,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
         </header>
 
         <div
-          className="px-6 pb-6 space-y-20 overflow-hidden"
+          className="px-6 pb-6 overflow-hidden"
         >
           {CONTENT[id]}
         </div>
