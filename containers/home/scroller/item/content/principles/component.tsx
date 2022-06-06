@@ -30,7 +30,7 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
       <div className="divide-y divide-dark/25 divide-dashed">
         <ImgTxt
           image={{
-            src: '/images/services/01.png',
+            src: '/images/principles/01.png',
             alt: 'Hero',
           }}
         >
@@ -54,7 +54,7 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
 
         <ImgTxt
           image={{
-            src: '/images/services/02.png',
+            src: '/images/principles/02.png',
             alt: 'Hero',
           }}
           options={{
@@ -81,7 +81,7 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
 
         <ImgTxt
           image={{
-            src: '/images/services/03.png',
+            src: '/images/principles/03.png',
             alt: 'Hero',
           }}
         >

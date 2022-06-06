@@ -7,6 +7,9 @@ import { useAppSelector } from 'store/hooks';
 import useStep from 'hooks/steps';
 
 import HeroItem from 'containers/home/scroller/item/content/common/hero';
+import ImgTxt from 'containers/home/scroller/item/content/common/img-txt';
+
+import Tag from 'components/tag';
 
 interface ContentItemLabProps {}
 
@@ -24,144 +27,31 @@ export const ContentItemLab: FC<ContentItemLabProps> = () => {
         description={STEP.description}
       />
 
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
-      <div className="text-xl">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Perspiciatis quidem praesentium veritatis ipsam, autem ex
-        consequuntur atque iste rem repellendus aliquam!
-        Non magni ex dicta, minima quod error adipisci iusto.
-      </div>
+      <ImgTxt
+        image={{
+          src: '/images/lab/01.png',
+          alt: 'Hero',
+        }}
+        options={{
+          fullScreen: true,
+          reverse: true,
+          align: 'end',
+        }}
+      >
+        <>
+          <div className="mb-8">
+            <Tag>
+              Mínima Lab
+            </Tag>
+          </div>
+
+          <div className="space-y-4">
+            <p>El Lab de Mínima se ha creado como una unidad de experimentación cuya función es la de entrenar la mirada, provocar el pensamiento y poner a prueba ideas sin límites en las áreas que más nos interesan.</p>
+            <p>De esta forma, lanzamos proyectos propios en fase beta, investigamos metodologías, abrimos debates sobre desafíos contemporáneos o testamos tecnologías, combinando enfoques tanto empíricos como teóricos.</p>
+            <p className="text-3xl italic font-display">Para nosotras es un espacio de juego y aprendizaje donde probar conceptos dirigidos por la imaginación, libertad y pasión.</p>
+          </div>
+        </>
+      </ImgTxt>
     </>
   );
 };

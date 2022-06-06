@@ -105,7 +105,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           },
         }}
         className={cx({
-          'fixed w-full h-full top-0 left-0 z-0 overflow-hidden rounded-3xl will-change-transform': true,
+          'fixed w-full h-full top-0 left-0 z-0 overflow-hidden rounded-3xl will-change-auto': true,
           'lg:pt-20 md:pt-16 pt-12 ': true,
           'lg:px-8 md:px-6 px-4': true,
           'lg:pb-6 md:pb-6 pb-4': true,

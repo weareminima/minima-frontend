@@ -33,16 +33,36 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
             src: '/images/services/01.png',
             alt: 'Hero',
           }}
+          options={{
+            fullScreen: true,
+            reverse: true,
+            align: 'end',
+            imageClassName: 'w-8/12',
+            contentClassName: 'w-4/12',
+          }}
         >
           <>
             <div className="mb-8">
               <Tag>
-                Principio nº1
+                Qué hacemos
               </Tag>
             </div>
 
+            <div className="space-y-4">
+              <p>Nuestro objetivo es aportar diseños no solo rentables, sino también conectados con algo más grande, noble y trascendente: mejorar el presente y promover la calidad del futuro a través de la dirección estratégica, conceptualización y creación de marcas, productos y servicios.</p>
+            </div>
+          </>
+        </ImgTxt>
+
+        <ImgTxt
+          image={{
+            src: '/images/services/02.png',
+            alt: 'Hero',
+          }}
+        >
+          <>
             <h3 className="mb-4 text-6xl font-display">
-              Diseñame despacio que tengo prisa
+              Marcas
             </h3>
 
             <div className="space-y-4">
@@ -54,7 +74,7 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
 
         <ImgTxt
           image={{
-            src: '/images/services/02.png',
+            src: '/images/services/03.png',
             alt: 'Hero',
           }}
           options={{
@@ -62,14 +82,8 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           }}
         >
           <>
-            <div className="mb-8">
-              <Tag>
-                Principio nº2
-              </Tag>
-            </div>
-
             <h3 className="mb-4 text-6xl font-display">
-              El diseño no se dice, el diseño se hace
+              Productos
             </h3>
 
             <div className="space-y-4">
@@ -81,19 +95,13 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
 
         <ImgTxt
           image={{
-            src: '/images/services/03.png',
+            src: '/images/services/04.png',
             alt: 'Hero',
           }}
         >
           <>
-            <div className="mb-8">
-              <Tag>
-                Principio nº3
-              </Tag>
-            </div>
-
             <h3 className="mb-4 text-6xl font-display">
-              Diseña como te gustaría que diseñaran para ti
+              Servicios
             </h3>
 
             <div className="space-y-4">

@@ -19,6 +19,9 @@ interface ImgTxtProps {
   options?: {
     fullScreen?: boolean;
     reverse?: boolean;
+    align?: 'start' | 'center' | 'end';
+    imageClassName?: string;
+    contentClassName?: string;
   }
 }
 
@@ -30,6 +33,9 @@ export const ImgTxt: FC<ImgTxtProps> = ({
   const {
     reverse,
     fullScreen,
+    align = 'start',
+    imageClassName = '',
+    contentClassName = '',
   } = options || {};
 
   const { ref: sectionRef, inView: sectionInView } = useInView({
@@ -50,6 +56,9 @@ export const ImgTxt: FC<ImgTxtProps> = ({
         className={cx({
           'flex space-x-40': true,
           'flex-row-reverse space-x-reverse': reverse,
+          'items-start': align === 'start',
+          'items-center': align === 'center',
+          'items-end': align === 'end',
         })}
       >
         <motion.div
@@ -71,8 +80,8 @@ export const ImgTxt: FC<ImgTxtProps> = ({
           }}
           className={cx({
             'opacity-0': true,
-            'w-full': !fullScreen,
-            'w-8/12': fullScreen,
+            'w-full': !imageClassName,
+            [imageClassName]: !!imageClassName,
           })}
         >
           <img
@@ -101,8 +110,8 @@ export const ImgTxt: FC<ImgTxtProps> = ({
           }}
           className={cx({
             'opacity-0': true,
-            'w-full': !fullScreen,
-            'w-4/12': fullScreen,
+            'w-full': !contentClassName,
+            [contentClassName]: !!contentClassName,
           })}
         >
           {children}

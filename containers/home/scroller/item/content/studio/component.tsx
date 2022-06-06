@@ -37,6 +37,8 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
         options={{
           fullScreen: true,
           reverse: true,
+          imageClassName: 'w-8/12',
+          contentClassName: 'w-4/12',
         }}
       >
         <>
@@ -78,7 +80,7 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
       <div className="py-20 border-t border-dashed border-dark/25">
         <Img
           image={{
-            src: '/images/studio/full-screen.png',
+            src: '/images/studio/02.png',
             alt: 'Hero',
           }}
         />
