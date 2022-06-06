@@ -16,15 +16,17 @@ interface SectionItemProps {
     alt: string;
   };
   children: ReactChild;
+  reverse?: boolean;
 }
 
 export const SectionItem: FC<SectionItemProps> = ({
   image,
   children,
+  reverse,
 }) => {
   const { ref: sectionRef, inView: sectionInView } = useInView({
     /* Optional options */
-    threshold: 1,
+    threshold: 0.5,
     triggerOnce: true,
   });
 
@@ -32,23 +34,22 @@ export const SectionItem: FC<SectionItemProps> = ({
     <div ref={sectionRef} className="py-20 px-28">
       <div
         className={cx({
-          'flex space-x-10': true,
+          'flex space-x-40': true,
+          'flex-row-reverse space-x-reverse': reverse,
         })}
       >
         <motion.div
           key="image"
           initial="initial"
-          animate={sectionInView ? 'animate' : 'exit'}
-          exit="exit"
+          animate={sectionInView ? 'animate' : 'initial'}
           variants={{
             initial: {
+              y: 20,
               opacity: 0,
             },
             animate: {
+              y: 0,
               opacity: 1,
-            },
-            exit: {
-              opacity: 0,
             },
           }}
           transition={{
@@ -57,24 +58,24 @@ export const SectionItem: FC<SectionItemProps> = ({
           className="w-full opacity-0"
         >
           <img
+            className="w-full"
             src={image.src}
             alt={image.alt}
           />
         </motion.div>
 
         <motion.div
+          key="section"
           initial="initial"
-          animate={sectionInView ? 'animate' : 'exit'}
-          exit="exit"
+          animate={sectionInView ? 'animate' : 'initial'}
           variants={{
             initial: {
+              y: 20,
               opacity: 0,
             },
             animate: {
+              y: 0,
               opacity: 1,
-            },
-            exit: {
-              opacity: 0,
             },
           }}
           transition={{

@@ -6,7 +6,7 @@ export const Tag: FC<TagProps> = ({
   children,
 }: TagProps) => {
   return (
-    <h2 className="flex items-center h-6 px-2 text-sm leading-none border border-gray-900 rounded-xl">
+    <h2 className="inline-flex items-center h-6 px-2 text-sm leading-none border border-gray-900 rounded-xl">
       {children}
     </h2>
   );

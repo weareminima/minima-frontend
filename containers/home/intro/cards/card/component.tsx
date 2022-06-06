@@ -146,8 +146,10 @@ export const Card: FC<CardProps> = ({
         whileHover="hover"
         variants={styleVariants}
         className={cx({
-          'interactive cursor-pointer flex flex-col rounded-3xl -translate-x-1/2 -translate-y-1/2 p-6 pt-20 box-content': true,
+          'interactive cursor-pointer flex flex-col rounded-3xl -translate-x-1/2 -translate-y-1/2 box-content': true,
           'pointer-events-none': prevAnimation === 'hidden' || prevAnimation === 'invisible',
+          'lg:pt-20 md:pt-16 pt-12 ': true,
+          'lg:p-8 md:p-6 p-4': true,
         })}
         onClick={handleClick}
         onAnimationComplete={handleAnimationComplete}

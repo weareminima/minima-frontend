@@ -72,7 +72,7 @@ export const HeroItem: FC<HeroItemProps> = ({
           duration: 0.5,
         }}
         className={cx({
-          'font-display text-7xl max-w-3xl': true,
+          'font-display text-5xl md:text-7xl max-w-3xl': true,
         })}
       >
         {description}

@@ -51,12 +51,12 @@ export const Scroller: FC<ScrollerProps> = () => {
   const variants = useMemo(() => {
     return {
       initial: {
-        x: x - (CARD_SIZE.width / 2) - 24,
+        x: x - (CARD_SIZE.width / 2) - 32,
         y: y - (CARD_SIZE.height / 2) - 80,
         rotate: 0,
         scale: 1.1,
-        width: CARD_SIZE.width + 48,
-        height: CARD_SIZE.height + 24 + 80,
+        width: CARD_SIZE.width + 64,
+        height: CARD_SIZE.height + 32 + 80,
         opacity: 1,
       },
       animate: {
@@ -69,12 +69,12 @@ export const Scroller: FC<ScrollerProps> = () => {
         opacity: 1,
       },
       exit: {
-        x: x - (CARD_SIZE.width / 2) - 24,
+        x: x - (CARD_SIZE.width / 2) - 32,
         y: y - (CARD_SIZE.height / 2) - 80,
         rotate: rotation,
         scale: 1,
-        width: CARD_SIZE.width + 48,
-        height: CARD_SIZE.height + 24 + 80,
+        width: CARD_SIZE.width + 64,
+        height: CARD_SIZE.height + 32 + 80,
         opacity: 1,
       },
     };

@@ -14,9 +14,9 @@ import useStep from 'hooks/steps';
 
 import Tag from 'components/tag';
 
-interface ContentFakeItemProps {}
+interface FakeItemProps {}
 
-export const ContentFakeItem: FC<ContentFakeItemProps> = () => {
+export const FakeItem: FC<FakeItemProps> = () => {
   const {
     step, steps,
   } = useAppSelector((state) => state['/home']);
@@ -26,7 +26,9 @@ export const ContentFakeItem: FC<ContentFakeItemProps> = () => {
   return (
     <div
       className={cx({
-        'absolute top-0 left-0 w-full h-full pt-20 p-6 z-10': true,
+        'absolute top-0 left-0 w-full h-full z-10': true,
+        'lg:pt-20 md:pt-16 pt-12 ': true,
+        'lg:p-8 md:p-6 p-4': true,
       })}
     >
       <div
@@ -71,4 +73,4 @@ export const ContentFakeItem: FC<ContentFakeItemProps> = () => {
   );
 };
 
-export default ContentFakeItem;
+export default FakeItem;
