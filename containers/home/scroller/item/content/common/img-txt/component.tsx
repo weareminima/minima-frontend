@@ -16,14 +16,22 @@ interface ImgTxtProps {
     alt: string;
   };
   children: ReactChild;
-  reverse?: boolean;
+  options?: {
+    fullScreen?: boolean;
+    reverse?: boolean;
+  }
 }
 
 export const ImgTxt: FC<ImgTxtProps> = ({
   image,
   children,
-  reverse,
+  options,
 }) => {
+  const {
+    reverse,
+    fullScreen,
+  } = options || {};
+
   const { ref: sectionRef, inView: sectionInView } = useInView({
     /* Optional options */
     threshold: 0.5,
@@ -31,7 +39,13 @@ export const ImgTxt: FC<ImgTxtProps> = ({
   });
 
   return (
-    <div ref={sectionRef} className="py-20 px-28">
+    <div
+      ref={sectionRef}
+      className={cx({
+        'py-20': true,
+        'px-28': !fullScreen,
+      })}
+    >
       <div
         className={cx({
           'flex space-x-40': true,
@@ -55,7 +69,11 @@ export const ImgTxt: FC<ImgTxtProps> = ({
           transition={{
             duration: 0.5,
           }}
-          className="w-full opacity-0"
+          className={cx({
+            'opacity-0': true,
+            'w-full': !fullScreen,
+            'w-8/12': fullScreen,
+          })}
         >
           <img
             className="w-full"
@@ -81,7 +99,11 @@ export const ImgTxt: FC<ImgTxtProps> = ({
           transition={{
             duration: 0.5,
           }}
-          className="w-full"
+          className={cx({
+            'opacity-0': true,
+            'w-full': !fullScreen,
+            'w-4/12': fullScreen,
+          })}
         >
           {children}
         </motion.div>

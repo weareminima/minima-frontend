@@ -23,16 +23,16 @@ import {
   ContentContact,
   ContentLab,
   ContentMethod,
-  ContentProjects,
+  ContentPrinciples,
   ContentServices,
   ContentStudio,
 } from './content';
 
 const CONTENT = {
   studio: <ContentStudio />,
+  principles: <ContentPrinciples />,
   services: <ContentServices />,
   method: <ContentMethod />,
-  projects: <ContentProjects />,
   lab: <ContentLab />,
   contact: <ContentContact />,
 };

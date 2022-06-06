@@ -24,7 +24,7 @@ export const HeroItem: FC<HeroItemProps> = ({
   });
 
   return (
-    <div ref={heroRef} className="w-full h-[calc(100vh_-_80px_-_48px_-_72px)] flex flex-col justify-between">
+    <div ref={heroRef} className="w-full h-[calc(100vh_-_80px_-_48px_-_72px)] flex flex-col justify-between lg:mb-8 md:mb-6 mb-4">
       <motion.div
         initial="initial"
         animate={heroInView ? 'animate' : 'exit'}
@@ -72,7 +72,7 @@ export const HeroItem: FC<HeroItemProps> = ({
           duration: 0.5,
         }}
         className={cx({
-          'font-display text-5xl md:text-7xl max-w-3xl': true,
+          'font-display text-5xl md:text-8xl max-w-3xl': true,
         })}
       >
         {description}

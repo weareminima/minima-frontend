@@ -15,7 +15,7 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
     steps,
   } = useAppSelector((state) => state['/home']);
 
-  const STEP = useStep({ step: 'lab', steps });
+  const STEP = useStep({ step: 'contact', steps });
 
   return (
     <>

@@ -10,9 +10,9 @@ export const CARDS = [
     title: 'Estudio',
     subtitle: (
       <p className="text-xl">
-        Born to design what
+        Diseñamos
         {' '}
-        <i className="font-italic font-display">matters</i>
+        <i className="inline-block font-italic font-display">lo que importa</i>
       </p>
     ),
     description: 'Somos un estudio de diseño de marcas, productos y servicios para proyectos con integridad de propósito.',
@@ -21,13 +21,13 @@ export const CARDS = [
   },
   {
     index: 2,
-    id: 'services',
-    title: 'Servicios',
+    id: 'principles',
+    title: 'Principios',
     subtitle: (
       <p className="text-xl">
-        Do it right, make it
+        Somos lo
         {' '}
-        <i className="font-italic font-display">real</i>
+        <i className="inline-block font-italic font-display">que hacemos</i>
       </p>
     ),
     description: 'Las historias que diseñamos se resumen en los principios que las guían.',
@@ -36,31 +36,31 @@ export const CARDS = [
   },
   {
     index: 3,
-    id: 'method',
-    title: 'Método',
+    id: 'services',
+    title: 'Servicios',
     subtitle: (
       <p className="text-xl">
-        Born to design what
+        Si podemos pensarlo,
         {' '}
-        <i className="font-italic font-display">matters</i>
+        <i className="inline-block font-italic font-display">podemos diseñarlo</i>
       </p>
     ),
-    description: 'Las historias que diseñamos se resumen en los principios que las guían.',
+    description: 'Creamos soluciones en la intersección entre negocio y propósito para quienes sirven a un mundo mejor.',
     className: 'bg-purple-500',
     gradient: 'from-purple-500 to-purple-500/0',
   },
   {
     index: 4,
-    id: 'projects',
-    title: 'Proyectos',
+    id: 'method',
+    title: 'Método',
     subtitle: (
       <p className="text-xl">
-        Born to design what
+        Pensando el fondo para
         {' '}
-        <i className="font-italic font-display">matters</i>
+        <i className="inline-block font-italic font-display">diseñar la forma</i>
       </p>
     ),
-    description: 'Las historias que diseñamos se resumen en los principios que las guían.',
+    description: 'Empleamos diferentes metodologías para advertir en lo ordinario, lo extraordinario.',
     className: 'bg-blue-500',
     gradient: 'from-blue-500 to-blue-500/0',
   },
@@ -70,12 +70,12 @@ export const CARDS = [
     title: 'Lab',
     subtitle: (
       <p className="text-xl">
-        Born to design what
+        Formas de mirar que inspiran
         {' '}
-        <i className="font-italic font-display">matters</i>
+        <i className="inline-block font-italic font-display">formas de hacer</i>
       </p>
     ),
-    description: 'Las historias que diseñamos se resumen en los principios que las guían.',
+    description: 'Ponemos a prueba ideas y perspectivas para avanzar en la exploración creativa.',
     className: 'bg-green-500',
     gradient: 'from-green-500 to-green-500/0',
   },
@@ -85,12 +85,12 @@ export const CARDS = [
     title: 'Contacto',
     subtitle: (
       <p className="text-xl">
-        Possibilities start
+        Diseñemos
         {' '}
-        <i className="font-italic font-display">here</i>
+        <i className="inline-block font-italic font-display">juntos lo posible</i>
       </p>
     ),
-    description: 'Las historias que diseñamos se resumen en los principios que las guían.',
+    description: 'Si quieres contarnos tu idea, colaborar con nosotras o conversar sobre lo que podríamos hacer juntos, escríbenos.',
     className: 'bg-gray-100',
     gradient: 'from-gray-100 to-gray-100/0',
   },

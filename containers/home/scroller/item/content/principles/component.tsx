@@ -11,14 +11,14 @@ import ImgTxt from 'containers/home/scroller/item/content/common/img-txt';
 
 import Tag from 'components/tag';
 
-interface ContentItemServicesProps {}
+interface ContentItemPrinciplesProps {}
 
-export const ContentItemServices: FC<ContentItemServicesProps> = () => {
+export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
   const {
     steps,
   } = useAppSelector((state) => state['/home']);
 
-  const STEP = useStep({ step: 'services', steps });
+  const STEP = useStep({ step: 'principles', steps });
 
   return (
     <>
@@ -108,4 +108,4 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
   );
 };
 
-export default ContentItemServices;
+export default ContentItemPrinciples;
