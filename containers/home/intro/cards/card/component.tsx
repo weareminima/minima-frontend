@@ -13,6 +13,7 @@ import {
 
 import Tag from 'components/tag';
 import { CARD_SIZE } from 'constants/cards';
+import { GAEvent } from 'lib/analytics/ga';
 
 interface CardProps {
   id: string;
@@ -106,6 +107,12 @@ export const Card: FC<CardProps> = ({
   }, [rotation, index, prevAnimation]);
 
   const handleClick = useCallback(() => {
+    GAEvent({
+      action: 'click-card',
+      params: {
+        card: id,
+      },
+    });
     dispatch(setStep(id));
     dispatch(setOpen(true));
   }, [dispatch, id]);
