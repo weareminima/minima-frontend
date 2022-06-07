@@ -18,7 +18,7 @@ interface FakeItemProps {}
 
 export const FakeItem: FC<FakeItemProps> = () => {
   const {
-    step, steps,
+    step, steps, exit,
   } = useAppSelector((state) => state['/home']);
 
   const STEP = useStep({ step, steps });
@@ -31,9 +31,19 @@ export const FakeItem: FC<FakeItemProps> = () => {
         'lg:p-8 md:p-6 p-4': true,
       })}
     >
-      <div
+      <motion.div
+        initial={{
+          padding: exit ? 24 : 16,
+        }}
+        animate={{
+          padding: exit ? 16 : 24,
+        }}
+        transition={{
+          duration: 0.5,
+          bounce: 0,
+        }}
         className={cx({
-          'w-full h-full overflow-hidden flex flex-col p-6 grow rounded-3xl justify-between': true,
+          'w-full h-full overflow-hidden flex flex-col p-4 grow rounded-3xl justify-between': true,
           [STEP.className]: true,
         })}
       >
@@ -47,28 +57,26 @@ export const FakeItem: FC<FakeItemProps> = () => {
         <motion.div
           initial="initial"
           animate="animate"
-          exit="exit"
           variants={{
             initial: {
-              opacity: 1,
+              opacity: exit ? 0 : 1,
             },
             animate: {
-              opacity: 0,
-            },
-            exit: {
-              opacity: 1,
+              opacity: exit ? 1 : 0,
             },
           }}
           transition={{
-            duration: 0.5,
+            duration: exit ? 0.25 : 0.5,
+            delay: exit ? 0.25 : 0,
+            bounce: 0,
           }}
           className={cx({
-            'max-w-[160px] origin-top-left': true,
+            'max-w-[138px] origin-top-left': true,
           })}
         >
           {STEP.subtitle}
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 };

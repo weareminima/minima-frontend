@@ -27,32 +27,59 @@ export const Cards: FC<CardsProps> = () => {
 
   const containerRef = useRef<HTMLDivElement>();
 
+  // CIRCLE
+  // const CARDS = useMemo(() => {
+  //   const {
+  //     center: {
+  //       x: xCenter, y: yCenter,
+  //     },
+  //   } = container;
+  //   const radius = 300;
+
+  //   return CARDS_METADATA.map((c, i) => {
+  //     const radian = ((i / CARDS_METADATA.length) * 2 * Math.PI) - (Math.PI * 0.5);
+
+  //     const x = xCenter + (radius * Math.cos(radian));
+  //     const y = yCenter + (radius * Math.sin(radian));
+
+  //     const rotation = (Math.random() * (30)) - 15;
+
+  //     return {
+  //       ...c,
+  //       options: {
+  //         x,
+  //         y,
+  //         rotation,
+  //         container,
+  //       },
+  //     };
+  //   });
+  // }, [container]);
+
+  // ELLIPSE
   const CARDS = useMemo(() => {
     const {
       center: {
         x: xCenter, y: yCenter,
       },
     } = container;
-    const radius = 300;
 
     return CARDS_METADATA.map((c, i) => {
-      const radian = ((i / CARDS_METADATA.length) * 2 * Math.PI) - (Math.PI * 0.5);
-
-      const x = xCenter + (radius * Math.cos(radian));
-      const y = yCenter + (radius * Math.sin(radian));
-
-      const x1 = xCenter + ((radius * 3) * Math.cos(radian));
-      const y1 = yCenter + ((radius * 3) * Math.sin(radian));
+      const rx = 300;
+      const ry = 220;
+      const angle = ((i / CARDS_METADATA.length)) * 360 * ((Math.PI / 180) / 2) - (Math.PI * 0.25);
+      const t = Math.tan((angle));
+      const x = xCenter + (rx * ((1 - t ** 2) / (1 + t ** 2)));
+      const y = yCenter + (ry * ((2 * t) / (1 + t ** 2)));
 
       const rotation = (Math.random() * (30)) - 15;
+      // const rotation = 0;
 
       return {
         ...c,
         options: {
           x,
           y,
-          x1,
-          y1,
           rotation,
           container,
         },

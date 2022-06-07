@@ -14,6 +14,7 @@ interface HomeInitialState {
   scrollReady: boolean;
   step: string;
   steps: Step[];
+  exit: boolean;
 }
 
 // Define the initial state using that type
@@ -23,6 +24,7 @@ const initialState: HomeInitialState = {
   scrollReady: false,
   step: null,
   steps: [],
+  exit: false,
 };
 
 export const homeSlice = createSlice({
@@ -49,6 +51,10 @@ export const homeSlice = createSlice({
       ...state,
       steps: action.payload,
     }),
+    setExit: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      exit: action.payload,
+    }),
     setState: (state, action: PayloadAction<Partial<HomeInitialState>>) => ({
       ...state,
       ...action.payload,
@@ -62,6 +68,7 @@ export const {
   setScrollReady,
   setStep,
   setSteps,
+  setExit,
   setState,
 } = homeSlice.actions;
 

@@ -1,6 +1,6 @@
 export const CARD_SIZE = {
-  width: 208,
-  height: 208,
+  width: 164,
+  height: 164,
 };
 
 export const CARDS = [
@@ -9,10 +9,10 @@ export const CARDS = [
     id: 'studio',
     title: 'Estudio',
     subtitle: (
-      <p className="text-xl">
+      <p className="text-base leading-tight ">
         Diseñamos
         {' '}
-        <i className="inline-block font-italic font-display">lo que importa</i>
+        <i className="block text-base font-italic font-display">lo que importa</i>
       </p>
     ),
     description: 'Somos un estudio de diseño de marcas, productos y servicios para proyectos con integridad de propósito.',
@@ -24,10 +24,10 @@ export const CARDS = [
     id: 'principles',
     title: 'Principios',
     subtitle: (
-      <p className="text-xl">
+      <p className="text-base leading-tight ">
         Somos lo
         {' '}
-        <i className="inline-block font-italic font-display">que hacemos</i>
+        <i className="block text-base font-italic font-display">que hacemos</i>
       </p>
     ),
     description: 'Las historias que diseñamos se resumen en los principios que las guían.',
@@ -39,10 +39,10 @@ export const CARDS = [
     id: 'services',
     title: 'Servicios',
     subtitle: (
-      <p className="text-xl">
+      <p className="text-base leading-tight ">
         Si podemos pensarlo,
         {' '}
-        <i className="inline-block font-italic font-display">podemos diseñarlo</i>
+        <i className="block text-base font-italic font-display">podemos diseñarlo</i>
       </p>
     ),
     description: 'Creamos soluciones en la intersección entre negocio y propósito para quienes sirven a un mundo mejor.',
@@ -54,10 +54,10 @@ export const CARDS = [
     id: 'method',
     title: 'Método',
     subtitle: (
-      <p className="text-xl">
+      <p className="text-base leading-tight ">
         Pensando el fondo para
         {' '}
-        <i className="inline-block font-italic font-display">diseñar la forma</i>
+        <i className="block text-base font-italic font-display">diseñar la forma</i>
       </p>
     ),
     description: 'Empleamos diferentes metodologías para advertir en lo ordinario, lo extraordinario.',
@@ -69,10 +69,10 @@ export const CARDS = [
     id: 'lab',
     title: 'Lab',
     subtitle: (
-      <p className="text-xl">
+      <p className="text-base leading-tight ">
         Formas de mirar que inspiran
         {' '}
-        <i className="inline-block font-italic font-display">formas de hacer</i>
+        <i className="block text-base font-italic font-display">formas de hacer</i>
       </p>
     ),
     description: 'Ponemos a prueba ideas y perspectivas para avanzar en la exploración creativa.',
@@ -84,10 +84,10 @@ export const CARDS = [
     id: 'contact',
     title: 'Contacto',
     subtitle: (
-      <p className="text-xl">
+      <p className="text-base leading-tight ">
         Diseñemos
         {' '}
-        <i className="inline-block font-italic font-display">juntos lo posible</i>
+        <i className="block text-base font-italic font-display">juntos lo posible</i>
       </p>
     ),
     description: 'Si quieres contarnos tu idea, colaborar con nosotras o conversar sobre lo que podríamos hacer juntos, escríbenos.',

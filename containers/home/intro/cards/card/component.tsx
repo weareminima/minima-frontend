@@ -167,7 +167,7 @@ export const Card: FC<CardProps> = ({
       >
         <div
           className={cx({
-            'flex flex-col p-6 grow rounded-3xl justify-between': true,
+            'flex flex-col p-4 grow rounded-3xl justify-between': true,
             [className]: !!className,
           })}
         >
