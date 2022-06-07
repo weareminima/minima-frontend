@@ -2,6 +2,7 @@
 const forms = require('@tailwindcss/custom-forms');
 const lineClamp = require('@tailwindcss/line-clamp');
 
+const { TAILWIND_BREAKPOINTS } = require('./constants/breakpoints');
 const { TAILWIND_COLORS } = require('./constants/colors');
 
 module.exports = {
@@ -20,6 +21,7 @@ module.exports = {
       current: 'currentColor',
       ...TAILWIND_COLORS,
     },
+    screens: TAILWIND_BREAKPOINTS,
     fontSize: {
       xs: ['0.8125rem', { lineHeight: '1.25rem' }],
       sm: ['0.9375rem', { lineHeight: '1.375rem' }],

@@ -11,6 +11,8 @@ import {
   motion,
 } from 'framer-motion';
 
+import { useSizes } from 'hooks/size';
+
 import Tag from 'components/tag';
 import { CARD_SIZE } from 'constants/cards';
 import { GAEvent } from 'lib/analytics/ga';
@@ -38,6 +40,8 @@ export const Card: FC<CardProps> = ({
   const dispatch = useAppDispatch();
   const { open } = useAppSelector((state) => state['/home']);
 
+  const { HEADER } = useSizes();
+
   const {
     x, y, rotation,
   } = options;
@@ -46,7 +50,7 @@ export const Card: FC<CardProps> = ({
     return {
       hidden: {
         x: '-50%',
-        y: -(CARD_SIZE.height / 2) - 80,
+        y: -(CARD_SIZE.height / 2) - HEADER,
         z: 500,
         rotate: rotation,
         width: CARD_SIZE.width,
@@ -55,7 +59,7 @@ export const Card: FC<CardProps> = ({
       },
       visible: {
         x: '-50%',
-        y: -(CARD_SIZE.height / 2) - 80,
+        y: -(CARD_SIZE.height / 2) - HEADER,
         z: 0,
         rotate: rotation,
         width: CARD_SIZE.width,
@@ -75,7 +79,7 @@ export const Card: FC<CardProps> = ({
       },
       invisible: {
         x: '-50%',
-        y: -(CARD_SIZE.height / 2) - 80,
+        y: -(CARD_SIZE.height / 2) - HEADER,
         z: 0,
         rotate: rotation,
         width: CARD_SIZE.width,
@@ -90,7 +94,7 @@ export const Card: FC<CardProps> = ({
 
         return {
           x: '-50%',
-          y: -(CARD_SIZE.height / 2) - 80,
+          y: -(CARD_SIZE.height / 2) - HEADER,
           scale: 1.1,
           rotate: [hoverRotation, -sign * 4, sign * 3, -sign * 2, 0],
           transition: {
@@ -104,7 +108,7 @@ export const Card: FC<CardProps> = ({
         };
       },
     };
-  }, [rotation, index, prevAnimation]);
+  }, [rotation, index, prevAnimation, HEADER]);
 
   const handleClick = useCallback(() => {
     GAEvent({

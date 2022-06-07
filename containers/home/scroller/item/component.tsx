@@ -7,7 +7,7 @@ import cx from 'classnames';
 import {
   setState,
 } from 'store/home/slice';
-import { useAppDispatch } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import {
   motion,
@@ -88,6 +88,10 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
   className,
   gradient,
 }) => {
+  const {
+    scrollReady,
+  } = useAppSelector((state) => state['/home']);
+
   const dispatch = useAppDispatch();
 
   return (
@@ -104,6 +108,9 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
             mass: 0.01,
             damping: 10,
             stiffness: 150,
+            ...!scrollReady && {
+              duration: 0,
+            },
           },
         }}
         className={cx({

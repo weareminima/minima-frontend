@@ -8,6 +8,8 @@ import cx from 'classnames';
 
 import { motion } from 'framer-motion';
 
+import { useSizes } from 'hooks/size';
+
 interface HeroItemProps {
   subtitle: string;
   description: string;
@@ -23,8 +25,16 @@ export const HeroItem: FC<HeroItemProps> = ({
     triggerOnce: true,
   });
 
+  const { HEADER, PADDING } = useSizes();
+
   return (
-    <div ref={heroRef} className="w-full h-[calc(100vh_-_80px_-_48px_-_72px)] flex flex-col justify-between lg:mb-8 md:mb-6 mb-4">
+    <div
+      ref={heroRef}
+      className="flex flex-col justify-between w-full mb-4 lg:mb-8 md:mb-6"
+      style={{
+        height: `calc(100vh - ${HEADER}px - ${PADDING * 2}px - 72px)`,
+      }}
+    >
       <motion.div
         initial="initial"
         animate={heroInView ? 'animate' : 'exit'}
