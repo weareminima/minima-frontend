@@ -66,7 +66,7 @@ export const FakeItem: FC<FakeItemProps> = () => {
             },
           }}
           transition={{
-            duration: exit ? 0.25 : 0.5,
+            duration: 0.25,
             delay: exit ? 0.25 : 0,
             bounce: 0,
           }}

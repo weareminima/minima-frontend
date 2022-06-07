@@ -10,6 +10,9 @@ import cx from 'classnames';
 import {
   motion,
 } from 'framer-motion';
+import useBreakpoint from 'use-breakpoint';
+
+import { BREAKPOINTS } from 'constants/breakpoints';
 
 interface Txt3ColumnsProps {
   children: ReactNode[];
@@ -18,9 +21,11 @@ interface Txt3ColumnsProps {
 export const Txt3Columns: FC<Txt3ColumnsProps> = ({
   children,
 }) => {
+  const { breakpoint } = useBreakpoint(BREAKPOINTS);
+
   const { ref: sectionRef, inView: sectionInView } = useInView({
     /* Optional options */
-    threshold: 0.5,
+    threshold: (breakpoint === 'xs' || breakpoint === 'sm') ? 0 : 0.5,
     triggerOnce: true,
   });
 
@@ -28,7 +33,7 @@ export const Txt3Columns: FC<Txt3ColumnsProps> = ({
     <div ref={sectionRef} className="py-20">
       <div
         className={cx({
-          'flex space-x-10': true,
+          'space-y-5 md:space-y-0 md:flex md:space-x-10': true,
         })}
       >
         {Children.map(children, (child: any) => {

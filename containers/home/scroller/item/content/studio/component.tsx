@@ -37,8 +37,8 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
         options={{
           fullScreen: true,
           reverse: true,
-          imageClassName: 'w-8/12',
-          contentClassName: 'w-4/12',
+          imageClassName: 'w-full md:w-8/12',
+          contentClassName: 'w-full md:w-4/12',
         }}
       >
         <>

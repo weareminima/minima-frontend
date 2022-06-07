@@ -9,6 +9,9 @@ import cx from 'classnames';
 import {
   motion,
 } from 'framer-motion';
+import useBreakpoint from 'use-breakpoint';
+
+import { BREAKPOINTS } from 'constants/breakpoints';
 
 interface ImgTxtProps {
   image: {
@@ -38,9 +41,11 @@ export const ImgTxt: FC<ImgTxtProps> = ({
     contentClassName = '',
   } = options || {};
 
+  const { breakpoint } = useBreakpoint(BREAKPOINTS);
+
   const { ref: sectionRef, inView: sectionInView } = useInView({
     /* Optional options */
-    threshold: 0.5,
+    threshold: (breakpoint === 'xs' || breakpoint === 'sm') ? 0 : 0.5,
     triggerOnce: true,
   });
 
@@ -48,14 +53,15 @@ export const ImgTxt: FC<ImgTxtProps> = ({
     <div
       ref={sectionRef}
       className={cx({
-        'py-20': true,
-        'px-28': !fullScreen,
+        'py-10 md:py-20': true,
+        'lg:px-28': !fullScreen,
       })}
     >
       <div
         className={cx({
-          'flex space-x-40': true,
-          'flex-row-reverse space-x-reverse': reverse,
+          'md:flex md:space-x-40': true,
+          'space-y-10 md:space-y-0': true,
+          'md:flex-row-reverse md:space-x-reverse': reverse,
           'items-start': align === 'start',
           'items-center': align === 'center',
           'items-end': align === 'end',
@@ -85,7 +91,7 @@ export const ImgTxt: FC<ImgTxtProps> = ({
           })}
         >
           <img
-            className="w-full"
+            className="max-w-full mx-auto"
             src={image.src}
             alt={image.alt}
           />
