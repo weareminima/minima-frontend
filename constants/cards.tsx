@@ -12,7 +12,7 @@ export const CARDS = [
       <p className="text-base leading-tight ">
         Diseñamos
         {' '}
-        <i className="block text-base font-italic font-display">lo que importa</i>
+        <i className="block text-lg font-italic font-display">lo que importa</i>
       </p>
     ),
     description: 'Somos un estudio de diseño de marcas, productos y servicios para proyectos con integridad de propósito.',
@@ -27,7 +27,7 @@ export const CARDS = [
       <p className="text-base leading-tight ">
         Somos lo
         {' '}
-        <i className="block text-base font-italic font-display">que hacemos</i>
+        <i className="block text-lg font-italic font-display">que hacemos</i>
       </p>
     ),
     description: 'Las historias que diseñamos se resumen en los principios que las guían.',
@@ -42,7 +42,7 @@ export const CARDS = [
       <p className="text-base leading-tight ">
         Si podemos pensarlo,
         {' '}
-        <i className="block text-base font-italic font-display">podemos diseñarlo</i>
+        <i className="block text-lg font-italic font-display">podemos diseñarlo</i>
       </p>
     ),
     description: 'Creamos soluciones en la intersección entre negocio y propósito para quienes sirven a un mundo mejor.',
@@ -57,7 +57,7 @@ export const CARDS = [
       <p className="text-base leading-tight ">
         Pensando el fondo para
         {' '}
-        <i className="block text-base font-italic font-display">diseñar la forma</i>
+        <i className="block text-lg font-italic font-display">diseñar la forma</i>
       </p>
     ),
     description: 'Empleamos diferentes metodologías para advertir en lo ordinario, lo extraordinario.',
@@ -72,7 +72,7 @@ export const CARDS = [
       <p className="text-base leading-tight ">
         Formas de mirar que inspiran
         {' '}
-        <i className="block text-base font-italic font-display">formas de hacer</i>
+        <i className="block text-lg font-italic font-display">formas de hacer</i>
       </p>
     ),
     description: 'Ponemos a prueba ideas y perspectivas para avanzar en la exploración creativa.',
@@ -87,7 +87,7 @@ export const CARDS = [
       <p className="text-base leading-tight ">
         Diseñemos
         {' '}
-        <i className="block text-base font-italic font-display">juntos lo posible</i>
+        <i className="block text-lg font-italic font-display">juntos lo posible</i>
       </p>
     ),
     description: 'Si quieres contarnos tu idea, colaborar con nosotras o conversar sobre lo que podríamos hacer juntos, escríbenos.',
