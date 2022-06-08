@@ -1,5 +1,5 @@
 import {
-  FC,
+  FC, RefObject, useMemo, useRef, useState,
 } from 'react';
 
 import cx from 'classnames';
@@ -10,9 +10,12 @@ import {
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import {
+  AnimatePresence,
   motion,
 } from 'framer-motion';
 import { Keyframes, Scroll } from 'scrollex';
+
+import useWindowSize from 'hooks/window';
 
 import Icon from 'components/icon';
 import Tag from 'components/tag';
@@ -48,6 +51,7 @@ interface ScrollerItemProps {
   title: string;
   className: string;
   gradient: string;
+  scrollRef: RefObject<HTMLDivElement>;
 }
 
 const keyframes: Record<string, Keyframes> = {
@@ -87,28 +91,222 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
   title,
   className,
   gradient,
+  scrollRef,
 }) => {
+  const backgroundRef = useRef<HTMLDivElement>(null);
+  const [menuAnimation, setMenuAnimation] = useState<string>('initial');
   const {
+    menu,
+    menuHover,
+    menuClick,
+    steps,
     scrollReady,
   } = useAppSelector((state) => state['/home']);
 
+  const { height } = useWindowSize();
+
   const dispatch = useAppDispatch();
+
+  const menuVariants = useMemo(() => {
+    const hoverIndex = steps.findIndex((s) => s.id === menuHover);
+    const clickIndex = steps.findIndex((s) => s.id === menuClick);
+
+    const calculateAnimate = (ix: number, hx: number) => {
+      let y = menu ? height - ((steps.length + 2 - index) * 72) : 0;
+      if (hx >= ix) {
+        y -= 30;
+      }
+
+      return {
+        animateY: y,
+        animateOpacity: 1,
+        animateScale: 1,
+      };
+    };
+
+    const calculateExit = (ix: number, c: number) => {
+      const i = ix - 1;
+      const style = window.getComputedStyle(backgroundRef.current);
+      const { transform, opacity } = style;
+      const { m11, m42 } = new DOMMatrixReadOnly(transform);
+
+      let y = m42;
+      let s = m11;
+      let o = +opacity;
+
+      if (c >= 0) {
+        if (i > c) {
+          y = height;
+          s = 1;
+          o = 1;
+        }
+
+        if (c === i) {
+          y = 0;
+          s = 1;
+          o = 1;
+        }
+
+        if (i < c) {
+          y = 0;
+          s = 0.95;
+          o = 0;
+        }
+      }
+
+      return {
+        exitY: y,
+        exitOpacity: o,
+        exitScale: s,
+      };
+    };
+
+    if (backgroundRef.current) {
+      const { animateY, animateOpacity, animateScale } = calculateAnimate(index, hoverIndex);
+      const { exitY, exitOpacity, exitScale } = calculateExit(index, clickIndex);
+      const style = window.getComputedStyle(backgroundRef.current);
+      const { transform, opacity } = style;
+      const { m11, m42 } = new DOMMatrixReadOnly(transform);
+
+      return {
+        initial: {
+          y: m42,
+          scale: m11,
+          opacity: +opacity,
+        },
+        animate: {
+          y: animateY,
+          scale: animateScale,
+          opacity: animateOpacity,
+        },
+        exit: {
+          y: exitY,
+          scale: exitScale,
+          opacity: exitOpacity,
+          transition: {
+            delay: 0.125,
+            duration: 0.5,
+            bounce: 0,
+          },
+        },
+        hover: {
+          y: animateY - 30,
+        },
+      };
+    }
+
+    return null;
+  }, [
+    menu,
+    menuHover,
+    menuClick,
+    height,
+    index,
+    steps,
+  ]);
 
   return (
     <Scroll.Section
-      showOverflow
       key={id}
     >
+      {/* MENU */}
+      <AnimatePresence>
+        {menu && (
+          <motion.div
+            key="background-menu"
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            whileHover="hover"
+            variants={menuVariants}
+            transition={{
+              duration: 0.5,
+              bounce: 0,
+            }}
+            className={cx({
+              'fixed pointer-events-none w-full h-full top-0 left-0 z-0 overflow-hidden rounded-3xl will-change-auto': true,
+              'lg:pt-20 md:pt-16 pt-12 ': true,
+              'lg:px-8 md:px-6 px-4': true,
+              'lg:pb-8 md:pb-6 pb-4': true,
+            })}
+            style={{
+              zIndex: 100 + index,
+            }}
+            onAnimationComplete={(animation) => {
+              if (typeof animation === 'string') {
+                setMenuAnimation(animation);
+              }
+            }}
+            onMouseEnter={() => {
+              dispatch(setState({ menuHover: id }));
+            }}
+            onMouseLeave={() => {
+              dispatch(setState({ menuHover: '' }));
+            }}
+          >
+            <button
+              type="button"
+              className={cx({
+                'w-full h-full z-0 overflow-hidden rounded-3xl pointer-events-auto cursor-pointer appearance-none flex flex-col justify-start items-start': true,
+                [className]: !!className,
+              })}
+              onClick={() => {
+                const { top } = document.getElementById(id)?.getBoundingClientRect();
+
+                scrollRef.current.style.scrollBehavior = 'auto'; // eslint-disable-line no-param-reassign
+                scrollRef.current.scrollTo(0, scrollRef.current.scrollTop + top);
+                scrollRef.current.style.scrollBehavior = 'smooth'; // eslint-disable-line no-param-reassign
+
+                dispatch(setState({ menuClick: id }));
+
+                setTimeout(() => {
+                  dispatch(setState({
+                    menu: false,
+                    menuClick: '',
+                    menuHover: '',
+                  }));
+                }, 0);
+              }}
+            >
+              {/* HEADER */}
+              <header
+                className={cx({
+                  'sticky top-0 z-10 bg-gradient-to-b rounded-t-3xl': true,
+                  [gradient]: !!gradient,
+                })}
+              >
+                <div
+                  className={cx({
+                    'flex items-start justify-between p-6': true,
+                  })}
+                >
+                  <div className="flex space-x-2">
+                    <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{index}</div>
+                    <Tag>
+                      {title}
+                    </Tag>
+                  </div>
+                </div>
+              </header>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* FIXED */}
       <Scroll.Item
+        ref={backgroundRef}
         key="background"
+        data={{
+          index,
+          steps,
+        }}
         keyframes={keyframes.background}
         springs={{
           translateY: {
             mass: 0.01,
             damping: 10,
             stiffness: 150,
-            ...!scrollReady && {
+            ...(!scrollReady || menu) && {
               duration: 0,
             },
           },
@@ -125,6 +323,9 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
             'w-full h-full z-0 overflow-hidden rounded-3xl': true,
             [className]: !!className,
           })}
+          style={{
+            visibility: (menu || (menuAnimation === 'animate' || menuAnimation === 'hover')) ? 'hidden' : 'visible',
+          }}
         >
           {/* HEADER */}
           <header

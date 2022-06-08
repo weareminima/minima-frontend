@@ -9,6 +9,7 @@ import cx from 'classnames';
 import { motion } from 'framer-motion';
 
 import { useSizes } from 'hooks/size';
+import useWindowSize from 'hooks/window';
 
 interface HeroItemProps {
   subtitle: string;
@@ -27,12 +28,14 @@ export const HeroItem: FC<HeroItemProps> = ({
 
   const { HEADER, PADDING } = useSizes();
 
+  const { height } = useWindowSize();
+
   return (
     <div
       ref={heroRef}
       className="flex flex-col justify-between w-full mb-4 lg:mb-8 md:mb-6"
       style={{
-        height: `calc(100vh - ${HEADER}px - ${PADDING * 2}px - 72px)`,
+        height: height - HEADER - (PADDING * 2) - 72,
       }}
     >
       <motion.div

@@ -1,5 +1,5 @@
 import {
-  FC, useCallback, useMemo, useRef, useState,
+  FC, useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
 
 import cx from 'classnames';
@@ -30,7 +30,7 @@ export const Scroller: FC<ScrollerProps> = () => {
   const scrollRef = useRef<HTMLDivElement>();
 
   const {
-    open, ready, step, steps,
+    open, ready, step, steps, menu,
   } = useAppSelector((state) => state['/home']);
 
   const STEP = useMemo(() => {
@@ -124,6 +124,16 @@ export const Scroller: FC<ScrollerProps> = () => {
     }
   }, [STEP.id, dispatch]);
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      if (menu) {
+        scrollRef.current.style.overflow = 'hidden hidden';
+      } else {
+        scrollRef.current.style.overflow = 'hidden auto';
+      }
+    }
+  }, [menu]);
+
   return (
     <AnimatePresence
       exitBeforeEnter
@@ -158,6 +168,7 @@ export const Scroller: FC<ScrollerProps> = () => {
                   <Item
                     key={card.id}
                     {...card}
+                    scrollRef={scrollRef}
                   />
                 );
               })}

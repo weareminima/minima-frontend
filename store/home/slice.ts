@@ -15,6 +15,9 @@ interface HomeInitialState {
   step: string;
   steps: Step[];
   exit: boolean;
+  menu: boolean;
+  menuHover: string,
+  menuClick: string,
 }
 
 // Define the initial state using that type
@@ -25,6 +28,9 @@ const initialState: HomeInitialState = {
   step: null,
   steps: [],
   exit: false,
+  menu: false,
+  menuHover: '',
+  menuClick: '',
 };
 
 export const homeSlice = createSlice({
@@ -55,6 +61,18 @@ export const homeSlice = createSlice({
       ...state,
       exit: action.payload,
     }),
+    setMenu: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      menu: action.payload,
+    }),
+    setMenuHover: (state, action: PayloadAction<string>) => ({
+      ...state,
+      menuHover: action.payload,
+    }),
+    setMenuClick: (state, action: PayloadAction<string>) => ({
+      ...state,
+      menuClick: action.payload,
+    }),
     setState: (state, action: PayloadAction<Partial<HomeInitialState>>) => ({
       ...state,
       ...action.payload,
@@ -63,12 +81,18 @@ export const homeSlice = createSlice({
 });
 
 export const {
+  // Scroller
   setOpen,
   setReady,
   setScrollReady,
   setStep,
   setSteps,
   setExit,
+  // Menu
+  setMenu,
+  setMenuHover,
+  setMenuClick,
+  // All state
   setState,
 } = homeSlice.actions;
 
