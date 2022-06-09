@@ -17,15 +17,15 @@ export interface ModalProps {
   /**
    * Size (width) of the modal
    */
-  size?: 'narrow' | 'default' | 'wide';
+  size?: 'xs' | 's' | 'default' | 'l' | 'xl';
+
   children?: ReactNode;
   /**
    * Class name to assign to the modal
    */
   className?: string;
   /**
-   * Callback executed when the modal is dismissed by clicking on the overlay, the close button or
-   * pressing the escape key
+   * Callback executed when the modal open change
    */
-  onDismiss: () => void;
+  onOpenChange: (open: boolean) => void;
 }

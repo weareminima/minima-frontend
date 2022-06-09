@@ -2,23 +2,14 @@ import {
   FC, useCallback, useState,
 } from 'react';
 
-import {
-  useFloating,
-  useInteractions,
-  useClick,
-  useRole,
-  useDismiss,
-  FloatingPortal,
-  FloatingOverlay,
-  FloatingFocusManager,
-} from '@floating-ui/react-dom-interactions';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { useScroll } from 'hooks/scroll';
 
 import ContactModal from 'containers/contact/modal';
 
 import Icon from 'components/icon';
+import Modal from 'components/modal';
 
 import CONTACT_ISOTYPE_SVG from 'svgs/contact-isotype.svg?sprite';
 import CONTACT_TEXT_SVG from 'svgs/contact-text.svg?sprite';
@@ -30,17 +21,6 @@ export const ContactButton: FC<ContactButtonProps> = () => {
 
   const { scroll } = useScroll();
   const { scrollY } = scroll;
-
-  const { reference, floating, context } = useFloating({
-    open,
-    onOpenChange: setOpen,
-  });
-
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    useClick(context),
-    useRole(context),
-    useDismiss(context),
-  ]);
 
   // Callbacks
   const onClick = useCallback(() => {
@@ -63,7 +43,6 @@ export const ContactButton: FC<ContactButtonProps> = () => {
         type="button"
         className="fixed z-20 flex items-center justify-center w-20 h-20 group right-4 bottom-4 md:right-6 md:bottom-6 lg:right-8 lg:bottom-8"
         onClick={onClick}
-        {...getReferenceProps({ ref: reference })}
       >
         <motion.div
           className="absolute top-0 left-0 z-10 w-20 h-20"
@@ -82,42 +61,15 @@ export const ContactButton: FC<ContactButtonProps> = () => {
         <Icon icon={CONTACT_ISOTYPE_SVG} className="block w-4 h-4 transition-transform scale-100 group-hover:scale-110 backface-invisible" />
       </motion.button>
 
-      {/* Modal */}
-      <FloatingPortal>
-        <AnimatePresence>
-          {open && (
-            <FloatingOverlay
-              lockScroll
-              className="z-40"
-            >
-              <motion.div
-                key="contact-modal"
-                className="w-full h-full backdrop-blur-sm"
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                }}
-              >
-                <FloatingFocusManager
-                  context={context}
-                >
-                  <ContactModal
-                    floating={floating}
-                    floatingProps={getFloatingProps({ ref: floating })}
-                    open={open}
-                    onClose={() => setOpen(false)}
-                  />
-                </FloatingFocusManager>
-              </motion.div>
-            </FloatingOverlay>
-          )}
-        </AnimatePresence>
-      </FloatingPortal>
+      <Modal
+        title="Contact"
+        open={open}
+        onOpenChange={setOpen}
+      >
+        <ContactModal
+          onClose={() => setOpen(false)}
+        />
+      </Modal>
     </>
   );
 };
