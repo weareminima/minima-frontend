@@ -54,6 +54,7 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
           </div>
         </>
       </ImgTxt>
+      
       <Txt3Columns>
         <div id="column1">
           <h3 className="text-6xl font-display">
