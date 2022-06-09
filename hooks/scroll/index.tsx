@@ -1,25 +1,59 @@
 import {
-  useState, useCallback, useEffect, useRef, useMemo, RefObject,
+  useState, useCallback, useEffect, useRef, useMemo, RefObject, createContext, useContext,
 } from 'react';
 
 import { useDebouncedCallback } from 'use-debounce';
 
 import useTimeout from 'hooks/timeout';
 
+import { ScrollContextProps, ScrollProps, ScrollProviderProps } from './types';
+
+const ScrollContext = createContext<ScrollContextProps>({
+  update: (scroll: ScrollProps) => { console.info(scroll); },
+  scroll: {
+    scrollX: 0,
+    scrollY: 0,
+  },
+});
+
+export function ScrollProvider({
+  children,
+}: ScrollProviderProps) {
+  const [scroll, setScroll] = useState<ScrollProps>({
+    scrollX: 0,
+    scrollY: 0,
+  });
+
+  const update = useCallback((s: ScrollProps) => {
+    setScroll(s);
+  }, []);
+
+  return (
+    <ScrollContext.Provider
+      value={{
+        update,
+        scroll,
+      }}
+    >
+      {children}
+    </ScrollContext.Provider>
+  );
+}
+
 // SCROLL
 export function useScroll() {
-  const [state, setState] = useState({
-    x: 0,
-    y: 0,
-  });
-  const onScroll = () => {
-    setState({ y: window.scrollY, x: window.scrollX });
+  const ctx = useContext(ScrollContext);
+
+  if (!ctx) {
+    throw Error(
+      'The `useToasts` hook must be called from a descendent of the `ToastProvider`.',
+    );
+  }
+
+  return {
+    scroll: ctx.scroll,
+    update: ctx.update,
   };
-  useEffect(() => {
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  return state;
 }
 
 // SCROLL DIRECTION

@@ -28,7 +28,8 @@ interface ContactButtonProps {}
 export const ContactButton: FC<ContactButtonProps> = () => {
   const [open, setOpen] = useState(false);
 
-  const { y } = useScroll();
+  const { scroll } = useScroll();
+  const { scrollY } = scroll;
 
   const { reference, floating, context } = useFloating({
     open,
@@ -70,11 +71,11 @@ export const ContactButton: FC<ContactButtonProps> = () => {
             rotate: 0,
           }}
           animate={{
-            rotate: y > 0 ? y * 0.3 : 0,
+            rotate: scrollY * 0.15,
           }}
           transition={{
             type: 'tween',
-            ease: 'easeOut',
+            ease: 'linear',
           }}
         >
           <Icon icon={CONTACT_TEXT_SVG} className="w-20 h-20 backface-invisible" />

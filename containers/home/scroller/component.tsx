@@ -12,8 +12,10 @@ import {
   motion,
 } from 'framer-motion';
 import { Scroll } from 'scrollex';
+import { useDebouncedCallback } from 'use-debounce';
 
 import usePreloadImages from 'hooks/images';
+import { useScroll } from 'hooks/scroll';
 import { useSizes } from 'hooks/size';
 import useWindowSize from 'hooks/window';
 
@@ -52,6 +54,8 @@ export const Scroller: FC<ScrollerProps> = () => {
   const { width, height } = useWindowSize();
 
   const dispatch = useAppDispatch();
+
+  const { update: updateScroll } = useScroll();
 
   usePreloadImages();
 
@@ -124,6 +128,16 @@ export const Scroller: FC<ScrollerProps> = () => {
     }
   }, [STEP.id, dispatch]);
 
+  const handleScroll = useDebouncedCallback((e) => {
+    updateScroll({
+      scrollX: e.target.scrollLeft,
+      scrollY: e.target.scrollTop,
+    });
+  }, 50, {
+    leading: true,
+    maxWait: 100,
+  });
+
   useEffect(() => {
     if (scrollRef.current) {
       if (menu) {
@@ -162,6 +176,7 @@ export const Scroller: FC<ScrollerProps> = () => {
               scrollAxis="y"
               className="z-0 w-full h-full bg-white"
               throttleAmount={0}
+              onScroll={handleScroll}
             >
               {CARDS.map((card) => {
                 return (

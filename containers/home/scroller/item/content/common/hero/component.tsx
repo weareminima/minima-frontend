@@ -28,7 +28,7 @@ export const HeroItem: FC<HeroItemProps> = ({
 
   const { HEADER, PADDING } = useSizes();
 
-  const { height } = useWindowSize();
+  const { height = 1000 } = useWindowSize();
 
   return (
     <div
