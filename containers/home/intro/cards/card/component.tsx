@@ -93,24 +93,6 @@ export const Card: FC<CardProps> = ({
           duration: 0.25,
         },
       },
-      hover: ({ rotation: hoverRotation }) => {
-        const sign = hoverRotation / hoverRotation;
-
-        return {
-          x: '-50%',
-          y: -(CARD_SIZE.height / 2) - HEADER,
-          scale: 1.1,
-          rotate: [hoverRotation, -sign * 4, sign * 3, -sign * 2, 0],
-          transition: {
-            type: 'spring',
-            rotate: {
-              times: [0.8, 0.9, 1],
-              duration: 0.5,
-            },
-            duration: 0.5,
-          },
-        };
-      },
     };
   }, [rotation, index, prevAnimation, HEADER]);
 
@@ -155,27 +137,46 @@ export const Card: FC<CardProps> = ({
       }}
     >
       <motion.div
-        custom={{
-          rotation,
-        }}
         initial="hidden"
         animate={animation}
-        whileHover="hover"
         variants={styleVariants}
         className={cx({
-          'interactive cursor-pointer flex flex-col rounded-3xl -translate-x-1/2 -translate-y-1/2 box-content': true,
+          'flex flex-col rounded-3xl -translate-x-1/2 -translate-y-1/2 box-content': true,
           'pointer-events-none': prevAnimation === 'hidden' || prevAnimation === 'invisible',
           'lg:pt-20 md:pt-16 pt-12 ': true,
           'lg:p-8 md:p-6 p-4': true,
         })}
-        onClick={handleClick}
         onAnimationComplete={handleAnimationComplete}
       >
-        <div
+        <motion.div
+          custom={{
+            rotation,
+          }}
           className={cx({
-            'flex flex-col p-4 grow rounded-3xl justify-between': true,
+            'flex flex-col p-4 grow rounded-3xl justify-between cursor-pointer': true,
             [className]: !!className,
           })}
+          variants={{
+            hover: ({ rotation: hoverRotation }) => {
+              const sign = hoverRotation / hoverRotation;
+
+              return {
+                scale: 1.1,
+                rotate: [0, -hoverRotation + sign * 4, -hoverRotation - sign * 3, -hoverRotation + sign * 2, -hoverRotation],
+                transition: {
+                  type: 'spring',
+                  rotate: {
+                    times: [0.8, 0.9, 1],
+                    duration: 0.5,
+                  },
+                  duration: 0.5,
+                },
+              };
+            },
+          }}
+          initial="hidden"
+          whileHover="hover"
+          onClick={handleClick}
         >
           <header className="flex space-x-2">
             <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{index}</div>
@@ -187,7 +188,7 @@ export const Card: FC<CardProps> = ({
           <div>
             {subtitle}
           </div>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );
