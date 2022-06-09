@@ -5,6 +5,7 @@
 @layer base {
   html {
     font-family: Graphik, system-ui, sans-serif;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .backface-visible {

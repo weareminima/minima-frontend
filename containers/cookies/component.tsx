@@ -47,7 +47,7 @@ export const Cookies: FC<CookiesProps> = () => {
         }}
         className="fixed z-20 flex items-center justify-center group left-4 bottom-4 md:left-6 md:bottom-6 lg:left-8 lg:bottom-8"
       >
-        <div className="flex items-center px-4 py-2 space-x-3 border border-dark/10 rounded-3xl">
+        <div className="flex flex-col sm:flex-row items-center px-3 py-2.5 space-y-2 sm:space-y-0 sm:space-x-3 border border-dark/10 rounded-3xl">
           <div className="flex items-center space-x-2">
             <div
               className="w-5 h-5"
