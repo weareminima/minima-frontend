@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
+import { CookiesProvider } from 'react-cookie';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider as ReduxProvider } from 'react-redux';
 
@@ -39,21 +40,23 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
   }, []); // eslint-disable-line
 
   return (
-    <ReduxProvider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <OverlayProvider>
-            <Head>
-              <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-            </Head>
+    <CookiesProvider>
+      <ReduxProvider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <OverlayProvider>
+              <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+              </Head>
 
-            {/* <Mouse /> */}
-            <Favicon />
-            <Component {...pageProps} />
-          </OverlayProvider>
-        </Hydrate>
-      </QueryClientProvider>
-    </ReduxProvider>
+              {/* <Mouse /> */}
+              <Favicon />
+              <Component {...pageProps} />
+            </OverlayProvider>
+          </Hydrate>
+        </QueryClientProvider>
+      </ReduxProvider>
+    </CookiesProvider>
   );
 };
 
