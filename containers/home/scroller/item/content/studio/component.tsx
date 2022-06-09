@@ -64,7 +64,7 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
         </div>
         <div id="column2">
           <p>
-            En Mínima entendemos el diseño como la herramienta más propia del ser humano, capaz de modelar la realidad en todas sus dimensiones. Pero el diseño no solo es el resultado, es también la intención que lo impulsa y el impacto que genera. Esto conlleva una responsabilidad de la que nos vemos alejados por estar entretenidos con temáticas de segundo orden. Por esta razón, tendemos a olvidar que el diseño es tan funcional y estético como social, político o ecológico.
+            En Mínima entendemos el diseño como la herramienta más propia del ser humano, capaz de modelar la realidad en todas y cada una de sus dimensiones. Pero el diseño no solo es el resultado, es también la intención que lo impulsa y el impacto que genera. Esto conlleva una responsabilidad de la que nos vemos alejados por estar entretenidos con temáticas de segundo orden. Por esta razón, tendemos a olvidar que el diseño es tan funcional y estético como social, político o ecológico.
           </p>
         </div>
         <div id="column3" className="space-y-2.5">
@@ -72,7 +72,7 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
             Es por esto que reivindicamos recuperar su verdadero sentido: intervenir de forma consciente, comprometida y responsable no solo en un presente más sano sino en un futuro más próspero.
           </p>
           <p>
-            Nace así Mínima como voluntad para reflexionar, hacer y participar en el bienestar de los individuos, la sociedad y el entorno, porque sabemos que un buen diseño comienza con un gran propósito.
+            Nace así Mínima como voluntad para reflexionar, hacer y fomentar el bien común a través de un enfoque centrado no solo en diseñar correctamente sino en diseñar lo correcto, ya que creemos firmemente que un buen diseño comienza con un gran propósito.
           </p>
         </div>
       </Txt3Columns>
@@ -95,12 +95,12 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
           </div>
           <div id="column2">
             <p>
-              El nombre surgió de forma espontánea en mitad de una de las muchas y largas conversaciones en las que nos sumergíamos casi a diario. Buscábamos contribuir a un mundo mejor generando no sólo beneficios económicos, sino también sociales y ambientales, pero ¿por dónde empezar? Sabíamos que sin las personas adecuadas nada de esto sería posible, así que lo primero que necesitábamos era conocer cómo crear el equipo perfecto. Para ello debíamos evitar las grandes estructuras fijas donde las ideas se paralizan, los avances se ven constantemente
+              El nombre surgió de forma espontánea en mitad de una de las muchas y largas conversaciones en las que nos sumergíamos casi a diario. Buscábamos contribuir a un mundo mejor generando no solo beneficios económicos, sino también sociales y ambientales, pero, ¿por dónde empezar? Sabíamos que sin las personas adecuadas nada de esto sería posible, así que lo primero que necesitábamos era conocer cómo crear el equipo perfecto. Para ello debíamos evitar las grandes estructuras fijas donde las ideas se paralizan, los avances se ven constantemente entorpecidos y el resultado final es un conjunto de piezas desarticuladas e inconexas que poco o nada tienen que ver con el objetivo inicial.
             </p>
           </div>
           <div id="column3" className="space-y-2.5">
             <p>
-              entorpecidos y el resultado final es un conjunto de piezas desarticuladas e inconexas que poco o nada tienen que ver con el objetivo inicial. Inmediatamente nos preguntamos, ¿cuál sería la estructura mínima indispensable? Y justo ahí, en mitad de la pregunta, se encontraba contenida la respuesta. El equipo central sería el justo y necesario para llevar a cabo nuestra misión, y se complementaría con una red de alianzas que posibilitaría ese enfoque altamente plural y diversificado.
+              Inmediatamente nos preguntamos, ¿cuál sería la estructura mínima indispensable? Y justo ahí, en mitad de la pregunta, se encontraba contenida la respuesta. El equipo central sería el justo y necesario para mantener la estabilidad, adquirir entidad propia y permitir la diversidad de proyectos gracias a una red de colaboradores con los que compartiríamos principios, prioridades y nivel de exigencia. El resultado sería la creación y consolidación de relaciones sólidas con perfiles provenientes de múltiples mundos para ampliar la perspectiva, conectar ideas y avanzar progresivamente en nuestra misión.
             </p>
           </div>
         </Txt3Columns>
