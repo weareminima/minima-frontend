@@ -71,11 +71,7 @@ export const ContactButton: FC<ContactButtonProps> = () => {
             rotate: 0,
           }}
           animate={{
-            rotate: scrollY * 0.15,
-          }}
-          transition={{
-            type: 'tween',
-            ease: 'linear',
+            rotate: scrollY * 0.1,
           }}
         >
           <Icon icon={CONTACT_TEXT_SVG} className="w-20 h-20 backface-invisible" />

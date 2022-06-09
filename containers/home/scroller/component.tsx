@@ -12,6 +12,7 @@ import {
   motion,
 } from 'framer-motion';
 import { Scroll } from 'scrollex';
+import useBreakpoint from 'use-breakpoint';
 import { useDebouncedCallback } from 'use-debounce';
 
 import usePreloadImages from 'hooks/images';
@@ -19,6 +20,7 @@ import { useScroll } from 'hooks/scroll';
 import { useSizes } from 'hooks/size';
 import useWindowSize from 'hooks/window';
 
+import { BREAKPOINTS } from 'constants/breakpoints';
 import { CARDS, CARD_SIZE } from 'constants/cards';
 
 import FakeItem from './fake-item';
@@ -34,6 +36,13 @@ export const Scroller: FC<ScrollerProps> = () => {
   const {
     open, ready, step, steps, menu,
   } = useAppSelector((state) => state['/home']);
+  const dispatch = useAppDispatch();
+
+  const { PADDING, HEADER } = useSizes();
+  const { width, height } = useWindowSize();
+  const { breakpoint } = useBreakpoint(BREAKPOINTS);
+
+  const { update: updateScroll } = useScroll();
 
   const STEP = useMemo(() => {
     const S = steps.find((s) => s.id === step) || {} as any;
@@ -45,17 +54,9 @@ export const Scroller: FC<ScrollerProps> = () => {
     };
   }, [step, steps]);
 
-  const { PADDING, HEADER } = useSizes();
-
   const {
     x, y, rotation,
   } = STEP;
-
-  const { width, height } = useWindowSize();
-
-  const dispatch = useAppDispatch();
-
-  const { update: updateScroll } = useScroll();
 
   usePreloadImages();
 
@@ -64,7 +65,7 @@ export const Scroller: FC<ScrollerProps> = () => {
       initial: {
         x: x - (CARD_SIZE.width / 2) - PADDING,
         y: y - (CARD_SIZE.height / 2) - HEADER,
-        rotate: 0,
+        rotate: breakpoint === 'xs' ? rotation : 0,
         scale: 1.1,
         width: CARD_SIZE.width + (PADDING * 2),
         height: CARD_SIZE.height + PADDING + HEADER,
@@ -89,7 +90,7 @@ export const Scroller: FC<ScrollerProps> = () => {
         opacity: 1,
       },
     };
-  }, [x, y, rotation, width, height, HEADER, PADDING]);
+  }, [x, y, rotation, width, height, HEADER, PADDING, breakpoint]);
 
   const handleAnimationComplete = useCallback((a: string) => {
     if (a === 'animate') {
@@ -112,7 +113,7 @@ export const Scroller: FC<ScrollerProps> = () => {
         dispatch(setState({
           scrollReady: true,
         }));
-      }, 750);
+      }, 500);
     }
 
     if (a === 'exit') {

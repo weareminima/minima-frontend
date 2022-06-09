@@ -7,6 +7,7 @@ export default function usePreloadImages() {
     const PRELOAD_IMAGES = IMAGES.map((image) => {
       const img = new Image();
       img.src = image;
+      img.loading = 'lazy';
       return img;
     });
 

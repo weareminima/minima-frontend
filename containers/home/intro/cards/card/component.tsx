@@ -10,10 +10,12 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import {
   motion,
 } from 'framer-motion';
+import useBreakpoint from 'use-breakpoint';
 
 import { useSizes } from 'hooks/size';
 
 import Tag from 'components/tag';
+import { BREAKPOINTS } from 'constants/breakpoints';
 import { CARD_SIZE } from 'constants/cards';
 import { GAEvent } from 'lib/analytics/ga';
 
@@ -42,6 +44,8 @@ export const Card: FC<CardProps> = ({
 
   const { HEADER } = useSizes();
 
+  const { breakpoint } = useBreakpoint(BREAKPOINTS, 'xs');
+
   const {
     x, y, rotation,
   } = options;
@@ -50,7 +54,7 @@ export const Card: FC<CardProps> = ({
     return {
       hidden: {
         x: '-50%',
-        y: -(CARD_SIZE.height / 2) - HEADER,
+        y: -(CARD_SIZE.height / 2) - HEADER - 20,
         z: 500,
         rotate: rotation,
         width: CARD_SIZE.width,
@@ -143,9 +147,11 @@ export const Card: FC<CardProps> = ({
       })}
       style={{
         transform: `translate(${x}px, ${y}px)`,
-        perspective: 600,
-        transformStyle: 'preserve-3d',
         zIndex: 1000 - index,
+        ...breakpoint !== 'xs' && {
+          perspective: 600,
+          transformStyle: 'preserve-3d',
+        },
       }}
     >
       <motion.div

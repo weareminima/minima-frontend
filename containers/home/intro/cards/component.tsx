@@ -5,9 +5,11 @@ import {
 import { setSteps } from 'store/home/slice';
 import { useAppDispatch } from 'store/hooks';
 
+import useBreakpoint from 'use-breakpoint';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { CARDS as CARDS_METADATA } from 'constants/cards';
+import { BREAKPOINTS } from 'constants/breakpoints';
+import { CARDS as CARDS_METADATA, CARD_TRANSFORMS } from 'constants/cards';
 
 import Card from './card';
 
@@ -27,53 +29,65 @@ export const Cards: FC<CardsProps> = () => {
 
   const containerRef = useRef<HTMLDivElement>();
 
-  // CIRCLE
-  // const CARDS = useMemo(() => {
-  //   const {
-  //     center: {
-  //       x: xCenter, y: yCenter,
-  //     },
-  //   } = container;
-  //   const radius = 300;
-
-  //   return CARDS_METADATA.map((c, i) => {
-  //     const radian = ((i / CARDS_METADATA.length) * 2 * Math.PI) - (Math.PI * 0.5);
-
-  //     const x = xCenter + (radius * Math.cos(radian));
-  //     const y = yCenter + (radius * Math.sin(radian));
-
-  //     const rotation = (Math.random() * (30)) - 15;
-
-  //     return {
-  //       ...c,
-  //       options: {
-  //         x,
-  //         y,
-  //         rotation,
-  //         container,
-  //       },
-  //     };
-  //   });
-  // }, [container]);
+  const { breakpoint } = useBreakpoint(BREAKPOINTS, 'xs');
 
   // ELLIPSE
   const CARDS = useMemo(() => {
     const {
+      width,
       center: {
         x: xCenter, y: yCenter,
       },
     } = container;
 
+    const getRx = () => {
+      switch (breakpoint) {
+        case 'xs': {
+          return width / 2;
+        }
+        default: {
+          return 300;
+        }
+      }
+    };
+
+    const getRy = () => {
+      switch (breakpoint) {
+        case 'xs': {
+          return 200;
+        }
+        default: {
+          return 220;
+        }
+      }
+    };
+
+    const getAngle = (id: string, i: number) => {
+      if (breakpoint === 'xs') {
+        return ((CARD_TRANSFORMS[id].angle)) * ((Math.PI / 180) / 2) - (Math.PI * 0.25);
+      }
+
+      return ((i / CARDS_METADATA.length)) * 360 * ((Math.PI / 180) / 2) - (Math.PI * 0.25);
+    };
+
+    const getRotation = (id: string) => {
+      if (breakpoint === 'xs') {
+        return CARD_TRANSFORMS[id].rotation;
+      }
+
+      return (Math.random() * (30)) - 15;
+    };
+
     return CARDS_METADATA.map((c, i) => {
-      const rx = 300;
-      const ry = 220;
-      const angle = ((i / CARDS_METADATA.length)) * 360 * ((Math.PI / 180) / 2) - (Math.PI * 0.25);
+      const { id } = c;
+      const rx = getRx();
+      const ry = getRy();
+      const angle = getAngle(id, i);
       const t = Math.tan((angle));
       const x = xCenter + (rx * ((1 - t ** 2) / (1 + t ** 2)));
       const y = yCenter + (ry * ((2 * t) / (1 + t ** 2)));
 
-      const rotation = (Math.random() * (30)) - 15;
-      // const rotation = 0;
+      const rotation = getRotation(id);
 
       return {
         ...c,
@@ -85,7 +99,7 @@ export const Cards: FC<CardsProps> = () => {
         },
       };
     });
-  }, [container]);
+  }, [container, breakpoint]);
 
   // Resize
   const handleResize = useDebouncedCallback(() => {
@@ -121,7 +135,7 @@ export const Cards: FC<CardsProps> = () => {
 
   return (
     <section
-      key={`cards-${JSON.stringify(container)}`}
+      key="cards"
       ref={containerRef}
       className="absolute z-10 w-full h-full overflow-hidden"
     >

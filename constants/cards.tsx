@@ -3,6 +3,35 @@ export const CARD_SIZE = {
   height: 164,
 };
 
+const angle = 45;
+
+export const CARD_TRANSFORMS = {
+  studio: {
+    rotation: 30,
+    angle: 360 - angle,
+  },
+  principles: {
+    rotation: 0,
+    angle: 0,
+  },
+  services: {
+    rotation: -15,
+    angle: 0 + angle,
+  },
+  method: {
+    rotation: 15,
+    angle: 180 - angle,
+  },
+  lab: {
+    rotation: -15,
+    angle: 180,
+  },
+  contact: {
+    rotation: 15,
+    angle: 180 + angle,
+  },
+};
+
 export const CARDS = [
   {
     index: 1,

@@ -15,7 +15,6 @@ export const Home: FC<HomeProps> = () => {
       <Intro />
 
       <Scroller />
-
     </div>
   );
 };
