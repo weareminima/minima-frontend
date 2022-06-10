@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import Link from 'next/link';
 
-import { setMenu } from 'store/home/slice';
+import { setMenu, setState } from 'store/home/slice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 
 import { AnimatePresence, motion } from 'framer-motion';
@@ -52,6 +52,18 @@ export const Header: FC<HeaderProps> = ({
               'relative -indent-{9999} overflow-hidden': true,
               interactive: !comingSoon,
             })}
+            onClick={() => {
+              dispatch(setState({
+                ready: false,
+                exit: true,
+              }));
+
+              setTimeout(() => {
+                dispatch(setState({
+                  open: false,
+                }));
+              }, 0);
+            }}
           >
             <Icon icon={LOGO_SVG} className="w-[88px] h-4" />
             <span className="absolute -indent-[9999px]">Minima</span>

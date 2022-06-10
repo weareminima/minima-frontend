@@ -21,7 +21,7 @@ interface HomeInitialState {
 }
 
 // Define the initial state using that type
-const initialState: HomeInitialState = {
+export const initialState: HomeInitialState = {
   open: false,
   ready: false,
   scrollReady: false,

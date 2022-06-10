@@ -15,6 +15,7 @@ import {
 } from 'framer-motion';
 import { Keyframes, Scroll } from 'scrollex';
 
+import { useSizes } from 'hooks/size';
 import useWindowSize from 'hooks/window';
 
 import Icon from 'components/icon';
@@ -104,6 +105,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
   } = useAppSelector((state) => state['/home']);
 
   const { height } = useWindowSize();
+  const { PADDING } = useSizes();
 
   const dispatch = useAppDispatch();
 
@@ -112,7 +114,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
     const clickIndex = steps.findIndex((s) => s.id === menuClick);
 
     const calculateAnimate = (ix: number, hx: number) => {
-      let y = menu ? height - ((steps.length + 2 - index) * 72) : 0;
+      let y = menu ? height - ((steps.length + 2 - index) * (24 + (PADDING * 2))) : 0;
       if (hx >= ix) {
         y -= 30;
       }
@@ -203,6 +205,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
     height,
     index,
     steps,
+    PADDING,
   ]);
 
   return (
@@ -257,7 +260,10 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
                 scrollRef.current.scrollTo(0, scrollRef.current.scrollTop + top);
                 scrollRef.current.style.scrollBehavior = 'smooth'; // eslint-disable-line no-param-reassign
 
-                dispatch(setState({ menuClick: id }));
+                dispatch(setState({
+                  menuClick: id,
+                  menuHover: '',
+                }));
 
                 setTimeout(() => {
                   dispatch(setState({

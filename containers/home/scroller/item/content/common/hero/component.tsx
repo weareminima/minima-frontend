@@ -35,7 +35,7 @@ export const HeroItem: FC<HeroItemProps> = ({
       ref={heroRef}
       className="flex flex-col justify-between w-full mb-4 lg:mb-8 md:mb-6"
       style={{
-        height: height - HEADER - (PADDING * 2) - 72,
+        height: height - HEADER - (PADDING * 2) - (24 + PADDING * 2),
       }}
     >
       <motion.div
