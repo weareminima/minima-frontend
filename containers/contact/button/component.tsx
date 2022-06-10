@@ -45,10 +45,10 @@ export const ContactButton: FC<ContactButtonProps> = () => {
             rotate: 0,
           }}
           animate={{
-            rotate: 360,
+            rotate: -360,
           }}
           transition={{
-            duration: 15,
+            duration: 20,
             ease: 'linear',
             repeat: Infinity,
             repeatType: 'loop',

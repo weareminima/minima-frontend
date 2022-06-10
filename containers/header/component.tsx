@@ -11,7 +11,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import Icon from 'components/icon';
 
-import HAMBURGER_SVG from 'svgs/hamburger.svg?sprite';
 import LOGO_SVG from 'svgs/logo.svg?sprite';
 
 interface HeaderProps {
@@ -63,15 +62,59 @@ export const Header: FC<HeaderProps> = ({
       <AnimatePresence>
         {open && (
           <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{
+              opacity: 0, y: '-50%', z: 0, scale: 1,
+            }}
+            animate={{
+              opacity: 1, y: '-50%', z: 0, scale: 1,
+            }}
+            exit={{
+              opacity: 0, y: '-50%', z: 0, scale: 1,
+            }}
             key="hamburger"
             type="button"
-            className="absolute -translate-y-1/2 top-1/2 right-4 md:right-6 lg:right-8"
+            whileHover={{
+              scale: 1.05, y: '-50%', z: 0, opacity: 1,
+            }}
+            className="absolute flex items-center justify-center h-5 -translate-y-1/2 top-1/2 right-4 md:right-6 lg:right-8 backface-invisible"
             onClick={onMenuClick}
           >
-            <Icon icon={HAMBURGER_SVG} className="w-5 h-5 stroke-dark" />
+            <div className="w-5 h-2.5">
+              <motion.div
+                initial="hamburger"
+                animate={menu ? 'close' : 'hamburger'}
+                variants={{
+                  hamburger: {
+                    rotate: 0,
+                    x: 'calc(-50% + 1px)',
+                    y: 'calc(-50% - 4px)',
+                  },
+                  close: {
+                    rotate: 45,
+                    x: 'calc(-50% + 1px)',
+                    y: 'calc(-50% + 1px)',
+                  },
+                }}
+                className="absolute top-1/2 left-1/2 z-10 w-full h-[2px] bg-dark"
+              />
+              <motion.div
+                initial="hamburger"
+                animate={menu ? 'close' : 'hamburger'}
+                variants={{
+                  hamburger: {
+                    rotate: 0,
+                    x: 'calc(-50% + 1px)',
+                    y: 'calc(-50% + 4px)',
+                  },
+                  close: {
+                    rotate: -45,
+                    x: 'calc(-50% + 1px)',
+                    y: 'calc(-50% + 1px)',
+                  },
+                }}
+                className="absolute top-1/2 left-1/2 z-10 w-full h-[2px] bg-dark"
+              />
+            </div>
           </motion.button>
         )}
       </AnimatePresence>
