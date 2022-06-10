@@ -23,7 +23,7 @@ export const Radio = forwardRef((
       type="radio"
       disabled={disabled}
       className={cx({
-        'form-radio': true,
+        'form-radio transition-all': true,
         [THEME.base]: true,
         // [THEME.status[st]]: true,
         [className]: !!className,

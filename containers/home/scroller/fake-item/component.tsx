@@ -46,7 +46,7 @@ export const FakeItem: FC<FakeItemProps> = () => {
           bounce: 0,
         }}
         className={cx({
-          'w-full h-full overflow-hidden flex flex-col lg:p-8 md:p-6 p-4 grow rounded-3xl justify-between': true,
+          'w-full h-full overflow-hidden flex flex-col lg:p-8 md:p-6 p-4 grow rounded-3xl lg:rounded-4xl justify-between': true,
           [STEP.className]: true,
         })}
       >

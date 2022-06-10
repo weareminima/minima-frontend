@@ -62,6 +62,7 @@ export const Answer: FC<AnswerProps> = ({
           {value}
         </motion.div>
       )}
+
       {type === 'radio' && (
         <motion.div
           key={`${id}-answer`}
@@ -77,7 +78,7 @@ export const Answer: FC<AnswerProps> = ({
             duration: 0.25,
           }}
           className={cx({
-            'inline-flex items-center rounded-3xl py-2 px-4 max-w-full overflow-hidden border border-dark/10 text-sm': true,
+            'inline-flex items-center rounded-3xl p-4 max-w-full overflow-hidden border border-dark/10 text-sm': true,
           })}
           style={{
             borderRadius: '24px 24px 4px 24px',

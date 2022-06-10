@@ -252,181 +252,197 @@ export const ContactForm: FC<ContactFormProps> = ({
       >
         {!submitted && (
           <form
-            className="relative z-0"
+            className="relative z-0 flex flex-col justify-between grow"
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
           >
-            <div className="p-6 space-y-4">
-              {INPUT_KEYS
-                .map((key, i) => {
-                  const OLD_STEP = STEPS.find((s) => s.id === key) as Step;
+            <div className="px-6 py-4 text-sm text-center border-b text-dark/60 border-dark/10">
+              <p className="max-w-[300px] mx-auto">
+                Si quieres comentar cualquier otro tema escríbenos a
+                {' '}
+                <a
+                  href="mailto:hello@weareminima.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-dark"
+                >
+                  hello@weareminima.com
+                </a>
+              </p>
+            </div>
+            <div>
+              <div className="p-6 space-y-4">
+                {INPUT_KEYS
+                  .map((key, i) => {
+                    const OLD_STEP = STEPS.find((s) => s.id === key) as Step;
 
-                  return (
-                    <div className="block space-y-4" key={key}>
-                      <Question
-                        id={OLD_STEP?.id}
-                        index={i}
-                        text={OLD_STEP?.question}
-                        animation={false}
-                      />
+                    return (
+                      <div className="block space-y-4" key={key}>
+                        <Question
+                          id={OLD_STEP?.id}
+                          index={i}
+                          text={OLD_STEP?.question}
+                          animation={false}
+                        />
 
-                      <Answer
-                        id={OLD_STEP?.id}
-                        type={OLD_STEP?.type}
-                        options={OLD_STEP?.options}
-                        value={inputs[key]}
-                        animation={OLD_STEP?.type !== 'radio'}
-                        disabled={animating}
-                        onEdit={() => {
-                          setEditableStep(OLD_STEP?.id);
-                        }}
-                      />
-                    </div>
-                  );
-                })}
+                        <Answer
+                          id={OLD_STEP?.id}
+                          type={OLD_STEP?.type}
+                          options={OLD_STEP?.options}
+                          value={inputs[key]}
+                          animation={OLD_STEP?.type !== 'radio'}
+                          disabled={animating}
+                          onEdit={() => {
+                            setEditableStep(OLD_STEP?.id);
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
 
-              <div className="space-y-4">
-                <Question
-                  id={STEP?.id}
-                  key={STEP?.id}
-                  index={INPUT_KEYS.length}
-                  text={STEP?.question}
-                  animation
-                  onAnimationStart={() => {
-                    setAnimating(true);
-                  }}
-                  onAnimationComplete={() => {
-                    if (STEP?.type === 'text' || STEP?.type === 'textarea') {
-                      setTimeout(() => {
-                        setFocus(STEP?.id as keyof Inputs);
-                      }, 0);
-
-                      trigger(STEP?.id as keyof Inputs);
-                    }
-
-                    stepRef.current = STEP?.id;
-
-                    setAnimating(false);
-
-                    setAnimationsCompleted({
-                      ...animationsCompleted,
-                      [STEP?.id]: true,
-                    });
-                  }}
-                />
-
-                {STEP?.options && animationsCompleted[STEP?.id] && (
-                  <Answer
+                <div className="space-y-4">
+                  <Question
                     id={STEP?.id}
-                    type={STEP?.type}
-                    options={STEP?.options}
-                    value={inputs[STEP?.id]}
+                    key={STEP?.id}
+                    index={INPUT_KEYS.length}
+                    text={STEP?.question}
                     animation
-                    disabled={animating}
+                    onAnimationStart={() => {
+                      setAnimating(true);
+                    }}
+                    onAnimationComplete={() => {
+                      if (STEP?.type === 'text' || STEP?.type === 'textarea') {
+                        setTimeout(() => {
+                          setFocus(STEP?.id as keyof Inputs);
+                        }, 0);
+
+                        trigger(STEP?.id as keyof Inputs);
+                      }
+
+                      stepRef.current = STEP?.id;
+
+                      setAnimating(false);
+
+                      setAnimationsCompleted({
+                        ...animationsCompleted,
+                        [STEP?.id]: true,
+                      });
+                    }}
+                  />
+
+                  {STEP?.options && animationsCompleted[STEP?.id] && (
+                    <Answer
+                      id={STEP?.id}
+                      type={STEP?.type}
+                      options={STEP?.options}
+                      value={inputs[STEP?.id]}
+                      animation
+                      disabled={animating}
+                    />
+                  )}
+                </div>
+              </div>
+
+              <footer className="sticky bottom-0 z-10 flex items-center justify-between px-6 py-4 space-x-5 bg-white border-t border-dark/10">
+                {EDITABLE_STEP?.type === 'text' && (
+                  <Controller
+                    key={EDITABLE_STEP?.id}
+                    name={EDITABLE_STEP?.id as keyof Inputs}
+                    control={control}
+                    rules={EDITABLE_STEP?.rules}
+                    render={({ field, fieldState }) => {
+                      return (
+                        <Input
+                          {...field}
+                          {...EDITABLE_STEP?.inputProps}
+                          className="w-full placeholder:text-dark/40"
+                          state={fieldState}
+                          theme="minimal"
+                          placeholder="Escribe aquí"
+                          disabled={animating}
+                        />
+                      );
+                    }}
                   />
                 )}
-              </div>
-            </div>
-
-            <footer className="sticky bottom-0 z-10 flex items-center justify-between px-6 py-4 space-x-5 bg-white border-t border-dark/10">
-              {EDITABLE_STEP?.type === 'text' && (
-                <Controller
-                  key={EDITABLE_STEP?.id}
-                  name={EDITABLE_STEP?.id as keyof Inputs}
-                  control={control}
-                  rules={EDITABLE_STEP?.rules}
-                  render={({ field, fieldState }) => {
-                    return (
-                      <Input
-                        {...field}
-                        {...EDITABLE_STEP?.inputProps}
-                        className="w-full"
-                        state={fieldState}
-                        theme="minimal"
-                        placeholder="Escribe aquí"
-                        disabled={animating}
-                      />
-                    );
-                  }}
-                />
-              )}
-              {EDITABLE_STEP?.type === 'textarea' && (
-                <Controller
-                  key={EDITABLE_STEP?.id}
-                  name={EDITABLE_STEP?.id as keyof Inputs}
-                  control={control}
-                  rules={EDITABLE_STEP?.rules}
-                  render={({ field, fieldState }) => {
-                    return (
-                      <TextArea
-                        {...field}
-                        rows={1}
-                        className="w-full"
-                        state={fieldState}
-                        theme="minimal"
-                        placeholder="Escribe aquí"
-                        disabled={animating}
-                      />
-                    );
-                  }}
-                />
-              )}
-
-              {(EDITABLE_STEP?.type === 'text' || EDITABLE_STEP?.type === 'textarea') && (
-                <Button
-                  type="submit"
-                  theme="primary"
-                  size="s"
-                  disabled={!formState.isValid}
-                >
-                  Enviar
-                </Button>
-              )}
-
-              {EDITABLE_STEP?.type === 'radio' && (
-                <div className="py-2 text-sm leading-tight text-dark">
-                  Selecciona una opción
-                </div>
-              )}
-
-              {EDITABLE_STEP?.type === 'submit' && (
-                <div
-                  className={cx({
-                    'relative w-full space-y-2 transition-opacity': true,
-                    'opacity-0': !animationsCompleted[STEP?.id],
-                    'opacity-100': animationsCompleted[STEP?.id],
-                  })}
-                >
-                  <Loading
-                    visible={submitting}
-                    className="absolute z-10 flex items-center justify-center w-full h-full bg-white/75"
-                    iconClassName="w-10 h-10"
+                {EDITABLE_STEP?.type === 'textarea' && (
+                  <Controller
+                    key={EDITABLE_STEP?.id}
+                    name={EDITABLE_STEP?.id as keyof Inputs}
+                    control={control}
+                    rules={EDITABLE_STEP?.rules}
+                    render={({ field, fieldState }) => {
+                      return (
+                        <TextArea
+                          {...field}
+                          rows={1}
+                          className="w-full placeholder:text-dark/40"
+                          state={fieldState}
+                          theme="minimal"
+                          placeholder="Escribe aquí"
+                          disabled={animating}
+                        />
+                      );
+                    }}
                   />
+                )}
 
+                {(EDITABLE_STEP?.type === 'text' || EDITABLE_STEP?.type === 'textarea') && (
                   <Button
                     type="submit"
                     theme="primary"
-                    size="base"
-                    className="w-full"
+                    size="s"
+                    disabled={!formState.isValid}
                   >
-                    Enviar formulario
+                    Enviar
                   </Button>
+                )}
 
-                  <div
-                    className="text-xs text-center text-dark/40"
-                  >
-                    Al enviar el formulario aceptas la
-                    {' '}
-                    <a
-                      className="text-dark"
-                      href="/privacy-policy"
-                    >
-                      política de privacidad
-                    </a>
+                {EDITABLE_STEP?.type === 'radio' && (
+                  <div className="py-2 text-sm leading-tight text-dark/40">
+                    Selecciona una opción
                   </div>
-                </div>
-              )}
-            </footer>
+                )}
+
+                {EDITABLE_STEP?.type === 'submit' && (
+                  <div
+                    className={cx({
+                      'relative w-full space-y-2 transition-opacity': true,
+                      'opacity-0': !animationsCompleted[STEP?.id],
+                      'opacity-100': animationsCompleted[STEP?.id],
+                    })}
+                  >
+                    <Loading
+                      visible={submitting}
+                      className="absolute z-10 flex items-center justify-center w-full h-full bg-white/75"
+                      iconClassName="w-10 h-10"
+                    />
+
+                    <Button
+                      type="submit"
+                      theme="primary"
+                      size="base"
+                      className="w-full"
+                    >
+                      Enviar formulario
+                    </Button>
+
+                    <div
+                      className="text-xs text-center text-dark/40"
+                    >
+                      Al enviar el formulario aceptas la
+                      {' '}
+                      <a
+                        className="text-dark"
+                        href="/privacy-policy"
+                      >
+                        política de privacidad
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </footer>
+            </div>
           </form>
         )}
 

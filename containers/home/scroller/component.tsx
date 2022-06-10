@@ -118,10 +118,15 @@ export const Scroller: FC<ScrollerProps> = () => {
         ready: false,
         exit: false,
         scrollReady: false,
-        step: null,
       }));
 
       setScrollReady(false);
+
+      setTimeout(() => {
+        dispatch(setState({
+          step: null,
+        }));
+      }, 0);
     }
   }, [STEP.id, dispatch]);
 

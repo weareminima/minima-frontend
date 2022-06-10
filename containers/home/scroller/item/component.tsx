@@ -227,7 +227,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
               bounce: 0,
             }}
             className={cx({
-              'fixed pointer-events-none w-full h-full top-0 left-0 z-0 overflow-hidden rounded-3xl will-change-auto': true,
+              'fixed pointer-events-none w-full h-full top-0 left-0 z-0 overflow-hidden rounded-3xl lg:rounded-4xl will-change-auto': true,
               'lg:pt-20 md:pt-16 pt-12 ': true,
               'lg:px-8 md:px-6 px-4': true,
               'lg:pb-8 md:pb-6 pb-4': true,
@@ -250,7 +250,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
             <button
               type="button"
               className={cx({
-                'w-full h-full z-0 overflow-hidden rounded-3xl pointer-events-auto cursor-pointer appearance-none flex flex-col justify-start items-start': true,
+                'w-full h-full z-0 overflow-hidden rounded-3xl lg:rounded-4xl pointer-events-auto cursor-pointer appearance-none flex flex-col justify-start items-start': true,
                 [className]: !!className,
               })}
               onClick={() => {
@@ -318,7 +318,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           },
         }}
         className={cx({
-          'fixed w-full h-full top-0 left-0 z-0 overflow-hidden rounded-3xl will-change-auto': true,
+          'fixed w-full h-full top-0 left-0 z-0 overflow-hidden rounded-3xl lg:rounded-4xl will-change-auto': true,
           'lg:pt-20 md:pt-16 pt-12 ': true,
           'lg:px-8 md:px-6 px-4': true,
           'lg:pb-8 md:pb-6 pb-4': true,
@@ -326,7 +326,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
       >
         <div
           className={cx({
-            'w-full h-full z-0 overflow-hidden rounded-3xl': true,
+            'w-full h-full z-0 overflow-hidden rounded-3xl lg:rounded-4xl': true,
             [className]: !!className,
           })}
           style={{

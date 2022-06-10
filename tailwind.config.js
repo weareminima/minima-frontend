@@ -57,6 +57,11 @@ module.exports = {
         },
       },
     }),
+    extend: {
+      borderRadius: {
+        '4xl': '2rem',
+      },
+    },
   },
   plugins: [forms, lineClamp],
 };

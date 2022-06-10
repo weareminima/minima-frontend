@@ -7,4 +7,4 @@ export const CONTENT_CLASSES = {
   xl: `sm:w-full md:w-full lg:w-full xl:w-full ${COMMON_CONTENT_CLASSES}`,
 };
 
-export const OVERLAY_CLASSES = 'z-50 absolute inset-0 bg-dark/25 bg-blur';
+export const OVERLAY_CLASSES = 'z-50 absolute inset-0 bg-dark/80 bg-blur';
