@@ -30,17 +30,17 @@ export const ContactButton: FC<ContactButtonProps> = () => {
         }}
         animate={{
           opacity: open ? 0 : 1,
-          y: open ? 10 : 0,
+          x: open ? 10 : 0,
           transition: {
             delay: open ? 0 : 0.5,
           },
         }}
         type="button"
-        className="fixed z-20 flex items-center justify-center w-20 h-20 group right-4 bottom-4 md:right-6 md:bottom-6 lg:right-8 lg:bottom-8"
+        className="fixed z-20 flex items-center justify-center w-20 h-20 group right-2 bottom-2 md:right-4 md:bottom-4 lg:right-6 lg:bottom-6"
         onClick={onClick}
       >
         <motion.div
-          className="absolute top-0 left-0 z-10 w-20 h-20"
+          className="absolute top-0 left-0 z-10 w-20 h-20 backface-invisible"
           initial={{
             rotate: 0,
           }}

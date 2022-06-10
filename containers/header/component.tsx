@@ -76,7 +76,7 @@ export const Header: FC<HeaderProps> = ({
             whileHover={{
               scale: 1.05, y: '-50%', z: 0, opacity: 1,
             }}
-            className="absolute flex items-center justify-center h-5 -translate-y-1/2 top-1/2 right-4 md:right-6 lg:right-8 backface-invisible"
+            className="absolute flex items-center justify-center h-5 -translate-y-1/2 top-1/2 right-4 md:right-6 lg:right-8"
             onClick={onMenuClick}
           >
             <div className="w-5 h-2.5">
