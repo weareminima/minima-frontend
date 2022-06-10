@@ -13,10 +13,8 @@ import {
 } from 'framer-motion';
 import { Scroll } from 'scrollex';
 import useBreakpoint from 'use-breakpoint';
-import { useDebouncedCallback } from 'use-debounce';
 
 import usePreloadImages from 'hooks/images';
-import { useScroll } from 'hooks/scroll';
 import { useSizes } from 'hooks/size';
 import useWindowSize from 'hooks/window';
 
@@ -41,8 +39,6 @@ export const Scroller: FC<ScrollerProps> = () => {
   const { PADDING, HEADER } = useSizes();
   const { width, height } = useWindowSize();
   const { breakpoint } = useBreakpoint(BREAKPOINTS);
-
-  const { update: updateScroll } = useScroll();
 
   const STEP = useMemo(() => {
     const S = steps.find((s) => s.id === step) || {} as any;
@@ -129,16 +125,6 @@ export const Scroller: FC<ScrollerProps> = () => {
     }
   }, [STEP.id, dispatch]);
 
-  const handleScroll = useDebouncedCallback((e) => {
-    updateScroll({
-      scrollX: e.target.scrollLeft,
-      scrollY: e.target.scrollTop,
-    });
-  }, 50, {
-    leading: true,
-    maxWait: 100,
-  });
-
   useEffect(() => {
     if (scrollRef.current) {
       if (menu) {
@@ -177,7 +163,6 @@ export const Scroller: FC<ScrollerProps> = () => {
               scrollAxis="y"
               className="z-0 w-full h-full bg-white"
               throttleAmount={0}
-              onScroll={handleScroll}
             >
               {CARDS.map((card) => {
                 return (

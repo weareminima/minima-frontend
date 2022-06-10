@@ -4,8 +4,6 @@ import {
 
 import { motion } from 'framer-motion';
 
-import { useScroll } from 'hooks/scroll';
-
 import ContactModal from 'containers/contact/modal';
 
 import Icon from 'components/icon';
@@ -18,9 +16,6 @@ interface ContactButtonProps {}
 
 export const ContactButton: FC<ContactButtonProps> = () => {
   const [open, setOpen] = useState(false);
-
-  const { scroll } = useScroll();
-  const { scrollY } = scroll;
 
   // Callbacks
   const onClick = useCallback(() => {
@@ -50,7 +45,13 @@ export const ContactButton: FC<ContactButtonProps> = () => {
             rotate: 0,
           }}
           animate={{
-            rotate: scrollY * 0.1,
+            rotate: 360,
+          }}
+          transition={{
+            duration: 15,
+            ease: 'linear',
+            repeat: Infinity,
+            repeatType: 'loop',
           }}
         >
           <Icon icon={CONTACT_TEXT_SVG} className="w-20 h-20 backface-invisible" />
