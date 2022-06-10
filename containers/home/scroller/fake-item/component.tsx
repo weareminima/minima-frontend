@@ -10,6 +10,7 @@ import {
   motion,
 } from 'framer-motion';
 
+import { useSizes } from 'hooks/size';
 import useStep from 'hooks/steps';
 
 import Tag from 'components/tag';
@@ -23,6 +24,8 @@ export const FakeItem: FC<FakeItemProps> = () => {
 
   const STEP = useStep({ step, steps });
 
+  const { PADDING } = useSizes();
+
   return (
     <div
       className={cx({
@@ -33,17 +36,17 @@ export const FakeItem: FC<FakeItemProps> = () => {
     >
       <motion.div
         initial={{
-          padding: exit ? 24 : 16,
+          padding: exit ? PADDING : 16,
         }}
         animate={{
-          padding: exit ? 16 : 24,
+          padding: exit ? 16 : PADDING,
         }}
         transition={{
           duration: 0.5,
           bounce: 0,
         }}
         className={cx({
-          'w-full h-full overflow-hidden flex flex-col p-4 grow rounded-3xl justify-between': true,
+          'w-full h-full overflow-hidden flex flex-col lg:p-8 md:p-6 p-4 grow rounded-3xl justify-between': true,
           [STEP.className]: true,
         })}
       >

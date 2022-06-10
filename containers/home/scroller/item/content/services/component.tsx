@@ -37,8 +37,8 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
             fullScreen: true,
             reverse: true,
             align: 'end',
-            imageClassName: 'w-full md:w-8/12',
-            contentClassName: 'w-full md:w-4/12',
+            imageClassName: 'w-full lg:w-8/12',
+            contentClassName: 'w-full lg:w-4/12',
           }}
         >
           <>

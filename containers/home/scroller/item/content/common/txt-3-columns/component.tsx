@@ -30,10 +30,10 @@ export const Txt3Columns: FC<Txt3ColumnsProps> = ({
   });
 
   return (
-    <div ref={sectionRef} className="py-20">
+    <div ref={sectionRef} className="py-10 lg:py-20">
       <div
         className={cx({
-          'space-y-5 md:space-y-0 md:flex md:space-x-10': true,
+          'space-y-5 lg:space-y-0 lg:flex lg:space-x-10': true,
         })}
       >
         {Children.map(children, (child: any) => {

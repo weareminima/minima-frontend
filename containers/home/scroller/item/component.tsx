@@ -277,7 +277,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
               >
                 <div
                   className={cx({
-                    'flex items-start justify-between p-6': true,
+                    'flex items-start justify-between lg:p-8 md:p-6 p-4': true,
                   })}
                 >
                   <div className="flex space-x-2">
@@ -336,7 +336,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           >
             <div
               className={cx({
-                'flex items-start justify-between p-6': true,
+                'flex items-start justify-between lg:p-8 md:p-6 p-4': true,
               })}
             >
               <div className="flex space-x-2">
@@ -393,7 +393,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           <Scroll.Item
             key="content"
             keyframes={keyframes.content}
-            className="px-6 pb-6 grow will-change-transform"
+            className="px-4 pb-4 md:px-6 lg:px-8 md:pb-6 lg:pb-8 grow will-change-transform"
           >
             {CONTENT[id]}
           </Scroll.Item>
@@ -411,7 +411,12 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
       {/* CONTENT SCOLLABLE */}
       <div
         id={id}
-        className="relative z-20 w-full px-6 pt-20 opacity-0 pointer-events-none"
+        className={cx({
+          'relative z-20 w-full opacity-0 pointer-events-none': true,
+          'lg:pt-20 md:pt-16 pt-12 ': true,
+          'lg:px-8 md:px-6 px-4': true,
+          'lg:pb-8 md:pb-6 pb-4': true,
+        })}
       >
         <header
           className={cx({
@@ -421,7 +426,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
         >
           <div
             className={cx({
-              'flex items-start justify-between p-6': true,
+              'flex items-start justify-between lg:p-8 md:p-6 p-4': true,
             })}
           >
             <div className="flex space-x-2">
@@ -432,7 +437,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
         </header>
 
         <div
-          className="px-6 pb-6 overflow-hidden"
+          className="px-4 pb-4 overflow-hidden md:px-6 lg:px-8 md:pb-6 lg:pb-8"
         >
           {CONTENT[id]}
         </div>

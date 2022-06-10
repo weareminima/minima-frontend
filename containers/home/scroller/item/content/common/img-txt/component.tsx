@@ -53,15 +53,15 @@ export const ImgTxt: FC<ImgTxtProps> = ({
     <div
       ref={sectionRef}
       className={cx({
-        'py-10 md:py-20': true,
+        'py-10 lg:py-20': true,
         'lg:px-28': !fullScreen,
       })}
     >
       <div
         className={cx({
-          'md:flex md:space-x-40': true,
-          'space-y-10 md:space-y-0': true,
-          'md:flex-row-reverse md:space-x-reverse': reverse,
+          'lg:flex lg:space-x-40': true,
+          'space-y-10 lg:space-y-0': true,
+          'lg:flex-row-reverse lg:space-x-reverse': reverse,
           'items-start': align === 'start',
           'items-center': align === 'center',
           'items-end': align === 'end',
@@ -85,7 +85,7 @@ export const ImgTxt: FC<ImgTxtProps> = ({
             duration: 0.5,
           }}
           className={cx({
-            'opacity-0': true,
+            'opacity-0 mx-auto': true,
             'w-full': !imageClassName,
             [imageClassName]: !!imageClassName,
           })}
