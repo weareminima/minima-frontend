@@ -404,7 +404,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           <Scroll.Item
             key="content"
             keyframes={keyframes.content}
-            className="px-4 pb-4 md:px-6 lg:px-8 md:pb-6 lg:pb-8 grow will-change-transform"
+            className="px-4 pb-4 text-base md:px-6 lg:px-8 md:pb-6 lg:pb-8 grow will-change-transform"
           >
             {CONTENT[id]}
           </Scroll.Item>
@@ -419,7 +419,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
         </div>
       </Scroll.Item>
 
-      {/* CONTENT SCOLLABLE */}
+      {/* CONTENT SCROLLABLE */}
       <div
         id={id}
         className={cx({
@@ -448,7 +448,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
         </header>
 
         <div
-          className="px-4 pb-4 overflow-hidden md:px-6 lg:px-8 md:pb-6 lg:pb-8"
+          className="px-4 pb-4 overflow-hidden text-base md:px-6 lg:px-8 md:pb-6 lg:pb-8"
         >
           {CONTENT[id]}
         </div>
