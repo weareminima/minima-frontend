@@ -40,5 +40,5 @@ export const WithIcon = Template.bind({});
 WithIcon.args = {
   children: <Icon icon={CLOSE_SVG} className="w-5 h-5 stroke-current" />,
   disabled: false,
-  size: 'icon',
+  size: 'icon-base',
 };

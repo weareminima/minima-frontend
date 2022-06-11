@@ -8,7 +8,8 @@ export const THEME = {
 };
 
 export const SIZE = {
-  icon: 'rounded-full w-12 h-12',
+  'icon-base': 'rounded-full w-12 h-12',
+  'icon-s': 'rounded-full w-6 h-6',
   s: 'text-sm px-3 py-1',
   base: 'text-sm px-6 py-3',
 };

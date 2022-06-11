@@ -473,21 +473,21 @@ export const ContactForm: FC<ContactFormProps> = ({
               <Button
                 type="button"
                 theme="primary-alt"
-                size="icon"
+                size="icon-base"
               >
                 <Icon icon={LINKEDIN_SVG} className="w-4 h-4 stroke-none fill-none" />
               </Button>
               <Button
                 type="button"
                 theme="primary-alt"
-                size="icon"
+                size="icon-base"
               >
                 <Icon icon={TWITTER_SVG} className="w-4 h-4 stroke-none fill-none" />
               </Button>
               <Button
                 type="button"
                 theme="primary-alt"
-                size="icon"
+                size="icon-base"
               >
                 <Icon icon={INSTAGRAM_SVG} className="w-4 h-4 stroke-none fill-none" />
               </Button>

@@ -95,7 +95,7 @@ export const Intro: FC<IntroProps> = () => {
               </motion.span>
             ))}
             <span className="italic">
-              {'better'.split('').map((l, index) => (
+              {'better life'.split('').map((l, index) => (
                 <motion.span
                   key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
                   className={cx({
@@ -107,17 +107,6 @@ export const Intro: FC<IntroProps> = () => {
                 </motion.span>
               ))}
             </span>
-            {' life.'.split('').map((l, index) => (
-              <motion.span
-                key={`${l}-${index}`} // eslint-disable-line react/no-array-index-key
-                className={cx({
-                  'inline-block': l !== ' ',
-                })}
-                variants={letter}
-              >
-                {l}
-              </motion.span>
-            ))}
           </span>
         </motion.h1>
       </div>

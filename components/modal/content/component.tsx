@@ -43,30 +43,6 @@ export const ModalContent: FC<ModalContentProps> = ({
         {children}
       </motion.div>
     </div>
-    // <motion.div
-    //   variants={contentFramerVariants}
-    //   initial="initial"
-    //   animate="animate"
-    //   exit="exit"
-    //   className={cx({ [CONTENT_CLASSES[size]]: true, [className]: !!className })}
-    //   {...getFloatingProps({
-    //     ref: floating,
-    //   })}
-    // >
-    //   <div className="relative flex flex-col overflow-hidden grow">
-    //     <button
-    //       type="button"
-    //       onClick={() => {
-    //         onOpenChange(false);
-    //       }}
-    //       className="absolute flex items-center px-4 py-4 text-sm text-gray-300 top-6 right-6"
-    //     >
-    //       <Icon icon={CLOSE_SVG} className="inline-block w-3 h-3 text-black" />
-    //     </button>
-
-  //     {children}
-  //   </div>
-  // </motion.div>
   );
 };
 

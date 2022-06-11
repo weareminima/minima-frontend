@@ -33,7 +33,7 @@ export const HeroItem: FC<HeroItemProps> = ({
   return (
     <div
       ref={heroRef}
-      className="flex flex-col justify-between w-full mb-4 lg:mb-8 md:mb-6"
+      className="flex flex-col justify-between w-full mb-4 space-y-16 lg:mb-8 md:mb-6"
       style={{
         height: height - HEADER - (PADDING * 2) - (24 + PADDING * 2),
       }}

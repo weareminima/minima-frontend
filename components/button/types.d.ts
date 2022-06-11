@@ -4,7 +4,7 @@ import { LinkProps } from 'next/link';
 
 export interface AnchorButtonProps {
   theme: 'primary' | 'primary-alt' | 'clean';
-  size: 's' | 'base' | 'icon';
+  size: 's' | 'base' | 'icon-s' | 'icon-base';
   className?: string;
 }
 

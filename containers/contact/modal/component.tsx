@@ -4,6 +4,7 @@ import {
 
 import ContactForm from 'containers/contact/form';
 
+import Button from 'components/button';
 import Icon from 'components/icon';
 
 import CLOSE_SVG from 'svgs/close.svg?sprite';
@@ -30,13 +31,16 @@ export const ContactModal: FC<ContactModalProps> = ({
           <span>Mínima</span>
         </h2>
 
-        <button
-          type="button"
-          className="flex items-center justify-center w-6 h-6 transition-colors border rounded-full border-dark/10 hover:border-dark"
+        <Button
+          size="icon-s"
+          theme="primary-alt"
           onClick={onClose}
         >
-          <Icon icon={CLOSE_SVG} className="w-2 h-2 stroke-dark" />
-        </button>
+          <Icon
+            icon={CLOSE_SVG}
+            className="block w-2 h-2 stroke-current text-dark"
+          />
+        </Button>
       </header>
 
       <ContactForm

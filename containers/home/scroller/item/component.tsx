@@ -18,6 +18,7 @@ import { Keyframes, Scroll } from 'scrollex';
 import { useSizes } from 'hooks/size';
 import useWindowSize from 'hooks/window';
 
+import Button from 'components/button';
 import Icon from 'components/icon';
 import Tag from 'components/tag';
 
@@ -336,8 +337,8 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           {/* HEADER */}
           <header
             className={cx({
-              'sticky top-0 z-10 bg-gradient-to-b rounded-t-3xl': true,
-              [gradient]: !!gradient,
+              'sticky top-0 z-10 rounded-t-3xl': true,
+              [className]: !!className,
             })}
           >
             <div
@@ -353,10 +354,10 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
 
               </div>
 
-              <motion.button
+              <motion.div
                 initial={{
                   opacity: 0,
-                  y: -5,
+                  y: -3,
                 }}
                 animate={{
                   opacity: 1,
@@ -367,31 +368,35 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
                 }}
                 exit={{
                   opacity: 0,
-                  y: -5,
+                  y: -3,
                   transition: {
                     duration: 0,
                   },
                 }}
-                type="button"
-                onClick={() => {
-                  dispatch(setState({
-                    ready: false,
-                    exit: true,
-                    step: id,
-                  }));
-
-                  setTimeout(() => {
-                    dispatch(setState({
-                      open: false,
-                    }));
-                  }, 0);
-                }}
               >
-                <Icon
-                  icon={CLOSE_SVG}
-                  className="block w-4 h-4 stroke-current text-dark"
-                />
-              </motion.button>
+                <Button
+                  size="icon-s"
+                  theme="primary-alt"
+                  onClick={() => {
+                    dispatch(setState({
+                      ready: false,
+                      exit: true,
+                      step: id,
+                    }));
+
+                    setTimeout(() => {
+                      dispatch(setState({
+                        open: false,
+                      }));
+                    }, 0);
+                  }}
+                >
+                  <Icon
+                    icon={CLOSE_SVG}
+                    className="block w-2 h-2 stroke-current text-dark"
+                  />
+                </Button>
+              </motion.div>
             </div>
           </header>
 
