@@ -9,8 +9,8 @@ import ContactModal from 'containers/contact/modal';
 import Icon from 'components/icon';
 import Modal from 'components/modal';
 
-import CONTACT_ISOTYPE_SVG from 'svgs/contact-isotype.svg?sprite';
 import CONTACT_TEXT_SVG from 'svgs/contact-text.svg?sprite';
+import ISOTYPE_SVG from 'svgs/isotype.svg?sprite';
 
 interface ContactButtonProps {}
 
@@ -59,7 +59,7 @@ export const ContactButton: FC<ContactButtonProps> = () => {
 
         <div className="absolute z-0 w-full h-full -translate-x-1/2 -translate-y-1/2 bg-white rounded-full top-1/2 left-1/2" />
 
-        <Icon icon={CONTACT_ISOTYPE_SVG} className="block w-4 h-4 transition-transform scale-100 group-hover:scale-110 backface-invisible" />
+        <Icon icon={ISOTYPE_SVG} className="block w-4 h-4 transition-transform scale-100 group-hover:scale-110 backface-invisible" />
       </motion.button>
 
       <Modal

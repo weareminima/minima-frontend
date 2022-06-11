@@ -44,7 +44,7 @@ const CONTENT = {
 
 const SIZES = {
   header: 80,
-  footer: 24,
+  footer: 32,
 };
 
 interface ScrollerItemProps {
@@ -57,21 +57,26 @@ interface ScrollerItemProps {
 }
 
 const keyframes: Record<string, Keyframes> = {
-  background: ({ section, container }) => {
+  background: ({ section, container, data }) => {
+    const { id } = data;
     return {
-      [section.topAt('container-top')]: {
-        translateY: '0%',
-      },
       [section.topAt('container-bottom') - SIZES.header - SIZES.footer]: {
         translateY: '100%',
+      },
+      [section.topAt('container-top')]: {
+        translateY: '0%',
       },
       [section.bottomAt('container-bottom') - SIZES.header - SIZES.footer]: {
         scale: 1,
         opacity: 1,
+        translateY: '0%',
       },
       [section.bottomAt('container-bottom') + (container.height) - SIZES.header - SIZES.footer]: {
+        ...id !== 'contact' && {
+          opacity: 0,
+        },
         scale: 0.95,
-        opacity: 0,
+        translateY: '0%',
       },
     };
   },
@@ -299,13 +304,13 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           </motion.div>
         )}
       </AnimatePresence>
+
       {/* FIXED */}
       <Scroll.Item
         ref={backgroundRef}
         key="background"
         data={{
-          index,
-          steps,
+          id,
         }}
         keyframes={keyframes.background}
         springs={{
