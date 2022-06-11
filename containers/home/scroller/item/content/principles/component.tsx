@@ -73,8 +73,8 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
             </h3>
 
             <div className="space-y-4">
-              <p>Somos grandes amigas de la buena conversación, pero rechazamos los discursos de venta prefabricados y los argumentos cargados de promesas que jamás se harán realidad.</p>
-              <p>Es por esto que en Mínima no encontrarás estas prácticas como tapadera de diseños inacabados, erróneamente definidos o inexistentes. Nos comprometemos con la aportación, a través del diseño, de un valor significativo para la sociedad y el mundo que aplique al presente y perviva a lo largo del tiempo.</p>
+              <p>Somos grandes amigas de la buena conversación, pero rechazamos los discursos de venta prefabricados y los argumentos cargados de promesas que jamás se harán realidad. Es por esto que no encontrarás estas prácticas como tapadera de diseños inacabados, erróneamente definidos o inexistentes.</p>
+              <p>Nos involucramos radicalmente porque trabajamos solo en aquello en lo que verdaderamente creemos; esto cambia por completo la relación y la forma en la que hacemos diseño.</p>
             </div>
           </>
         </ImgTxt>
