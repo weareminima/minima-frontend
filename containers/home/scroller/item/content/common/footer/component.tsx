@@ -42,10 +42,16 @@ export const ScrollerFooter: FC<ScrollerFooterProps> = () => {
           >
             <footer
               className={cx({
-                'relative z-10 flex flex-col space-y-16 md:space-y-0 md:flex-row items-center justify-between pt-16 md:pt-20 pb-12 md:pb-14 lg:pb-12': true,
+                'relative z-10 flex flex-col space-y-4 md:space-y-0 md:space-x-8 md:flex-row items-center pt-16 md:pt-14 pb-12 md:pb-10': true,
               })}
             >
-              <Icon icon={LOGO_SVG} className="w-6 h-6" />
+              <div className="flex flex-col items-center space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+                <Icon icon={LOGO_SVG} className="w-6 h-6" />
+                <div className="text-sm text-dark/40">
+                  © We are Mínima 2022
+                </div>
+
+              </div>
 
               <ul className="flex flex-col space-y-4 text-sm text-center md:space-y-0 md:flex-row md:space-x-4 text-dark">
                 <li>
@@ -71,9 +77,6 @@ export const ScrollerFooter: FC<ScrollerFooterProps> = () => {
                   >
                     Política de cookies
                   </button>
-                </li>
-                <li className="text-dark/40">
-                  © We are Mínima 2022
                 </li>
               </ul>
             </footer>

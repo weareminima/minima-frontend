@@ -124,7 +124,7 @@ export const ImgTxt: FC<ImgTxtProps> = ({
           />
 
           {image.caption && (
-            <div className="mt-4 text-center">
+            <div className="mt-4 italic text-center">
               {image.caption}
             </div>
           )}

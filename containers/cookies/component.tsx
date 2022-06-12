@@ -20,9 +20,9 @@ export const Cookies: FC<CookiesProps> = () => {
   const cookiesAccepted = cookies['cookies-accepted'];
 
   // Callbacks
-  const onClickConfigure = useCallback(() => {
-    setOpen(true);
-  }, []);
+  // const onClickConfigure = useCallback(() => {
+  //   setOpen(true);
+  // }, []);
 
   const onClickConfirm = useCallback(() => {
     setCookie('cookies-accepted', 'true', { path: '/' });
@@ -50,7 +50,7 @@ export const Cookies: FC<CookiesProps> = () => {
         <div className="flex flex-col sm:flex-row items-center bg-white px-3 py-2.5 space-y-2 sm:space-y-0 sm:space-x-3 border border-dark/10 rounded-3xl sm:rounded-4xl">
           <div className="flex items-center space-x-2">
             <div
-              className="w-5 h-5"
+              className="w-5 h-5 bg-contain"
               style={{
                 backgroundImage: 'url(/images/cookies/cookie.png)',
               }}
@@ -61,14 +61,14 @@ export const Cookies: FC<CookiesProps> = () => {
           </div>
 
           <div className="flex space-x-2">
-            <Button
+            {/* <Button
               type="button"
               theme="primary-alt"
               size="s"
               onClick={onClickConfigure}
             >
               Configurar
-            </Button>
+            </Button> */}
             <Button
               type="button"
               theme="primary"

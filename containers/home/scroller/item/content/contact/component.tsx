@@ -29,7 +29,7 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
         description={STEP.description}
       />
 
-      <div>
+      <div className="max-w-lg">
         <ul className="divide-y divide-dashed divide-dark/25">
           <li className="py-4 space-y-2">
             <h4 className="text-2xl italic font-display">Dónde estamos</h4>
