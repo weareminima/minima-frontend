@@ -69,7 +69,7 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
         </div>
         <div id="column3" className="space-y-2.5">
           <p className="text-3xl italic font-display">
-            Es por esto que reivindicamos recuperar su verdadero sentido: intervenir de forma consciente, comprometida y responsable no solo en un presente más sano sino en un futuro más próspero.
+            Es por esto que reivindicamos recuperar su verdadero sentido: intervenir de forma consciente, comprometida y responsable no solo en un presente más sano, sino en un futuro más próspero.
           </p>
           <p>
             Nace así Mínima como voluntad para reflexionar, hacer y fomentar el bien común a través de un enfoque centrado no solo en diseñar correctamente sino en diseñar lo correcto, ya que creemos firmemente que un buen diseño comienza con un gran propósito.

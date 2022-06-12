@@ -47,7 +47,7 @@ export const ContentItemMethod: FC<ContentItemMethodProps> = () => {
 
           <div className="space-y-4">
             <p className="text-3xl italic font-display">No tenemos recetas, sino una forma de ver el diseño como una disciplina híbrida, plástica y en cierto modo de naturaleza anárquica.</p>
-            <p>En Mínima reconocemos que nunca hacemos las cosas de la misma manera porque no creemos en la estandarización de problemas ni de soluciones. Pensamos que un análisis crítico y honesto revelará las condiciones particulares, únicas e irrepetibles que requerirán en cualquier caso una propuesta a medida. </p>
+            <p>En Mínima reconocemos que nunca hacemos las cosas de la misma manera porque no creemos en la estandarización de problemas ni de soluciones. Sabemos que un análisis crítico y honesto revelará las condiciones particulares, únicas e irrepetibles que conducirán a la necesidad de una propuesta a medida.</p>
             <p>Nuestro modo de hacer exige cambiar constantemente de mirada para descubrir realidades anteriormente ocultas y poder entenderlas, cuestionarlas y reformularlas. Significa estar abierto a trabajar en diferentes sectores y con distintas disciplinas, por lo que hemos mantenido un modelo relativamente sencillo y flexible enfocado en tres grandes estadios:</p>
 
             <ul className="divide-y divide-dashed divide-dark/25">

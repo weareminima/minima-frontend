@@ -56,7 +56,7 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
             </h3>
 
             <div className="space-y-4">
-              <p>El diseño ágil ha sido muy útil en muchos casos y corrompido en tantos otros. La velocidad se ha establecido como una de las cualidades de mayor valor, poniéndose en multitud de ocasiones como excusa para sacrificar el espacio destinado a la reflexión. Defendemos la mejora progresiva mediante versiones orientadas a la verdadera entrega de valor, pero rechazamos el trabajo desorientado y movido por la inercia de un plan sin rumbo. Disponer del tiempo para establecer la dirección no debería ser negociable en el momento en el que su recorte suponga un deterioro crítico de la calidad.</p>
+              <p>El diseño ágil ha sido muy útil en muchos casos y corrompido en tantos otros. La velocidad se ha establecido como una de las cualidades de mayor valor, poniéndose en multitud de ocasiones como excusa para sacrificar el espacio destinado a la reflexión. Defendemos la mejora progresiva mediante versiones orientadas a la verdadera entrega de valor, pero rechazamos el trabajo desorientado y movido por la inercia de un plan sin rumbo.</p>
               <p>En contra de las metodologías dominantes actuales que premian la rapidez y la inmediatez, nosotras reivindicamos un diseño más juicioso y pausado para un mayor control y un mejor resultado.</p>
             </div>
           </>
@@ -130,7 +130,7 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
 
             <div className="space-y-4">
               <p>Se trata de nuestro imperativo moral. Nos autoexigimos y comprometemos con un diseño honesto, donde la verdad sea lo que prime y la calidad su resultado.</p>
-              <p>Es la razón por la que hacemos de los proyectos ajenos algo nuestro, inyectando una alta dosis de implicación y comprometiéndonos a hacer para cada uno de ellos el mejor trabajo de nuestras vidas.</p>
+              <p>Es la razón por la que hacemos de los proyectos ajenos algo nuestro, inyectando una alta dosis de implicación para hacer de cada uno de ellos el mejor trabajo de nuestras vidas.</p>
             </div>
           </>
         </ImgTxt>

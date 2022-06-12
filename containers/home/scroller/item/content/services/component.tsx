@@ -36,7 +36,6 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           options={{
             fullScreen: true,
             reverse: true,
-            align: 'end',
             imageClassName: 'w-full lg:w-8/12',
             contentClassName: 'w-full lg:w-4/12',
           }}
@@ -72,7 +71,7 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
 
             <div className="space-y-4">
               <p className="text-3xl italic font-display">¿Qué debería representar la marca para el mundo?, ¿cómo influirá en la configuración de nuevas formas y estilos de vida?, y lo más importante, ¿cómo moldeará la forma de percibir, entender y valorar nuestra realidad?</p>
-              <p>Estas respuestas determinarán su caracterización, discurso y esferas de actuación. Nuestro trabajo consiste en detectar qué hace a la marca única y extraordinaria para mostrar su esencia, contar su historia y hacer que habite de manera singular en nosotros y en el mundo.</p>
+              <p>Las respuestas a estas preguntas determinarán su caracterización, discurso y esferas de actuación. Nuestro trabajo consiste en detectar qué hace a la marca única y extraordinaria para revelar su esencia, contar su historia y hacer que habite de manera singular en nosotros y en el mundo.</p>
             </div>
           </>
         </ImgTxt>
@@ -97,7 +96,7 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
             </h3>
 
             <div className="space-y-4">
-              <p className="text-3xl italic font-display">¿Qué debería significar el producto para su usuario?, ¿en qué medida genera autonomía o dependencias?, y lo más relevante, ¿cómo modificará su vida, la de su entorno y las relaciones entre ellos?</p>
+              <p className="text-3xl italic font-display">¿Qué debería significar el producto para su usuario?, ¿en qué medida generará autonomía o dependencias?, y lo más relevante, ¿cómo modificará su vida, la de su entorno y las relaciones entre ellos?</p>
               <p>En Mínima buscamos responder a estas y otras preguntas para diseñar y crear productos más humanos que sean verdaderamente significativos, útiles, éticos y estéticos. Nos encargamos de traducir conceptos en productos accesibles, emocionales y sostenibles para eliminar barreras sociales, lanzar alternativas responsables y fomentar el bienestar global.</p>
             </div>
           </>
@@ -121,7 +120,7 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
 
             <div className="space-y-4">
               <p className="text-3xl italic font-display">¿Qué servicios urge diseñar o redefinir para los diferentes colectivos sociales?, ¿de qué forma y en qué medida mejorará la empresa, la vida y el mundo en el que estos tienen lugar?</p>
-              <p>En Mínima nos enfocamos en diseñar la forma en que las compañías pueden ofrecer sus intangibles generando la mejor y más propia de las experiencias posibles. Lo llevamos a cabo definiendo y vinculando diferentes sistemas de interacciones humanas, físicas y digitales, para crear momentos donde la organización y el mundo se encuentran. Trabajamos en la cara invisible para hacer visible la atención, asistencia y cuidado en cada punto de la experiencia.</p>
+              <p>En Mínima nos enfocamos en conceptualizar la forma en que las compañías pueden ofrecer sus intangibles centrando esfuerzos en diseñar meticulosamente la experiencia. Lo llevamos a cabo definiendo y vinculando diferentes sistemas de interacciones humanas, físicas y digitales, para crear momentos donde la organización y el mundo se encuentran. Trabajamos en la cara invisible para hacer visible la atención, asistencia y cuidado en cada punto de la experiencia.</p>
             </div>
           </>
         </ImgTxt>

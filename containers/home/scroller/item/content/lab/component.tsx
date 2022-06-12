@@ -46,9 +46,9 @@ export const ContentItemLab: FC<ContentItemLabProps> = () => {
           </div>
 
           <div className="space-y-4">
-            <p>El Lab de Mínima se ha creado como una unidad de experimentación cuya función es la de entrenar la mirada, provocar el pensamiento y poner a prueba ideas sin límites en las áreas que más nos interesan.</p>
-            <p>De esta forma, lanzamos proyectos propios en fase beta, investigamos metodologías, abrimos debates sobre desafíos contemporáneos o testamos tecnologías, combinando enfoques tanto empíricos como teóricos.</p>
-            <p className="text-3xl italic font-display">Para nosotras es un espacio de juego y aprendizaje donde probar conceptos dirigidos por la imaginación, libertad y pasión.</p>
+            <p>El Lab de Mínima se ha creado como una unidad de experimentación cuya función es la de entrenar la mirada, provocar el pensamiento y poner a prueba ideas sin límites.</p>
+            <p>De esta forma, lanzamos proyectos propios, investigamos metodologías, abrimos debates sobre desafíos contemporáneos o testamos tecnologías combinando enfoques tanto empíricos como teóricos.</p>
+            <p className="text-3xl italic font-display">Para nosotras es un espacio de juego y aprendizaje donde probar conceptos dirigidos por la pasión, libertad e imaginación.</p>
           </div>
         </>
       </ImgTxt>

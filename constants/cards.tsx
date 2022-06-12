@@ -146,7 +146,7 @@ export const CARDS = [
       <p className="leading-tight ">
         Diseñemos
         {' '}
-        <i className="block text-lg font-italic font-display">juntos lo posible</i>
+        <i className="block text-lg font-italic font-display">posibilidades juntos</i>
       </p>
     ),
     description: (

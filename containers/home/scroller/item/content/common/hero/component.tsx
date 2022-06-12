@@ -62,7 +62,7 @@ export const HeroItem: FC<HeroItemProps> = ({
           duration: 0.5,
         }}
         className={cx({
-          'max-w-[160px] origin-top-left': true,
+          'max-w-[145px] origin-top-left': true,
         })}
       >
         {subtitle}
