@@ -22,7 +22,7 @@ import Loading from 'components/loading';
 import CONTACT_ISOTYPE_2_SVG from 'svgs/contact-isotype-2.svg?sprite';
 import INSTAGRAM_SVG from 'svgs/instagram.svg?sprite';
 import LINKEDIN_SVG from 'svgs/linkedin.svg?sprite';
-import TWITTER_SVG from 'svgs/twitter.svg?sprite';
+// import TWITTER_SVG from 'svgs/twitter.svg?sprite';
 
 import Answer from './answer';
 import {
@@ -98,7 +98,7 @@ export const ContactForm: FC<ContactFormProps> = ({
   const [animating, setAnimating] = useState(false);
   const [animationsCompleted, setAnimationsCompleted] = useState({});
 
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   const methods = useForm<Inputs>({
@@ -487,20 +487,29 @@ export const ContactForm: FC<ContactFormProps> = ({
                 type="button"
                 theme="primary-alt"
                 size="icon-base"
+                href="https://es.linkedin.com/company/weareminima"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Icon icon={LINKEDIN_SVG} className="w-4 h-4" style={{ stroke: 'none' }} />
               </Button>
-              <Button
+              {/* <Button
                 type="button"
                 theme="primary-alt"
                 size="icon-base"
+                href=""
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Icon icon={TWITTER_SVG} className="w-4 h-4" style={{ stroke: 'none' }} />
-              </Button>
+              </Button> */}
               <Button
                 type="button"
                 theme="primary-alt"
                 size="icon-base"
+                href="https://www.instagram.com/weareminima/"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Icon icon={INSTAGRAM_SVG} className="w-4 h-4" style={{ stroke: 'none' }} />
               </Button>

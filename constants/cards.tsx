@@ -38,7 +38,7 @@ export const CARDS = [
     id: 'studio',
     title: 'Estudio',
     subtitle: (
-      <p className="leading-tight ">
+      <p className="font-size-[16px] leading-5">
         Diseñamos
         {' '}
         <i className="block text-lg font-italic font-display">lo que importa</i>
@@ -59,7 +59,7 @@ export const CARDS = [
     id: 'principles',
     title: 'Principios',
     subtitle: (
-      <p className="leading-tight ">
+      <p className="font-size-[16px] leading-5">
         Somos lo
         {' '}
         <i className="block text-lg font-italic font-display">que hacemos</i>
@@ -80,7 +80,7 @@ export const CARDS = [
     id: 'services',
     title: 'Servicios',
     subtitle: (
-      <p className="leading-tight ">
+      <p className="font-size-[16px] leading-5">
         Si podemos pensarlo,
         {' '}
         <i className="block text-lg font-italic font-display">podemos diseñarlo</i>
@@ -101,7 +101,7 @@ export const CARDS = [
     id: 'method',
     title: 'Método',
     subtitle: (
-      <p className="leading-tight ">
+      <p className="font-size-[16px] leading-5">
         Pensando el fondo para
         {' '}
         <i className="block text-lg font-italic font-display">diseñar la forma</i>
@@ -122,7 +122,7 @@ export const CARDS = [
     id: 'lab',
     title: 'Lab',
     subtitle: (
-      <p className="leading-tight ">
+      <p className="font-size-[16px] leading-5">
         Formas de mirar que inspiran
         {' '}
         <i className="block text-lg font-italic font-display">formas de hacer</i>
@@ -143,7 +143,7 @@ export const CARDS = [
     id: 'contact',
     title: 'Contacto',
     subtitle: (
-      <p className="leading-tight ">
+      <p className="font-size-[16px] leading-5">
         Diseñemos
         {' '}
         <i className="block text-lg font-italic font-display">posibilidades juntos</i>
