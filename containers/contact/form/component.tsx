@@ -11,6 +11,8 @@ import cx from 'classnames';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AnimatePresence, motion } from 'framer-motion';
 
+import { useSaveContact } from 'hooks/contact';
+
 import Button from 'components/button';
 import Input from 'components/forms/input';
 import TextArea from 'components/forms/textarea';
@@ -72,6 +74,8 @@ export const ContactForm: FC<ContactFormProps> = ({
   const [editableStep, setEditableStep] = useState<string>();
   const stepRef = useRef<string>('name');
   const inputsRef = useRef<Inputs>({} as Inputs);
+
+  const contactMutation = useSaveContact();
 
   const [inputs, setInputs] = useState<Inputs>({
     name: undefined,
@@ -150,15 +154,17 @@ export const ContactForm: FC<ContactFormProps> = ({
         setStep(nextStep);
       } else {
         setSubmitting(true);
-        console.info('submit', {
-          ...inputs,
-          ...data,
+        contactMutation.mutate({
+          data,
+        }, {
+          onSuccess: () => {
+            setSubmitting(false);
+            setSubmitted(true);
+          },
+          onError: () => {
+            setSubmitting(false);
+          },
         });
-
-        setTimeout(() => {
-          setSubmitting(false);
-          setSubmitted(true);
-        }, 2000);
       }
     }
 
@@ -176,7 +182,7 @@ export const ContactForm: FC<ContactFormProps> = ({
         trigger();
       }, 0);
     }
-  }, [inputs, STEP, STEPS, editableStep, setFocus, trigger]);
+  }, [inputs, STEP, STEPS, editableStep, setFocus, trigger, contactMutation]);
 
   useEffect(() => {
     if (editableStep) {
