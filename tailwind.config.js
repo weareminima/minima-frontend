@@ -32,6 +32,7 @@ module.exports = {
       '3xl': ['1.75rem', { lineHeight: '2rem' }],
       '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
       '5xl': ['2.5rem', { lineHeight: '2.75rem' }],
+      '5bxl': ['3rem', { lineHeight: '3rem' }],
       '6xl': ['3.5rem', { lineHeight: '3.75rem' }],
       '7xl': ['4rem', { lineHeight: '1', letterSpacing: '-1%' }],
       '8xl': ['5rem', { lineHeight: '1' }],

@@ -60,6 +60,7 @@ export const HeroItem: FC<HeroItemProps> = ({
         }}
         transition={{
           duration: 0.5,
+          delay: 0.25,
         }}
         className={cx({
           'max-w-[145px] origin-top-left': true,
@@ -88,9 +89,10 @@ export const HeroItem: FC<HeroItemProps> = ({
         }}
         transition={{
           duration: 0.5,
+          delay: 0.25,
         }}
         className={cx({
-          'font-display text-5xl md:text-8xl max-w-3xl': true,
+          'font-display text-5bxl md:text-8xl max-w-3xl': true,
         })}
       >
         {description}
