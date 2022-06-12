@@ -31,6 +31,8 @@ export const ContentItemLab: FC<ContentItemLabProps> = () => {
         image={{
           src: '/images/lab/01.png',
           alt: 'Hero',
+          width: 1280,
+          height: 1280,
         }}
         options={{
           fullScreen: true,

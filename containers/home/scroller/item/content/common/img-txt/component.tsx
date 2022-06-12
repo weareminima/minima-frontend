@@ -6,6 +6,8 @@ import { useInView } from 'react-intersection-observer';
 
 import cx from 'classnames';
 
+import Image from 'next/image';
+
 import {
   motion,
 } from 'framer-motion';
@@ -17,6 +19,8 @@ interface ImgTxtProps {
   image: {
     src: string;
     alt: string;
+    width: number;
+    height: number;
     caption?: ReactNode;
   };
   children: ReactChild;
@@ -117,8 +121,10 @@ export const ImgTxt: FC<ImgTxtProps> = ({
             [imageClassName]: !!imageClassName,
           })}
         >
-          <img
+          <Image
             className="max-w-full mx-auto"
+            width={image.width}
+            height={image.height}
             src={image.src}
             alt={image.alt}
           />

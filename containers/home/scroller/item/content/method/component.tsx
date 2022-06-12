@@ -31,6 +31,8 @@ export const ContentItemMethod: FC<ContentItemMethodProps> = () => {
         image={{
           src: '/images/method/01.png',
           alt: 'Hero',
+          width: 1280,
+          height: 1280,
         }}
         options={{
           fullScreen: true,

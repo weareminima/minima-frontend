@@ -32,6 +32,8 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           image={{
             src: '/images/services/01.png',
             alt: 'Hero',
+            width: 1728,
+            height: 1728,
           }}
           options={{
             fullScreen: true,
@@ -57,6 +59,8 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           image={{
             src: '/images/services/02.png',
             alt: 'Hero',
+            width: 832,
+            height: 832,
             caption: (
               <div className="text-2xl font-display">
                 Estrategia de marca, posicionamiento, naming, identidad visual, tono y voz, ilustración, iconografía, packaging, editorial, 3D...
@@ -80,6 +84,8 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           image={{
             src: '/images/services/03.png',
             alt: 'Hero',
+            width: 832,
+            height: 832,
             caption: (
               <div className="text-2xl font-display">
                 Estrategia y auditoría de producto, SaaS, eCommerce, webs corporativas, apps híbridas y nativas, herramientas digitales, sistemas de diseño, etc.
@@ -106,6 +112,8 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           image={{
             src: '/images/services/04.png',
             alt: 'Hero',
+            width: 832,
+            height: 832,
             caption: (
               <div className="text-2xl font-display">
                 Service blueprint, auditoría de servicio, prototipo piloto, user research, workshops, estudios cualitativos, etc.

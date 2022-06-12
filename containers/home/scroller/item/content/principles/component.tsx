@@ -32,6 +32,8 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
           image={{
             src: '/images/principles/01.png',
             alt: 'Hero',
+            width: 832,
+            height: 832,
             caption: (
               <div className="max-w-xs mx-auto text-2xl font-display">
                 Reivindicamos un diseño más juicioso y pausado para un mayor control
@@ -66,6 +68,8 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
           image={{
             src: '/images/principles/02.png',
             alt: 'Hero',
+            width: 832,
+            height: 832,
             caption: (
               <div className="max-w-xs mx-auto text-2xl font-display">
                 No encontrarás largas exposiciones cargadas de argumentos de venta
@@ -104,6 +108,8 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
           image={{
             src: '/images/principles/03.png',
             alt: 'Hero',
+            width: 832,
+            height: 832,
             caption: (
               <div className="max-w-xs mx-auto text-2xl font-display">
                 Nos autoexigimos y comprometemos con un diseño honesto

@@ -33,6 +33,8 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
         image={{
           src: '/images/studio/01.png',
           alt: 'Hero',
+          width: 1728,
+          height: 1728,
         }}
         options={{
           fullScreen: true,
@@ -82,6 +84,8 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
           image={{
             src: '/images/studio/02.png',
             alt: 'Hero',
+            width: 2624,
+            height: 1056,
           }}
         />
 
