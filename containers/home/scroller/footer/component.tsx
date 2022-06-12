@@ -36,12 +36,12 @@ export const ScrollerFooter: FC<ScrollerFooterProps> = () => {
           >
             <footer
               className={cx({
-                'z-10 flex items-center justify-between py-20': true,
+                'z-10 flex flex-col space-y-16 md:space-y-0 md:flex-row items-center justify-between py-16 md:py-20': true,
               })}
             >
               <Icon icon={LOGO_SVG} className="w-6 h-6" />
 
-              <ul className="flex space-x-4 text-sm text-dark">
+              <ul className="flex flex-col space-y-4 text-sm text-center md:space-y-0 md:flex-row md:space-x-4 text-dark">
                 <li>
                   <button
                     type="button"
