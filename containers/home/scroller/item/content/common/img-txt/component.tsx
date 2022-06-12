@@ -119,10 +119,12 @@ export const ImgTxt: FC<ImgTxtProps> = ({
             [imageClassName]: !!imageClassName,
           })}
         >
-          <img
-            className="max-w-full mx-auto"
-            src={image.src}
-            alt={image.alt}
+          <div
+            className="w-full bg-no-repeat bg-contain"
+            style={{
+              paddingBottom: '100%',
+              backgroundImage: `url(${image.src})`,
+            }}
           />
 
           {image.caption && (

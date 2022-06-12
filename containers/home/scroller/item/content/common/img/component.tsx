@@ -47,10 +47,12 @@ export const Img: FC<ImgProps> = ({
         }}
         className="w-full opacity-0"
       >
-        <img
-          className="w-full"
-          src={image.src}
-          alt={image.alt}
+        <div
+          className="w-full bg-no-repeat bg-contain"
+          style={{
+            paddingBottom: '40.24%',
+            backgroundImage: `url(${image.src})`,
+          }}
         />
       </motion.div>
     </div>
