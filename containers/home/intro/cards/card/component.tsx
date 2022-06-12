@@ -141,8 +141,7 @@ export const Card: FC<CardProps> = ({
         animate={animation}
         variants={styleVariants}
         className={cx({
-          'flex flex-col rounded-3xl -translate-x-1/2 -translate-y-1/2 box-content': true,
-          'pointer-events-none': prevAnimation === 'hidden' || prevAnimation === 'invisible',
+          'flex flex-col rounded-3xl -translate-x-1/2 -translate-y-1/2 box-content pointer-events-none': true,
           'lg:pt-20 md:pt-16 pt-12 ': true,
           'lg:p-8 md:p-6 p-4': true,
         })}
@@ -154,6 +153,8 @@ export const Card: FC<CardProps> = ({
           }}
           className={cx({
             'flex flex-col p-4 grow rounded-3xl justify-between cursor-pointer': true,
+            'pointer-events-none': prevAnimation === 'hidden' || prevAnimation === 'invisible',
+            'pointer-events-auto': !(prevAnimation === 'hidden' || prevAnimation === 'invisible'),
             [className]: !!className,
           })}
           variants={{

@@ -355,7 +355,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
               })}
             >
               <div className="flex space-x-2">
-                <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{index}</div>
+                <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full shrink">{index}</div>
                 <Tag
                   className={cx({
                     [className]: !!className,
@@ -454,8 +454,14 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
             })}
           >
             <div className="flex space-x-2">
-              <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full">{index}</div>
-              <h2 className="flex items-center h-6 px-3 text-sm leading-none border border-gray-900 rounded-xl">{title}</h2>
+              <div className="flex items-center justify-center w-6 h-6 text-xs text-white bg-gray-900 rounded-full shrink">{index}</div>
+              <Tag
+                className={cx({
+                  [className]: !!className,
+                })}
+              >
+                {title}
+              </Tag>
             </div>
           </div>
         </header>
