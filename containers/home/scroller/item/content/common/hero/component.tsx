@@ -7,9 +7,12 @@ import { useInView } from 'react-intersection-observer';
 import cx from 'classnames';
 
 import { motion } from 'framer-motion';
+import useBreakpoint from 'use-breakpoint';
 
 import { useSizes } from 'hooks/size';
 import useWindowSize from 'hooks/window';
+
+import { BREAKPOINTS } from 'constants/breakpoints';
 
 interface HeroItemProps {
   subtitle: string;
@@ -20,9 +23,11 @@ export const HeroItem: FC<HeroItemProps> = ({
   subtitle,
   description,
 }: HeroItemProps) => {
+  const { breakpoint } = useBreakpoint(BREAKPOINTS);
+
   const { ref: heroRef, inView: heroInView } = useInView({
     /* Optional options */
-    threshold: 1,
+    threshold: (breakpoint === 'xs' || breakpoint === 'sm') ? 0 : 1,
     triggerOnce: true,
   });
 
@@ -35,7 +40,7 @@ export const HeroItem: FC<HeroItemProps> = ({
       ref={heroRef}
       className="flex flex-col justify-between w-full mb-4 space-y-16 lg:mb-8 md:mb-6"
       style={{
-        height: height - HEADER - (PADDING * 2) - (24 + PADDING * 2),
+        minHeight: height - HEADER - (PADDING * 2) - (24 + PADDING * 2),
       }}
     >
       <motion.div

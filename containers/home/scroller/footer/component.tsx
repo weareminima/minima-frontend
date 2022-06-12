@@ -71,7 +71,6 @@ export const ScrollerFooter: FC<ScrollerFooterProps> = () => {
                 </li>
               </ul>
             </footer>
-
           </div>
         </div>
       </div>
