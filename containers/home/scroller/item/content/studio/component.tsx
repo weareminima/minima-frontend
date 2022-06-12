@@ -82,7 +82,10 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
       <div className="py-20 border-t border-dashed border-dark/25">
         <Img
           image={{
-            src: '/images/studio/02.png',
+            src: {
+              xs: '/images/studio/02-xs.png',
+              sm: '/images/studio/02.png',
+            },
             alt: 'Hero',
             width: 2624,
             height: 1056,

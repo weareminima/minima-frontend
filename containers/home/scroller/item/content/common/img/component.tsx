@@ -1,5 +1,5 @@
 import {
-  FC,
+  FC, useMemo,
 } from 'react';
 
 import { useInView } from 'react-intersection-observer';
@@ -7,10 +7,16 @@ import { useInView } from 'react-intersection-observer';
 import {
   motion,
 } from 'framer-motion';
+import useBreakpoint from 'use-breakpoint';
+
+import { BREAKPOINTS } from 'constants/breakpoints';
 
 interface ImgProps {
   image: {
-    src: string;
+    src: {
+      xs: string;
+      sm: string;
+    };
     alt: string;
     width: number;
     height: number;
@@ -25,6 +31,26 @@ export const Img: FC<ImgProps> = ({
     threshold: 0,
     triggerOnce: true,
   });
+
+  const { breakpoint } = useBreakpoint(BREAKPOINTS);
+
+  const IMAGE = useMemo(() => {
+    switch (breakpoint) {
+      case 'xxs':
+      case 'xs': {
+        return {
+          url: image.src.xs,
+          paddingBotttom: '100%',
+        };
+      }
+      default: {
+        return {
+          url: image.src.sm,
+          paddingBotttom: '40.24%',
+        };
+      }
+    }
+  }, [image, breakpoint]);
 
   return (
     <div ref={sectionRef}>
@@ -50,8 +76,8 @@ export const Img: FC<ImgProps> = ({
         <div
           className="w-full bg-no-repeat bg-contain"
           style={{
-            paddingBottom: '40.24%',
-            backgroundImage: `url(${image.src})`,
+            paddingBottom: IMAGE.paddingBotttom,
+            backgroundImage: `url(${IMAGE.url})`,
           }}
         />
       </motion.div>
