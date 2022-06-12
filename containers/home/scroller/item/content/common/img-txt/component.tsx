@@ -54,7 +54,7 @@ export const ImgTxt: FC<ImgTxtProps> = ({
       ref={sectionRef}
       className={cx({
         'py-10 lg:py-20': true,
-        'lg:px-28': !fullScreen,
+        'xl:px-28': !fullScreen,
       })}
     >
       <div

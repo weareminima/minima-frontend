@@ -64,7 +64,7 @@ export const Intro: FC<IntroProps> = () => {
       <div className="space-y-6">
         <motion.h1
           key="h1"
-          className="text-5xl font-light text-center text-gray-900 font-display"
+          className="text-5xl font-light text-center text-gray-900 lg:text-6xl font-display"
           variants={sentence}
           initial="hidden"
           animate="visible"

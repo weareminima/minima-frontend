@@ -56,7 +56,7 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
       </ImgTxt>
       <Txt3Columns>
         <div id="column1">
-          <h3 className="text-6xl font-display">
+          <h3 className="text-5xl lg:text-6xl font-display">
             Pero, ¿qué significa hacer
             {' '}
             <i className="italic">buen diseño?</i>
@@ -68,7 +68,7 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
           </p>
         </div>
         <div id="column3" className="space-y-2.5">
-          <p className="text-2xl italic font-display">
+          <p className="text-3xl italic font-display">
             Es por esto que reivindicamos recuperar su verdadero sentido: intervenir de forma consciente, comprometida y responsable no solo en un presente más sano sino en un futuro más próspero.
           </p>
           <p>
@@ -87,7 +87,13 @@ export const ContentItemStudio: FC<ContentItemStudioProps> = () => {
 
         <Txt3Columns>
           <div id="column1">
-            <h3 className="text-6xl font-display">
+            <div className="mb-8">
+              <Tag>
+                Por qué Mínima
+              </Tag>
+            </div>
+
+            <h3 className="text-5xl lg:text-6xl font-display">
               Comprometidas con el verdadero
               {' '}
               <i className="italic">cuidado de lo esencial</i>

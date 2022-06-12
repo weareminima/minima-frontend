@@ -41,8 +41,13 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
               </Tag>
             </div>
 
-            <h3 className="mb-4 text-6xl font-display">
-              Diseñame despacio que tengo prisa
+            <h3 className="mb-4 text-5xl lg:text-6xl font-display">
+              Diséñame
+              {' '}
+              <span className="italic">despacio</span>
+              <br />
+              {' '}
+              que tengo prisa
             </h3>
 
             <div className="space-y-4">
@@ -68,8 +73,14 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
               </Tag>
             </div>
 
-            <h3 className="mb-4 text-6xl font-display">
-              El diseño no se dice, el diseño se hace
+            <h3 className="mb-4 text-5xl lg:text-6xl font-display">
+              El diseño no se dice,
+              {' '}
+              <br />
+              {' '}
+              el diseño
+              {' '}
+              <span className="italic">se hace</span>
             </h3>
 
             <div className="space-y-4">
@@ -92,8 +103,14 @@ export const ContentItemPrinciples: FC<ContentItemPrinciplesProps> = () => {
               </Tag>
             </div>
 
-            <h3 className="mb-4 text-6xl font-display">
-              Diseña como te gustaría que diseñaran para ti
+            <h3 className="mb-4 text-5xl lg:text-6xl font-display">
+              Diseña como te gustaría
+              {' '}
+              <br />
+              {' '}
+              que diseñaran
+              {' '}
+              <span className="italic">para ti</span>
             </h3>
 
             <div className="space-y-4">

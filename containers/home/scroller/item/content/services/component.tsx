@@ -61,7 +61,7 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           }}
         >
           <>
-            <h3 className="mb-4 text-6xl font-display">
+            <h3 className="mb-4 text-5xl lg:text-6xl font-display">
               Marcas
             </h3>
 
@@ -82,7 +82,7 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           }}
         >
           <>
-            <h3 className="mb-4 text-6xl font-display">
+            <h3 className="mb-4 text-5xl lg:text-6xl font-display">
               Productos
             </h3>
 
@@ -100,7 +100,7 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           }}
         >
           <>
-            <h3 className="mb-4 text-6xl font-display">
+            <h3 className="mb-4 text-5xl lg:text-6xl font-display">
               Servicios
             </h3>
 
