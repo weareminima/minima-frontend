@@ -38,7 +38,7 @@ export const ModalContent: FC<ModalContentProps> = ({
             delay: 0,
           },
         }}
-        className="relative w-full md:w-1/3 bg-white shadow-2xl pointer-events-auto grow md:rounded-3xl max-w-md md:max-h-[600px] flex flex-col"
+        className="relative w-full md:w-1/3 bg-white shadow-2xl pointer-events-auto grow md:rounded-3xl max-w-md h-full md:max-h-[600px] flex flex-col"
       >
         {children}
       </motion.div>

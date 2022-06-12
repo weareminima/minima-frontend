@@ -10,6 +10,8 @@ export function useSizes() {
 
   const PADDING = useMemo(() => {
     switch (breakpoint) {
+      case 'xxs':
+        return 16;
       case 'xs':
         return 16;
       case 'sm':
@@ -23,6 +25,8 @@ export function useSizes() {
 
   const HEADER = useMemo(() => {
     switch (breakpoint) {
+      case 'xxs':
+        return 48;
       case 'xs':
         return 48;
       case 'sm':

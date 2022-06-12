@@ -1,6 +1,8 @@
 module.exports = {
   BREAKPOINTS: {
-    xs: 0,
+    xxs: 0,
+
+    xs: 360,
 
     sm: 640,
     // => @media (min-width: 640) { ... }
@@ -19,7 +21,10 @@ module.exports = {
 
   },
   TAILWIND_BREAKPOINTS: {
-    xs: '0px',
+    xxs: '0px',
+
+    xs: '360px',
+    // => @media (min-width: 360px) { ... }
 
     sm: '640px',
     // => @media (min-width: 640px) { ... }

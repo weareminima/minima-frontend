@@ -27,7 +27,7 @@ export const HeroItem: FC<HeroItemProps> = ({
 
   const { ref: heroRef, inView: heroInView } = useInView({
     /* Optional options */
-    threshold: (breakpoint === 'xs' || breakpoint === 'sm') ? 0 : 1,
+    threshold: (breakpoint === 'xxs' || breakpoint === 'xs' || breakpoint === 'sm') ? 0 : 1,
     triggerOnce: true,
   });
 

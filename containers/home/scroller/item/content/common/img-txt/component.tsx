@@ -50,7 +50,7 @@ export const ImgTxt: FC<ImgTxtProps> = ({
 
   const { ref: sectionRef, inView: sectionInView } = useInView({
     /* Optional options */
-    threshold: (breakpoint === 'xs' || breakpoint === 'sm') ? 0 : 0.5,
+    threshold: (breakpoint === 'xxs' || breakpoint === 'xs' || breakpoint === 'sm') ? 0 : 0.5,
     triggerOnce: true,
   });
 

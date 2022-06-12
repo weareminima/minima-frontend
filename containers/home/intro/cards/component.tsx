@@ -42,6 +42,9 @@ export const Cards: FC<CardsProps> = () => {
 
     const getRx = () => {
       switch (breakpoint) {
+        case 'xxs': {
+          return width / 2;
+        }
         case 'xs': {
           return width / 2;
         }
@@ -53,6 +56,9 @@ export const Cards: FC<CardsProps> = () => {
 
     const getRy = () => {
       switch (breakpoint) {
+        case 'xxs': {
+          return 200;
+        }
         case 'xs': {
           return 200;
         }
@@ -63,7 +69,7 @@ export const Cards: FC<CardsProps> = () => {
     };
 
     const getAngle = (id: string, i: number) => {
-      if (breakpoint === 'xs') {
+      if (breakpoint === 'xxs' || breakpoint === 'xs') {
         return ((CARD_TRANSFORMS[id].angle)) * ((Math.PI / 180) / 2) - (Math.PI * 0.25);
       }
 
@@ -71,7 +77,7 @@ export const Cards: FC<CardsProps> = () => {
     };
 
     const getRotation = (id: string) => {
-      if (breakpoint === 'xs') {
+      if (breakpoint === 'xxs' || breakpoint === 'xs') {
         return CARD_TRANSFORMS[id].rotation;
       }
 

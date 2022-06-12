@@ -61,7 +61,7 @@ export const Scroller: FC<ScrollerProps> = () => {
       initial: {
         x: x - (CARD_SIZE.width / 2) - PADDING,
         y: y - (CARD_SIZE.height / 2) - HEADER,
-        rotate: breakpoint === 'xs' ? rotation : 0,
+        rotate: breakpoint === 'xxs' || breakpoint === 'xs' ? rotation : 0,
         scale: 1.1,
         width: CARD_SIZE.width + (PADDING * 2),
         height: CARD_SIZE.height + PADDING + HEADER,
