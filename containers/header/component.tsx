@@ -107,7 +107,7 @@ export const Header: FC<HeaderProps> = ({
                     y: 'calc(-50% + 1px)',
                   },
                 }}
-                className="absolute top-1/2 left-1/2 z-10 w-full h-[2px] bg-dark"
+                className="absolute z-10 w-full h-px top-1/2 left-1/2 bg-dark"
               />
               <motion.div
                 initial="hamburger"
@@ -124,7 +124,7 @@ export const Header: FC<HeaderProps> = ({
                     y: 'calc(-50% + 1px)',
                   },
                 }}
-                className="absolute top-1/2 left-1/2 z-10 w-full h-[2px] bg-dark"
+                className="absolute z-10 w-full h-px top-1/2 left-1/2 bg-dark"
               />
             </div>
           </motion.button>

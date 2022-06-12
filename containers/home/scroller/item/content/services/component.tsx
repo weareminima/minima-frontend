@@ -58,6 +58,11 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           image={{
             src: '/images/services/02.png',
             alt: 'Hero',
+            caption: (
+              <div className="text-2xl font-display">
+                Estrategia de marca, posicionamiento, naming, identidad visual, tono y voz, ilustración, iconografía, packaging, editorial, 3D...
+              </div>
+            ),
           }}
         >
           <>
@@ -66,8 +71,8 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
             </h3>
 
             <div className="space-y-4">
-              <p>El diseño ágil ha sido muy útil en muchos casos y corrompido en tantos otros. La velocidad se ha establecido como una de las cualidades de mayor valor, poniéndose en multitud de ocasiones como excusa para sacrificar el espacio destinado a la reflexión. Defendemos la mejora progresiva mediante versiones orientadas a la verdadera entrega de valor, pero rechazamos el trabajo desorientado y movido por la inercia de un plan sin rumbo. Disponer del tiempo para establecer la dirección no debería ser negociable en el momento en el que su recorte suponga un deterioro crítico de la calidad.</p>
-              <p>En contra de las metodologías dominantes actuales que premian la rapidez y la inmediatez, nosotras reivindicamos un diseño más juicioso y pausado para un mayor control y un mejor resultado.</p>
+              <p className="text-3xl italic font-display">¿Qué debería representar la marca para el mundo?, ¿cómo influirá en la configuración de nuevas formas y estilos de vida?, y lo más importante, ¿cómo moldeará la forma de percibir, entender y valorar nuestra realidad?</p>
+              <p>Estas respuestas determinarán su caracterización, discurso y esferas de actuación. Nuestro trabajo consiste en detectar qué hace a la marca única y extraordinaria para mostrar su esencia, contar su historia y hacer que habite de manera singular en nosotros y en el mundo.</p>
             </div>
           </>
         </ImgTxt>
@@ -76,6 +81,11 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           image={{
             src: '/images/services/03.png',
             alt: 'Hero',
+            caption: (
+              <div className="text-2xl font-display">
+                Estrategia y auditoría de producto, SaaS, eCommerce, webs corporativas, apps híbridas y nativas, herramientas digitales, sistemas de diseño, etc.
+              </div>
+            ),
           }}
           options={{
             reverse: true,
@@ -87,8 +97,8 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
             </h3>
 
             <div className="space-y-4">
-              <p>Somos grandes amigas de la buena conversación, pero rechazamos los discursos de venta prefabricados y los argumentos cargados de promesas que jamás se harán realidad.</p>
-              <p>Es por esto que en Mínima no encontrarás estas prácticas como tapadera de diseños inacabados, erróneamente definidos o inexistentes. Nos comprometemos con la aportación, a través del diseño, de un valor significativo para la sociedad y el mundo que aplique al presente y perviva a lo largo del tiempo.</p>
+              <p className="text-3xl italic font-display">¿Qué debería significar el producto para su usuario?, ¿en qué medida genera autonomía o dependencias?, y lo más relevante, ¿cómo modificará su vida, la de su entorno y las relaciones entre ellos?</p>
+              <p>En Mínima buscamos responder a estas y otras preguntas para diseñar y crear productos más humanos que sean verdaderamente significativos, útiles, éticos y estéticos. Nos encargamos de traducir conceptos en productos accesibles, emocionales y sostenibles para eliminar barreras sociales, lanzar alternativas responsables y fomentar el bienestar global.</p>
             </div>
           </>
         </ImgTxt>
@@ -97,6 +107,11 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
           image={{
             src: '/images/services/04.png',
             alt: 'Hero',
+            caption: (
+              <div className="text-2xl font-display">
+                Service blueprint, auditoría de servicio, prototipo piloto, user research, workshops, estudios cualitativos, etc.
+              </div>
+            ),
           }}
         >
           <>
@@ -105,8 +120,8 @@ export const ContentItemServices: FC<ContentItemServicesProps> = () => {
             </h3>
 
             <div className="space-y-4">
-              <p>Se trata de nuestro imperativo moral. Nos autoexigimos y comprometemos con un diseño honesto, donde la verdad sea lo que prime y la calidad su resultado.</p>
-              <p>Es la razón por la que hacemos de los proyectos ajenos algo nuestro, inyectando una alta dosis de implicación y comprometiéndonos a hacer para cada uno de ellos el mejor trabajo de nuestras vidas.</p>
+              <p className="text-3xl italic font-display">¿Qué servicios urge diseñar o redefinir para los diferentes colectivos sociales?, ¿de qué forma y en qué medida mejorará la empresa, la vida y el mundo en el que estos tienen lugar?</p>
+              <p>En Mínima nos enfocamos en diseñar la forma en que las compañías pueden ofrecer sus intangibles generando la mejor y más propia de las experiencias posibles. Lo llevamos a cabo definiendo y vinculando diferentes sistemas de interacciones humanas, físicas y digitales, para crear momentos donde la organización y el mundo se encuentran. Trabajamos en la cara invisible para hacer visible la atención, asistencia y cuidado en cada punto de la experiencia.</p>
             </div>
           </>
         </ImgTxt>
