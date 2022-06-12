@@ -38,7 +38,7 @@ export const Question: FC<QuestionProps> = ({
   return (
     <motion.div
       key={id + index}
-      className="overflow-hidden max-w-[260px]"
+      className="overflow-hidden max-w-[270px]"
       initial="hidden"
       animate="visible"
       variants={{

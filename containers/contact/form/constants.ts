@@ -4,7 +4,7 @@ import * as yup from 'yup';
 export const DEFAULT_STEPS = [
   {
     id: 'name',
-    question: '¡Hola! ¿cómo te llamas?',
+    question: '¡Hola, somos Mínima! 👋. ¡Qué bien que estés aquí! 😍, dinos ¿cómo te llamas?',
     defaultValue: '',
     type: 'text',
     inputProps: {
@@ -15,21 +15,8 @@ export const DEFAULT_STEPS = [
     },
   },
   {
-    id: 'email',
-    question: '¿Cuál es tu email?',
-    defaultValue: '',
-    type: 'text',
-    inputProps: {
-      type: 'email',
-    },
-    rules: {
-      required: true,
-      email: true,
-    },
-  },
-  {
     id: 'who',
-    question: 'Eres...',
+    question: 'Encantadas de saludarte, ¿cómo podríamos ayudarte?',
     defaultValue: '',
     rules: {
       required: true,
@@ -38,15 +25,15 @@ export const DEFAULT_STEPS = [
     options: [
       {
         value: 'future-client',
-        label: 'Futuro cliente',
+        label: 'Tengo una idea o proyecto',
       },
       {
         value: 'freelance',
-        label: 'Freelance',
+        label: 'Quiero colaborar como freelance',
       },
       {
         value: 'company',
-        label: 'Empresa',
+        label: 'Quiero colaborar como empresa',
       },
     ],
   },
@@ -55,7 +42,7 @@ export const DEFAULT_STEPS = [
 export const FUTURE_CLIENT_STEPS = [
   {
     id: 'description_client',
-    question: 'Cuéntanos tu idea, la extensión de un tuit está bien ;)',
+    question: '¿De qué se trata? La extensión de un tuit será suficiente 🐥',
     defaultValue: '',
     type: 'textarea',
     inputProps: {
@@ -67,7 +54,7 @@ export const FUTURE_CLIENT_STEPS = [
   },
   {
     id: 'time_client',
-    question: '¿Cuánto tiempo tenemos?',
+    question: '¡Suena genial!, 🤗 ¿cuánto tiempo tendríamos para ponerlo en marcha?',
     defaultValue: '',
     rules: {
       required: true,
@@ -94,7 +81,7 @@ export const FUTURE_CLIENT_STEPS = [
   },
   {
     id: 'budget_client',
-    question: '¿Cuál es tu presupuesto?',
+    question: 'Y ¿cuál sería el presupuesto para hacerlo realidad? 💪',
     defaultValue: '',
     rules: {
       required: true,
@@ -120,6 +107,19 @@ export const FUTURE_CLIENT_STEPS = [
     ],
   },
   {
+    id: 'email',
+    question: '¡Genial! Déjanos tu email y te escribiremos lo antes posible 😉',
+    defaultValue: '',
+    type: 'text',
+    inputProps: {
+      type: 'email',
+    },
+    rules: {
+      required: true,
+      email: true,
+    },
+  },
+  {
     id: 'submit',
     question: '¡Estupendo!',
     type: 'submit',
@@ -129,7 +129,7 @@ export const FUTURE_CLIENT_STEPS = [
 export const FREELANCE_STEPS = [
   {
     id: 'description_freelance',
-    question: '¿Cómo quieres colaborar con nosotros?',
+    question: '¡Qué bien! siempre nos hace mucha ilusión conocer a gente nueva con la que colaborar 🤜🏾 🤛🏼 Y ¿en qué te has especializado?',
     defaultValue: '',
     type: 'textarea',
     inputProps: {
@@ -137,6 +137,31 @@ export const FREELANCE_STEPS = [
     },
     rules: {
       required: true,
+    },
+  },
+  {
+    id: 'url_freelance',
+    question: 'Nos encantaría ver algo de tu trabajo. Si te parece, déjanos algún enlace a tu web, Behance, Dribbble o a donde lo tengas subido 💾',
+    defaultValue: '',
+    type: 'text',
+    inputProps: {
+      type: 'text',
+    },
+    rules: {
+      required: true,
+    },
+  },
+  {
+    id: 'email',
+    question: '¡Genial! Déjanos tu email y te escribiremos lo antes posible 😉',
+    defaultValue: '',
+    type: 'text',
+    inputProps: {
+      type: 'email',
+    },
+    rules: {
+      required: true,
+      email: true,
     },
   },
   {
@@ -148,8 +173,20 @@ export const FREELANCE_STEPS = [
 
 export const COMPANY_STEPS = [
   {
+    id: 'who_company',
+    question: '¡Qué bien! siempre nos hace mucha ilusión conocer equipos nuevos con los que empezar a colaborar 🤜🏾 🤛🏼 Y dinos, ¿qué empresa es?',
+    defaultValue: '',
+    type: 'text',
+    inputProps: {
+      type: 'text',
+    },
+    rules: {
+      required: true,
+    },
+  },
+  {
     id: 'description_company',
-    question: '¿Cómo quieres colaborar con nosotros?',
+    question: '¿En qué áreas estáis especializados?',
     defaultValue: '',
     type: 'textarea',
     inputProps: {
@@ -157,6 +194,19 @@ export const COMPANY_STEPS = [
     },
     rules: {
       required: true,
+    },
+  },
+  {
+    id: 'email',
+    question: '¡Genial! Déjanos tu email y te escribiremos lo antes posible 😉',
+    defaultValue: '',
+    type: 'text',
+    inputProps: {
+      type: 'email',
+    },
+    rules: {
+      required: true,
+      email: true,
     },
   },
   {
@@ -189,7 +239,15 @@ const SCHEMA = {
     is: 'freelance',
     then: yup.string().min(10).required(),
   }),
+  url_freelance: yup.string().when('who', {
+    is: 'freelance',
+    then: yup.string().required(),
+  }),
   // company
+  who_company: yup.string().when('who', {
+    is: 'company',
+    then: yup.string().required(),
+  }),
   description_company: yup.string().when('who', {
     is: 'company',
     then: yup.string().min(10).required(),
@@ -199,10 +257,18 @@ const SCHEMA = {
 export const useSchema = (inputs, editableStep) => {
   const {
     name,
-    email,
     who,
+    // CLIENT
     description_client,
     time_client,
+    budget_client,
+
+    // FREELANCE
+    description_freelance,
+    url_freelance,
+    // COMPANY
+    who_company,
+    description_company,
   } = inputs;
 
   if (editableStep) {
@@ -214,42 +280,70 @@ export const useSchema = (inputs, editableStep) => {
   const schema = yup.object().shape({
     name: SCHEMA.name,
     ...name && {
-      email: SCHEMA.email,
-    },
-    ...name && email && {
       who: SCHEMA.who,
     },
-    ...name && email && who && {
+    ...name && who && {
       // future-client
       description_client: yup.string().when('who', {
         is: 'future-client',
         then: SCHEMA.description_client,
       }),
     },
-    ...name && email && who && description_client && {
+    ...name && who && description_client && {
       time_client: yup.string().when('who', {
         is: 'future-client',
         then: SCHEMA.time_client,
       }),
     },
-    ...name && email && who && description_client && time_client && {
+    ...name && who && description_client && time_client && {
       budget_client: yup.string().when('who', {
         is: 'future-client',
         then: SCHEMA.budget_client,
       }),
     },
+    ...name && who && description_client && time_client && budget_client && {
+      email: yup.string().when('who', {
+        is: 'future-client',
+        then: SCHEMA.email,
+      }),
+    },
+
     // freelance
-    ...name && email && who && {
+    ...name && who && {
       description_freelance: yup.string().when('who', {
         is: 'freelance',
         then: SCHEMA.description_freelance,
       }),
     },
+    ...name && who && description_freelance && {
+      url_freelance: yup.string().when('who', {
+        is: 'freelance',
+        then: SCHEMA.url_freelance,
+      }),
+    },
+    ...name && who && description_freelance && url_freelance && {
+      email: yup.string().when('who', {
+        is: 'freelance',
+        then: SCHEMA.email,
+      }),
+    },
     // company
-    ...name && email && who && {
+    ...name && who && {
+      who_company: yup.string().when('who', {
+        is: 'company',
+        then: SCHEMA.who_company,
+      }),
+    },
+    ...name && who && who_company && {
       description_company: yup.string().when('who', {
         is: 'company',
         then: SCHEMA.description_company,
+      }),
+    },
+    ...name && who && who_company && description_company && {
+      email: yup.string().when('who', {
+        is: 'company',
+        then: SCHEMA.email,
       }),
     },
   });

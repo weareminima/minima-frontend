@@ -17,9 +17,9 @@ import TextArea from 'components/forms/textarea';
 import Icon from 'components/icon';
 import Loading from 'components/loading';
 
+import CONTACT_ISOTYPE_2_SVG from 'svgs/contact-isotype-2.svg?sprite';
 import INSTAGRAM_SVG from 'svgs/instagram.svg?sprite';
 import LINKEDIN_SVG from 'svgs/linkedin.svg?sprite';
-import THANK_YOU_SVG from 'svgs/thank-you.svg?sprite';
 import TWITTER_SVG from 'svgs/twitter.svg?sprite';
 
 import Answer from './answer';
@@ -46,7 +46,9 @@ type Inputs = {
   budget_client?: string;
   // freelance
   description_freelance?: string;
+  url_freelance?: string;
   // company
+  who_company?: string;
   description_company?: string;
 };
 
@@ -75,10 +77,15 @@ export const ContactForm: FC<ContactFormProps> = ({
     name: undefined,
     email: undefined,
     who: undefined,
+
     description_client: undefined,
     time_client: undefined,
     budget_client: undefined,
+
     description_freelance: undefined,
+    url_freelance: undefined,
+
+    who_company: undefined,
     description_company: undefined,
   });
 
@@ -236,10 +243,12 @@ export const ContactForm: FC<ContactFormProps> = ({
 
   useEffect(() => {
     if (!editableStep) {
-      scrollRef.current.scrollTo({
-        top: scrollRef.current.scrollHeight,
-        behavior: 'smooth',
-      });
+      setTimeout(() => {
+        scrollRef.current.scrollTo({
+          top: scrollRef.current.scrollHeight,
+          behavior: 'smooth',
+        });
+      }, 0);
     }
   }, [scrollRef, animationsCompleted, watchAll, editableStep]);
 
@@ -455,16 +464,14 @@ export const ContactForm: FC<ContactFormProps> = ({
           >
             <div className="px-10 space-y-4 text-center">
               <div className="mx-auto">
-                <Icon icon={THANK_YOU_SVG} className="w-16 h-16 mx-auto" />
+                <Icon icon={CONTACT_ISOTYPE_2_SVG} className="w-8 h-8 mx-auto" />
               </div>
-              <div>
+              <div className="max-w-[264px] mx-auto">
                 <h2 className="text-base text-dark">
-                  Genial,
-                  {' '}
-                  {inputs.name}
+                  ¡Hablamos pronto!
                 </h2>
                 <p className="text-sm text-dark/40">
-                  Puedes seguirnos para bla bla lorem ipsum
+                  Mientras, puedes seguirnos en nuestras redes sociales para no perderte nada.
                 </p>
               </div>
             </div>
@@ -475,21 +482,21 @@ export const ContactForm: FC<ContactFormProps> = ({
                 theme="primary-alt"
                 size="icon-base"
               >
-                <Icon icon={LINKEDIN_SVG} className="w-4 h-4 stroke-none fill-none" />
+                <Icon icon={LINKEDIN_SVG} className="w-4 h-4" style={{ stroke: 'none' }} />
               </Button>
               <Button
                 type="button"
                 theme="primary-alt"
                 size="icon-base"
               >
-                <Icon icon={TWITTER_SVG} className="w-4 h-4 stroke-none fill-none" />
+                <Icon icon={TWITTER_SVG} className="w-4 h-4" style={{ stroke: 'none' }} />
               </Button>
               <Button
                 type="button"
                 theme="primary-alt"
                 size="icon-base"
               >
-                <Icon icon={INSTAGRAM_SVG} className="w-4 h-4 stroke-none fill-none" />
+                <Icon icon={INSTAGRAM_SVG} className="w-4 h-4" style={{ stroke: 'none' }} />
               </Button>
             </div>
           </motion.div>
