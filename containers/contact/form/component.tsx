@@ -19,7 +19,6 @@ import TextArea from 'components/forms/textarea';
 import Icon from 'components/icon';
 import Loading from 'components/loading';
 
-import CONTACT_ISOTYPE_2_SVG from 'svgs/contact-isotype-2.svg?sprite';
 import INSTAGRAM_SVG from 'svgs/instagram.svg?sprite';
 import LINKEDIN_SVG from 'svgs/linkedin.svg?sprite';
 // import TWITTER_SVG from 'svgs/twitter.svg?sprite';
@@ -469,9 +468,6 @@ export const ContactForm: FC<ContactFormProps> = ({
             animate={{ opacity: 1, y: 0 }}
           >
             <div className="px-10 space-y-4 text-center">
-              <div className="mx-auto">
-                <Icon icon={CONTACT_ISOTYPE_2_SVG} className="w-8 h-8 mx-auto" />
-              </div>
               <div className="max-w-[264px] mx-auto">
                 <h2 className="text-base text-dark">
                   ¡Hablamos pronto!

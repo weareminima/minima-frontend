@@ -4,7 +4,7 @@ import * as yup from 'yup';
 export const DEFAULT_STEPS = [
   {
     id: 'name',
-    question: '¡Hola, somos Mínima! 👋. ¡Qué bien que estés aquí! 😍, dinos ¿cómo te llamas?',
+    question: '¡Hola, somos Mínima! 👋. ¡Qué bien que estés aquí! 😍, dinos, ¿cómo te llamas?',
     defaultValue: '',
     type: 'text',
     inputProps: {
@@ -77,6 +77,14 @@ export const FUTURE_CLIENT_STEPS = [
         value: '+6',
         label: '+6 meses',
       },
+      {
+        value: 'continuous',
+        label: 'Colaboración continua',
+      },
+      {
+        value: 'not-clear',
+        label: 'No lo tengo claro',
+      },
     ],
   },
   {
@@ -129,7 +137,7 @@ export const FUTURE_CLIENT_STEPS = [
 export const FREELANCE_STEPS = [
   {
     id: 'description_freelance',
-    question: '¡Qué bien! siempre nos hace mucha ilusión conocer a gente nueva con la que colaborar 🤜🏾 🤛🏼 Y ¿en qué te has especializado?',
+    question: '¡Qué bien! Siempre nos hace mucha ilusión conocer a gente nuevas con la que colaborar 🤝 Y, ¿en qué te has especializado?',
     defaultValue: '',
     type: 'textarea',
     inputProps: {
@@ -174,7 +182,7 @@ export const FREELANCE_STEPS = [
 export const COMPANY_STEPS = [
   {
     id: 'who_company',
-    question: '¡Qué bien! siempre nos hace mucha ilusión conocer equipos nuevos con los que empezar a colaborar 🤜🏾 🤛🏼 Y dinos, ¿qué empresa es?',
+    question: '¡Qué bien! Siempre nos hace mucha ilusión conocer equipos nuevos con los que empezar a colaborar 🤝 Y dinos, ¿qué empresa es?',
     defaultValue: '',
     type: 'text',
     inputProps: {
