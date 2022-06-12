@@ -19,16 +19,22 @@ export const ScrollerFooter: FC<ScrollerFooterProps> = () => {
       <div
         key="background"
         className={cx({
-          'relative w-full z-1 overflow-hidden': true,
-          'lg:pt-20 md:pt-16 pt-12 ': true,
-          'lg:px-8 md:px-6 px-4': true,
+          'relative z-1 overflow-hidden bg-white': true,
+          'lg:pt-20 md:pt-16 pt-12': true,
+          'lg:-mx-8 md:-mx-6 -mx-4': true,
+          'lg:-mb-20 md:-mb-16 -mb-12 ': true,
         })}
       >
         <div
           className={cx({
-            'w-full z-0 overflow-hidden bg-white': true,
+            'w-full z-0 overflow-hidden': true,
           })}
         >
+          <div
+            className={cx({
+              'absolute top-0 left-0 z-10 overflow-hidden bg-gray-100 w-full lg:h-20 md:h-16 h-12 rounded-b-3xl lg:rounded-b-4xl': true,
+            })}
+          />
           {/* CONTENT */}
           <div
             key="content"
@@ -36,7 +42,7 @@ export const ScrollerFooter: FC<ScrollerFooterProps> = () => {
           >
             <footer
               className={cx({
-                'z-10 flex flex-col space-y-16 md:space-y-0 md:flex-row items-center justify-between py-16 md:py-20': true,
+                'relative z-10 flex flex-col space-y-16 md:space-y-0 md:flex-row items-center justify-between pt-16 md:pt-20 pb-12 md:pb-14 lg:pb-12': true,
               })}
             >
               <Icon icon={LOGO_SVG} className="w-6 h-6" />

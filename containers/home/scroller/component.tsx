@@ -22,7 +22,6 @@ import { BREAKPOINTS } from 'constants/breakpoints';
 import { CARDS, CARD_SIZE } from 'constants/cards';
 
 import FakeItem from './fake-item';
-import Footer from './footer';
 import Item from './item';
 
 interface ScrollerProps {
@@ -179,8 +178,6 @@ export const Scroller: FC<ScrollerProps> = () => {
                   />
                 );
               })}
-
-              <Footer />
             </Scroll.Container>
           )}
 

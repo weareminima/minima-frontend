@@ -6,6 +6,7 @@ import { useAppSelector } from 'store/hooks';
 
 import useStep from 'hooks/steps';
 
+import Footer from 'containers/home/scroller/item/content/common/footer';
 import HeroItem from 'containers/home/scroller/item/content/common/hero';
 
 import Icon from 'components/icon';
@@ -86,6 +87,8 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
           </li>
         </ul>
       </div>
+
+      <Footer />
     </>
   );
 };

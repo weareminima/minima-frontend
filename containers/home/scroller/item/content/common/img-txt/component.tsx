@@ -61,7 +61,7 @@ export const ImgTxt: FC<ImgTxtProps> = ({
       <div
         className={cx({
           'lg:flex lg:space-x-40': true,
-          'space-y-20 lg:space-y-0': true,
+          'space-y-4 lg:space-y-0': true,
           'lg:flex-row-reverse lg:space-x-reverse': !reverse,
           'items-start': align === 'start',
           'items-center': align === 'center',

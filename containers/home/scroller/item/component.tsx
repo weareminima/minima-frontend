@@ -415,12 +415,13 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           </Scroll.Item>
 
           {/* FOOTER */}
-          <footer
+
+          {/* <footer
             className={cx({
               'sticky bottom-0 z-10 h-6 bg-gradient-to-t rounded-b-3xl': true,
               [gradient]: !!gradient,
             })}
-          />
+          /> */}
         </div>
       </Scroll.Item>
 
@@ -457,6 +458,13 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
         >
           {CONTENT[id]}
         </div>
+
+        {/* <footer
+          className={cx({
+            'sticky bottom-0 z-10 h-6 bg-gradient-to-t rounded-b-3xl': true,
+            [gradient]: !!gradient,
+          })}
+        /> */}
       </div>
     </Scroll.Section>
   );
