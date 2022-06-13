@@ -97,7 +97,7 @@ export const ContactForm: FC<ContactFormProps> = ({
   const [animating, setAnimating] = useState(false);
   const [animationsCompleted, setAnimationsCompleted] = useState({});
 
-  const [submitted, setSubmitted] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const methods = useForm<Inputs>({
