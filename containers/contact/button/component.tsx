@@ -54,12 +54,12 @@ export const ContactButton: FC<ContactButtonProps> = () => {
             repeatType: 'loop',
           }}
         >
-          <Icon icon={CONTACT_TEXT_SVG} className="w-20 h-20 backface-invisible" />
+          <Icon icon={CONTACT_TEXT_SVG} className="w-20 h-20" />
         </motion.div>
 
         <div className="absolute z-0 w-full h-full -translate-x-1/2 -translate-y-1/2 bg-white rounded-full top-1/2 left-1/2" />
 
-        <Icon icon={ISOTYPE_SVG} className="block w-4 h-4 transition-transform scale-100 group-hover:scale-110 backface-invisible" />
+        <Icon icon={ISOTYPE_SVG} className="block w-4 h-4 transition-all scale-100 group-hover:w-5 group-hover:h-5" />
       </motion.button>
 
       <Modal
