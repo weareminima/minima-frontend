@@ -57,7 +57,7 @@ export const ScrollerFooter: FC<ScrollerFooterProps> = () => {
                 <li>
                   <button
                     type="button"
-                    className="hover:underline"
+                    className="hover:opacity-75"
                   >
                     Política de privacidad
                   </button>
@@ -65,7 +65,7 @@ export const ScrollerFooter: FC<ScrollerFooterProps> = () => {
                 <li>
                   <button
                     type="button"
-                    className="hover:underline"
+                    className="hover:opacity-75"
                   >
                     Aviso legal
                   </button>
@@ -73,7 +73,7 @@ export const ScrollerFooter: FC<ScrollerFooterProps> = () => {
                 <li>
                   <button
                     type="button"
-                    className="hover:underline"
+                    className="hover:opacity-75"
                   >
                     Política de cookies
                   </button>

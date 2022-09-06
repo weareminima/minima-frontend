@@ -47,10 +47,10 @@ export const Cookies: FC<CookiesProps> = () => {
         }}
         className="fixed z-20 flex items-center justify-center group left-4 bottom-4 md:left-6 md:bottom-6 lg:left-8 lg:bottom-8"
       >
-        <div className="flex flex-col xs:flex-row items-center bg-white px-3 py-2.5 space-y-2 xs:space-y-0 xs:space-x-3 border border-dark/10 rounded-3xl xs:rounded-4xl">
+        <div className="flex flex-col xs:flex-row items-center bg-white px-3 py-2.5 space-y-3 xs:space-y-0 xs:space-x-3 border border-dark/10 rounded-2xl xs:rounded-4xl">
           <div className="flex items-center space-x-2">
             <div
-              className="w-5 h-5 bg-contain"
+              className="w-5 h-5 bg-contain shrink-0"
               style={{
                 backgroundImage: 'url(/images/cookies/cookie.png)',
               }}
@@ -60,7 +60,7 @@ export const Cookies: FC<CookiesProps> = () => {
             </p>
           </div>
 
-          <div className="flex space-x-2">
+          <div className="flex w-full space-x-2 xs:w-auto shrink-0">
             {/* <Button
               type="button"
               theme="primary-alt"
@@ -73,6 +73,7 @@ export const Cookies: FC<CookiesProps> = () => {
               type="button"
               theme="primary"
               size="s"
+              className="w-full xs:w-auto"
               onClick={onClickConfirm}
             >
               Ok
