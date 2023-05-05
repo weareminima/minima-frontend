@@ -41,7 +41,7 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
               href="mailto:hello@weareminima.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-base inline-flex items-center space-x-1.5"
+              className="text-base inline-flex items-center space-x-1.5 pointer-events-auto"
             >
               <span>hello@weareminima.com</span>
               <Icon icon={LINK_SVG} className="w-2 h-2" />
@@ -55,7 +55,7 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
                   href="https://www.instagram.com/weareminima/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base inline-flex items-center space-x-1.5"
+                  className="text-base inline-flex items-center space-x-1.5 pointer-events-auto"
                 >
                   <span>Instagram</span>
                   <Icon icon={LINK_SVG} className="w-2 h-2" />
@@ -66,7 +66,7 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
                   href="https://es.linkedin.com/company/weareminima"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base inline-flex items-center space-x-1.5"
+                  className="text-base inline-flex items-center space-x-1.5 pointer-events-auto"
                 >
                   <span>Linkedin</span>
                   <Icon icon={LINK_SVG} className="w-2 h-2" />
@@ -77,7 +77,7 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
                   href="https://medium.com/@weareminima"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base inline-flex items-center space-x-1.5"
+                  className="text-base inline-flex items-center space-x-1.5 pointer-events-auto"
                 >
                   <span>Medium</span>
                   <Icon icon={LINK_SVG} className="w-2 h-2" />

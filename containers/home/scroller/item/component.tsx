@@ -328,7 +328,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
           },
         }}
         className={cx({
-          'fixed w-full h-full top-0 left-0 z-0 overflow-hidden rounded-3xl lg:rounded-4xl will-change-auto': true,
+          'fixed w-full h-full top-0 left-0 z-0 overflow-hidden rounded-3xl lg:rounded-4xl will-change-auto pointer-events-none': true,
           'lg:pt-20 md:pt-16 pt-12 ': true,
           'lg:px-8 md:px-6 px-4': true,
           'lg:pb-8 md:pb-6 pb-4': true,
@@ -389,6 +389,7 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
                 <Button
                   size="icon-s"
                   theme="primary-alt"
+                  className="pointer-events-auto"
                   onClick={() => {
                     dispatch(setState({
                       ready: false,
