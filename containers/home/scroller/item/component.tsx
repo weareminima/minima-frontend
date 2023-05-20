@@ -1,5 +1,5 @@
 import {
-  FC, RefObject, useMemo, useRef, useState,
+  FC, RefObject, cloneElement, useMemo, useRef, useState,
 } from 'react';
 
 import cx from 'classnames';
@@ -470,9 +470,11 @@ export const ScrollerItem: FC<ScrollerItemProps> = ({
         </header>
 
         <div
-          className="px-4 pb-4 overflow-hidden text-base md:px-6 lg:px-8 md:pb-6 lg:pb-8"
+          className="px-4 pb-4 overflow-hidden text-base md:px-6 lg:px-8 md:pb-6 lg:pb-8 pointer-events-none"
         >
-          {CONTENT[id]}
+          {cloneElement(CONTENT[id], {
+            fake: true,
+          })}
         </div>
 
         {/* <footer

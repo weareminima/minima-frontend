@@ -2,6 +2,8 @@ import {
   FC,
 } from 'react';
 
+import classNames from 'classnames';
+
 import { useAppSelector } from 'store/hooks';
 
 import useStep from 'hooks/steps';
@@ -13,9 +15,13 @@ import Icon from 'components/icon';
 
 import LINK_SVG from 'svgs/link.svg?sprite';
 
-interface ContentItemContactProps {}
+interface ContentItemContactProps {
+  fake?: boolean;
+}
 
-export const ContentItemContact: FC<ContentItemContactProps> = () => {
+export const ContentItemContact: FC<ContentItemContactProps> = ({
+  fake = false,
+}) => {
   const {
     steps,
   } = useAppSelector((state) => state['/home']);
@@ -41,7 +47,7 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
               href="mailto:hello@weareminima.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-base inline-flex items-center space-x-1.5 pointer-events-auto"
+              className={classNames({ 'text-base inline-flex items-center space-x-1.5': true, 'pointer-events-auto': !fake })}
             >
               <span>hello@weareminima.com</span>
               <Icon icon={LINK_SVG} className="w-2 h-2" />
@@ -55,7 +61,7 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
                   href="https://www.instagram.com/weareminima/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base inline-flex items-center space-x-1.5 pointer-events-auto"
+                  className={classNames({ 'text-base inline-flex items-center space-x-1.5': true, 'pointer-events-auto': !fake })}
                 >
                   <span>Instagram</span>
                   <Icon icon={LINK_SVG} className="w-2 h-2" />
@@ -66,7 +72,7 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
                   href="https://es.linkedin.com/company/weareminima"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base inline-flex items-center space-x-1.5 pointer-events-auto"
+                  className={classNames({ 'text-base inline-flex items-center space-x-1.5': true, 'pointer-events-auto': !fake })}
                 >
                   <span>Linkedin</span>
                   <Icon icon={LINK_SVG} className="w-2 h-2" />
@@ -77,7 +83,7 @@ export const ContentItemContact: FC<ContentItemContactProps> = () => {
                   href="https://medium.com/@weareminima"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base inline-flex items-center space-x-1.5 pointer-events-auto"
+                  className={classNames({ 'text-base inline-flex items-center space-x-1.5': true, 'pointer-events-auto': !fake })}
                 >
                   <span>Medium</span>
                   <Icon icon={LINK_SVG} className="w-2 h-2" />
