@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Wordly</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Pacifico&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+
+    <style>
+        :root {
+            /* Colores */
+            --bg-body: #101012;
+            --primary: #00C7FC;
+            --primary-dark: #009ec9;
+            --primary-20: rgba(0, 199, 252, 0.2);
+            --primary-10: rgba(0, 199, 252, 0.1);
+            --primary-05: rgba(0, 199, 252, 0.05);
+            --success: #00EA71;
+            --success-dark: #00b558;
+            --warning: #FFB900;
+            --warning-dark: #cc9400;
+            --danger: #FF5F22;
+            --danger-dark: #cc4c1b;
+            --white: #FFFFFF;
+            --input-bg: #1C1C1E;
+
+            /* UI */
+            --font: 'Google Sans', 'DM Sans', sans-serif;
+            --radius-btn: 16px;
+            --radius-card: 20px;
+            --radius-tile: 16px;
+            --radius-tile-sm: 8px;
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background-color: var(--bg-body);
+
+            /* --- IMAGEN DE FONDO RECUPERADA --- */
+            background-image: url('Recursos/Background.jpg');
+            background-size: 100% auto;
+            /* Ancho completo, mantiene proporción */
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-attachment: fixed;
+            /* Fijo para que no se mueva */
+
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            transition: background 0.3s ease;
+        }
+
+        /* Clase para quitar fondo SOLO al jugar */
+        body.no-bg {
+            background-image: none;
+            background-color: #101012;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Pantallas */
+        .screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 24px 24px 24px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Intro & Connect: Alineados abajo con degradado */
+        #screen-intro,
+        #screen-connect {
+            justify-content: flex-end;
+            /* Degradado para que el texto se lea sobre la imagen */
+            background: linear-gradient(to bottom,
+                    rgba(16, 16, 18, 0) 0%,
+                    rgba(16, 16, 18, 0.4) 40%,
+                    rgba(16, 16, 18, 0.98) 75%,
+                    rgba(16, 16, 18, 1) 100%);
+        }
+
+        #screen-connect {
+            justify-content: center;
+        }
+
+        #screen-game {
+            justify-content: flex-start;
+            background: #101012;
+            overflow-y: auto;
+        }
+
+        /* Logo */
+        .logo-svg {
+            width: 260px;
+            height: auto;
+            margin-bottom: 32px;
+            align-self: center;
+        }
+
+        .logo-game-svg {
+            width: 112px;
+            height: auto;
+            margin-top: 48px;
+            margin-bottom: 32px;
+            align-self: center;
+        }
+
+        /* Tipografía */
+        h2 {
+            font-size: 2rem;
+            margin: 0 0 8px 0;
+            font-weight: 700;
+            text-align: center;
+            color: white;
+        }
+
+        .text-white {
+            color: #FFFFFF !important;
+            opacity: 1 !important;
+            text-align: center;
+        }
+
+        .text-small {
+            font-size: 0.9rem;
+            color: #888;
+            text-align: center;
+        }
+
+        .intro-text {
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        /* Inputs */
+        input[type="text"] {
+            background: var(--input-bg);
+            border: 1px solid #333;
+            color: white;
+            height: 56px;
+            border-radius: var(--radius-btn);
+            font-family: var(--font);
+            font-size: 1rem;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 24px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+        }
+
+        /* Botones */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn {
+            height: 56px;
+            border-radius: var(--radius-btn);
+            border: none;
+            font-family: var(--font);
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.1s;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-auto {
+            width: auto;
+            padding: 0 32px;
+            min-width: 140px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #000;
+            box-shadow: 0 4px 0 #009ec9;
+            margin-bottom: 4px;
+        }
+
+        .btn-primary:active {
+            box-shadow: none;
+            transform: translateY(4px);
+            margin-bottom: 0;
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-20);
+            color: var(--white);
+        }
+
+        .btn-soft-blue {
+            background-color: var(--primary-20);
+            color: var(--white);
+        }
+
+        .btn-white {
+            background-color: var(--white);
+            color: #000;
+            box-shadow: 0 4px 0 #999;
+            margin-bottom: 4px;
+        }
+
+        .btn-white:active {
+            box-shadow: none;
+            transform: translateY(4px);
+            margin-bottom: 0;
+        }
+
+        /* Estilo Deshabilitado (Esperando...) */
+        .btn:disabled {
+            background-color: #2C2C2E !important;
+            color: rgba(255, 255, 255, 0.5) !important;
+            border: 1px solid #444 !important;
+            box-shadow: none !important;
+            cursor: not-allowed;
+            transform: none;
+            margin-bottom: 0;
+        }
+
+        /* Código ID */
+        .code-box {
+            background: var(--primary-10);
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-btn);
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-family: monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            color: #666;
+            font-size: 0.8rem;
+            margin: 20px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #333;
+            margin: 0 10px;
+        }
+
+        /* Game Board */
+        .scoreboard-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            margin-bottom: 32px;
+        }
+
+        .score-card {
+            background: var(--primary-05);
+            border-radius: var(--radius-card);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            height: 120px;
+            position: relative;
+        }
+
+        .avatar-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .score-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .score-card .val {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            transition: transform 0.2s;
+        }
+
+        /* Animación POP marcador */
+        .score-card .val.pop {
+            animation: scorePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--success);
+        }
+
+        @keyframes scorePop {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.4);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .score-card .added {
+            font-size: 1.2rem;
+            font-weight: 700;
+            position: absolute;
+            right: 18px;
+            top: 60px;
+            transform: translateY(-50%);
+        }
+
+        .added.win {
+            color: var(--success);
+        }
+
+        .added.draw {
+            color: var(--warning);
+        }
+
+        .timer-card {
+            background: var(--primary-05);
+            border-radius: var(--radius-card);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 110px;
+            height: 120px;
+            transition: width 0.5s, opacity 0.5s;
+        }
+
+        .timer-card.collapsed {
+            width: 0;
+            padding: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .timer-big {
+            font-size: 48px;
+            font-weight: 500;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .timer-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #888;
+        }
+
+        .word-zone-container {
+            background: var(--primary-10);
+            border: 2px solid var(--primary-05);
+            border-radius: var(--radius-card);
+            padding: 10px;
+            min-height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+
+        .word-zone {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .word-zone .tile {
+            width: 34px;
+            height: 48px;
+            font-size: 20px;
+            border-radius: var(--radius-tile-sm);
+            box-shadow: 0 3px 0 #009ec9;
+        }
+
+        .word-zone .tile:active {
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+
+        .word-result-row {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+        }
+
+        .word-result-row .tile {
+            width: 34px;
+            height: 48px;
+            font-size: 20px;
+            border-radius: var(--radius-tile-sm);
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .pool-zone {
+            display: grid;
+            grid-template-columns: repeat(5, 64px);
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: auto;
+            transition: opacity 0.3s;
+        }
+
+        .slot {
+            width: 64px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-tile);
+        }
+
+        .tile {
+            width: 64px;
+            height: 80px;
+            background-color: var(--primary);
+            color: #000;
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: var(--radius-tile);
+            cursor: pointer;
+            user-select: none;
+            box-shadow: 0 4px 0 #009ec9;
+            transition: transform 0.1s, box-shadow 0.1s;
+            position: relative;
+            z-index: 5;
+        }
+
+        .tile:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        /* Animaciones */
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-6px) rotate(-5deg);
+            }
+
+            40% {
+                transform: translateX(6px) rotate(5deg);
+            }
+
+            60% {
+                transform: translateX(-6px) rotate(-5deg);
+            }
+
+            80% {
+                transform: translateX(6px) rotate(5deg);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .tile.shake {
+            animation: shake 0.4s ease-in-out;
+            background-color: var(--danger) !important;
+            color: white !important;
+            box-shadow: 0 3px 0 var(--danger-dark) !important;
+        }
+
+        @keyframes waveJump {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .tile.validating {
+            animation: waveJump 0.4s ease-in-out;
+        }
+
+        @keyframes winExplosion {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            30% {
+                transform: scale(1.4) rotate(-15deg);
+            }
+
+            60% {
+                transform: scale(1.1) rotate(10deg);
+                background-color: var(--success);
+                color: black;
+                box-shadow: 0 0 15px var(--success);
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+                background-color: var(--success);
+                color: black;
+                box-shadow: 0 3px 0 var(--success-dark);
+            }
+        }
+
+        @keyframes drawHighlight {
+            0% {
+                transform: scale(1);
+                background-color: var(--warning);
+                box-shadow: 0 3px 0 var(--warning-dark);
+            }
+
+            50% {
+                transform: scale(1.1);
+                background-color: var(--warning);
+                box-shadow: 0 0 10px var(--warning);
+            }
+
+            100% {
+                transform: scale(1);
+                background-color: var(--warning);
+                box-shadow: 0 3px 0 var(--warning-dark);
+            }
+        }
+
+        @keyframes scoreSlideLeft {
+            0% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+        }
+
+        .score-fly {
+            animation: scoreSlideLeft 0.8s ease-out forwards;
+        }
+
+        .tile.success {
+            animation: winExplosion 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .tile.fail {
+            background-color: var(--danger);
+            box-shadow: 0 3px 0 var(--danger-dark);
+            color: #fff;
+        }
+
+        .tile.draw {
+            background-color: var(--warning);
+            box-shadow: 0 3px 0 var(--warning-dark);
+            color: #000;
+            animation: drawHighlight 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        #result-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            flex-grow: 1;
+            opacity: 0;
+            animation: fadeInScale 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .res-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        #res-title {
+            font-size: 32px;
+            font-weight: 500;
+            margin: 0;
+            color: white;
+            text-align: center;
+        }
+
+        .res-subtitle {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 16px;
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .game-footer {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            justify-content: center;
+            padding-top: 20px;
+        }
+
+        #toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid #333;
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 500;
+            font-size: 0.95rem;
+            z-index: 5000;
+            display: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="toast">¡Código copiado! ✅</div>
+
+    <template id="logo-template">
+        <svg viewBox="0 0 279 89" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+            <path
+                d="M0.0799999 10.88L0 9.92C0 8 1.52 6.72 3.2 6.72C4.8 6.72 6.08 7.68 6.4 9.6L13.2 51.2L29.68 9.76C30.4 7.76 32 6.72 33.68 6.72C35.6 6.72 36.8 7.76 37.28 9.92L45.68 51.2L61.12 9.36C61.76 7.6 62.8 6.72 64.32 6.72C66.16 6.72 67.52 8.16 67.52 9.76C67.52 10.16 67.44 10.72 67.2 11.28L48.8 59.36C47.92 61.6 46.56 62.72 44.64 62.72C42.48 62.72 41.2 61.52 40.8 59.2L32.72 18.08L16.08 59.44C15.2 61.6 13.76 62.72 11.76 62.72C9.76 62.72 8.56 61.52 8.16 59.12L0.0799999 10.88Z"
+                fill="white" />
+            <path
+                d="M68.3794 46.32C68.2194 34.88 77.0994 24 89.4194 24.32C93.6594 24.32 96.8594 25.2 101.419 26.88C105.899 28.4 107.819 28.96 110.699 28.96C112.859 28.96 114.619 28.72 115.979 28.32C117.419 27.84 119.339 26.96 121.819 25.6C122.459 25.28 123.019 25.12 123.579 25.12C124.939 25.12 125.979 26.08 125.979 27.6C125.979 28.8 125.419 29.68 124.219 30.32C119.179 33.12 116.139 34.24 111.099 34.24C108.939 34.24 106.699 33.92 104.459 33.36C105.659 35.68 106.219 38.56 106.219 42C106.379 53.36 97.8194 63.76 85.3394 63.52C75.9794 63.52 68.3794 57.44 68.3794 46.32ZM74.7794 45.36C74.7794 53.44 78.8594 58.24 85.6594 58.24C93.8194 58.24 99.7394 50.96 99.7394 42.32C99.7394 34.32 95.4994 29.6 89.1794 29.6C81.2594 29.6 74.7794 37.04 74.7794 45.36Z"
+                fill="white" />
+            <path
+                d="M135.012 25.44C136.532 24.96 137.972 24.72 139.332 24.72C141.012 24.72 142.052 25.2 143.412 26.56C146.052 29.2 148.852 30.8 153.412 30.8C156.932 30.8 159.412 29.84 163.492 27.92C168.532 25.6 171.972 24.32 177.412 24.32C179.012 24.32 180.132 25.2 180.132 27.04C180.132 28.72 179.012 29.6 177.412 29.6C172.692 29.6 169.652 30.64 164.532 32.88C159.812 35.04 157.012 36 152.932 36C147.172 36 142.452 33.68 138.852 30.08C135.652 30.08 132.772 31.28 130.212 33.68C126.932 36.8 125.092 41.04 124.612 46.24L123.252 59.52C123.012 61.52 121.892 62.72 120.212 62.72C118.292 62.72 117.172 61.6 117.172 59.76L120.372 28.32C120.612 26.32 121.972 25.12 123.572 25.12C125.492 25.12 126.452 26.16 126.452 28.16L126.052 31.92C128.532 28.64 131.572 26.48 135.012 25.44Z"
+                fill="white" />
+            <path
+                d="M191.144 50.4L191.064 52.08C191.064 56.16 193.704 58.24 197.784 58.24C203.784 58.24 207.624 53.12 208.984 42.56C209.224 40.64 210.584 39.44 212.104 39.44C213.624 39.44 214.504 40.64 214.504 42.96C212.984 55.68 207.224 63.52 197.544 63.52C192.104 63.52 188.264 61.2 186.424 57.28C182.664 61.76 178.024 63.52 171.624 63.52C163.704 63.52 156.504 57.6 156.504 46.56C156.344 35.36 164.584 24.08 176.744 24.32C181.464 24.32 185.464 26.24 187.304 28.8L190.104 3.2C190.344 1.04 191.544 0 193.544 0C195.144 0 196.184 1.04 196.184 3.04L191.144 50.4ZM186.104 40.24L186.184 38.48C186.184 36.48 185.624 34.88 184.584 33.6C182.344 30.96 179.704 29.6 176.584 29.6C168.664 29.6 162.904 37.44 162.904 46.08C162.904 53.76 166.584 58.24 173.224 58.24C176.984 58.24 180.184 56.56 182.344 54.08C184.264 51.84 184.984 50.24 185.304 47.04L186.104 40.24Z"
+                fill="white" />
+            <path
+                d="M216.292 0C218.132 0 219.092 0.879998 219.092 2.72L214.292 48.96L214.212 50.88C214.212 55.44 216.212 58.24 220.452 58.24C225.812 58.24 230.372 52.96 231.412 42.4C231.652 40.4 232.852 39.28 234.372 39.28C236.212 39.28 237.172 40.56 237.172 43.04C235.652 55.76 229.332 63.52 220.052 63.52C213.412 63.52 208.132 59.44 208.132 51.04C208.132 50.48 208.212 49.68 208.292 48.48L213.092 3.04C213.332 1.2 214.452 0 216.292 0Z"
+                fill="white" />
+            <path
+                d="M236.392 25.12C238.312 25.12 239.192 26.4 239.192 28.32L237.112 47.28C237.032 48.24 236.952 49.04 236.952 49.76C236.952 55.84 239.912 58.24 244.312 58.24C247.592 58.24 250.952 56.64 253.592 54C255.832 51.76 257.032 48.96 257.432 44.16L259.112 28.32C259.352 26.08 260.392 25.12 262.632 25.12C264.312 25.12 265.192 26.16 265.192 28.32L261.672 60.8C264.632 59.52 268.712 57.28 273.912 54.4C274.552 54 275.112 53.84 275.672 53.84C277.032 53.84 278.072 54.88 278.072 56.16C278.072 57.12 277.432 58.08 276.232 58.72L268.152 63.04C266.152 64.08 263.752 65.28 261.032 66.48L260.232 74C259.192 83.6 254.952 88.64 247.512 88.64C241.832 88.64 237.912 84.8 237.912 79.44C238.232 71.68 243.992 68.16 255.352 63.44L255.912 58.56C252.312 61.84 248.152 63.52 243.432 63.52C236.952 63.52 230.792 59.36 230.792 50.48C230.792 49.6 230.792 48.88 230.872 48.4L232.872 28.32C233.112 26.16 234.232 25.12 236.392 25.12ZM254.072 75.36L254.712 69.04C247.352 72.24 243.432 75.2 243.432 79.12C243.432 81.68 245.112 83.36 247.752 83.36C251.352 83.36 253.512 80.24 254.072 75.36Z"
+                fill="white" />
+        </svg>
+    </template>
+
+    <div id="screen-intro" class="screen">
+        <div style="flex-grow: 1;"></div>
+        <div class="logo-svg" id="intro-logo-container"></div>
+        <p class="intro-text">Introduce tu nombre para empezar</p>
+        <input type="text" id="username" placeholder="Tu nombre" maxlength="10">
+        <div class="btn-container">
+            <button class="btn btn-primary btn-full" onclick="initMode('MULTI')">Duelo online</button>
+            <button class="btn btn-secondary btn-full" onclick="initMode('SOLO')">Entrenamiento</button>
+        </div>
+    </div>
+
+    <div id="screen-connect" class="screen hidden">
+        <h2>Duelo online</h2>
+        <p class="text-white" style="margin-bottom: 20px;">Conecta con tu rival</p>
+        <p class="text-small" style="margin-bottom: 5px;">Envíale este código</p>
+        <div id="my-code" class="code-box" onclick="copyCode()">Cargando ID...</div>
+        <div class="divider">O introduce aquí el suyo</div>
+        <input type="text" id="friend-code" placeholder="Código del rival">
+        <div class="btn-container">
+            <button class="btn btn-primary btn-full" onclick="joinGame()">Conectar y jugar</button>
+            <button class="btn btn-secondary btn-full" style="background:transparent; color:#888; margin-top:0;"
+                onclick="location.reload()">Volver</button>
+        </div>
+    </div>
+
+    <div id="screen-game" class="screen hidden">
+        <div class="logo-game-svg" id="game-logo-container"></div>
+
+        <div id="scoreboard" class="scoreboard-container hidden">
+            <div class="score-card">
+                <div id="icon-p1" class="avatar-icon"></div>
+                <span class="name" id="name-p1">Yo</span>
+                <div class="score-row">
+                    <span class="val" id="score-p1">0</span>
+                    <span class="added hidden" id="added-p1">+0</span>
+                </div>
+            </div>
+            <div id="card-timer" class="timer-card">
+                <span class="timer-big" id="timer-val">60</span>
+                <span class="timer-label">segundos</span>
+            </div>
+            <div class="score-card">
+                <div id="icon-p2" class="avatar-icon"></div>
+                <span class="name" id="name-p2">Rival</span>
+                <div class="score-row">
+                    <span class="val" id="score-p2">0</span>
+                    <span class="added hidden" id="added-p2">+0</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-active-area" style="width: 100%; display: flex; flex-direction: column; flex-grow: 1;">
+            <div class="word-zone-container">
+                <div id="word-zone" class="word-zone"></div>
+            </div>
+            <div id="pool-zone" class="pool-zone"></div>
+            <div class="game-footer">
+                <button id="btn-left" class="btn btn-soft-blue btn-auto" onclick="handleLeftButton()">Nueva
+                    partida</button>
+                <button id="btn-action" class="btn btn-white btn-auto" onclick="validateWord()">Validar</button>
+            </div>
+        </div>
+
+        <div id="result-panel" class="hidden">
+            <div id="res-icon" class="res-icon">🎉</div>
+            <h2 id="res-title">¡Has ganado!</h2>
+
+            <div id="res-my-word" class="word-result-row" style="margin-top: 16px;"></div>
+
+            <p id="res-subtitle" class="res-subtitle">Rival ha perdido con:</p>
+            <div id="res-opp-word" class="word-result-row"></div>
+
+            <div style="margin-top: auto; width: 100%; display: flex; justify-content: center;">
+                <button class="btn btn-soft-blue btn-auto" onclick="handleLeftButton()">Nueva partida</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- INICIALIZACIÓN DE LOGOS ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const logoTemplate = document.getElementById('logo-template');
+            const logoHTML = logoTemplate.innerHTML; // Obtener el código SVG
+
+            document.getElementById('intro-logo-container').innerHTML = logoHTML;
+            document.getElementById('game-logo-container').innerHTML = logoHTML;
+        });
+
+        // --- AVATARES SVG ---
+        const SVG_P1_HAPPY = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="white"/><path d="M13.5 12C12.6716 12 12 11.3284 12 10.5C12 9.67157 12.6716 9 13.5 9C14.3284 9 15 9.67157 15 10.5C15 11.3284 14.3284 12 13.5 12Z" fill="#101012"/><path d="M24.5 12C23.6716 12 23 11.3284 23 10.5C23 9.67157 23.6716 9 24.5 9C25.3284 9 26 9.67157 26 10.5C26 11.3284 25.3284 12 24.5 12Z" fill="#101012"/><path d="M12 15C15.7058 19.2352 22.2942 19.2352 26 15" stroke="#101012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        const SVG_P1_NEUTRAL = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="white"/><path d="M11.5 16C10.6716 16 10 15.3284 10 14.5C10 13.6716 10.6716 13 11.5 13C12.3284 13 13 13.6716 13 14.5C13 15.3284 12.3284 16 11.5 16Z" fill="#101012"/><path d="M22.5 16C21.6716 16 21 15.3284 21 14.5C21 13.6716 21.6716 13 22.5 13C23.3284 13 24 13.6716 24 14.5C24 15.3284 23.3284 16 22.5 16Z" fill="#101012"/><path d="M12 20H22" stroke="#101012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        const SVG_P1_SAD = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="white"/><path d="M13.5 18C12.6716 18 12 17.3284 12 16.5C12 15.6716 12.6716 15 13.5 15C14.3284 15 15 15.6716 15 16.5C15 17.3284 14.3284 18 13.5 18Z" fill="#101012"/><path d="M24.5 18C23.6716 18 23 17.3284 23 16.5C23 15.6716 23.6716 15 24.5 15C25.3284 15 26 15.6716 26 16.5C26 17.3284 25.3284 18 24.5 18Z" fill="#101012"/><path d="M14 22C16.7614 19.2386 21.2386 19.2386 24 22" stroke="#101012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        const SVG_P2_HAPPY = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="white"/><path d="M7.5 12C6.67157 12 6 11.3284 6 10.5C6 9.67157 6.67157 9 7.5 9C8.32843 9 9 9.67157 9 10.5C9 11.3284 8.32843 12 7.5 12Z" fill="#101012"/><path d="M18.5 12C17.6716 12 17 11.3284 17 10.5C17 9.67157 17.6716 9 18.5 9C19.3284 9 20 9.67157 20 10.5C20 11.3284 19.3284 12 18.5 12Z" fill="#101012"/><path d="M6 15C9.70577 19.2352 16.2942 19.2352 20 15" stroke="#101012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        const SVG_P2_NEUTRAL = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="white"/><path d="M9.5 16C8.67157 16 8 15.3284 8 14.5C8 13.6716 8.67157 13 9.5 13C10.3284 13 11 13.6716 11 14.5C11 15.3284 10.3284 16 9.5 16Z" fill="#101012"/><path d="M20.5 16C19.6716 16 19 15.3284 19 14.5C19 13.6716 19.6716 13 20.5 13C21.3284 13 22 13.6716 22 14.5C22 15.3284 21.3284 16 20.5 16Z" fill="#101012"/><path d="M10 20H20" stroke="#101012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        const SVG_P2_SAD = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="white"/><path d="M7.5 18C6.67157 18 6 17.3284 6 16.5C6 15.6716 6.67157 15 7.5 15C8.32843 15 9 15.6716 9 16.5C9 17.3284 8.32843 18 7.5 18Z" fill="#101012"/><path d="M18.5 18C17.6716 18 17 17.3284 17 16.5C17 15.6716 17.6716 15 18.5 15C19.3284 15 20 15.6716 20 16.5C20 17.3284 19.3284 18 18.5 18Z" fill="#101012"/><path d="M8 22C10.7614 19.2386 15.2386 19.2386 18 22" stroke="#101012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+        const VOWEL_BAG = "AAAAAAAAAAAAEEEEEEEEEEEEIIIIIIOOOOOOOOUUUU";
+        const CONSONANT_BAG = "SSSSSSSSRRRRRRNNNNNLLLLTTTTDDDDCCCGGGMBBPPHFVYQJÑXZKW";
+        const ROUND_TIME = 60;
+
+        let state = { mode: 'SOLO', role: 'HOST', myName: '', oppName: 'Rival', myScore: 0, oppScore: 0, letters: [], timeLeft: ROUND_TIME, myWord: null, oppWord: null };
+        let peer, conn, timerId;
+
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function initMode(mode) {
+            const name = document.getElementById('username').value.trim();
+            if (!name) return alert("Por favor, introduce tu nombre");
+            state.myName = name.substring(0, 8); state.mode = mode;
+            document.getElementById('name-p1').innerText = state.myName;
+
+            if (mode === 'SOLO') {
+                document.body.classList.add('no-bg');
+                document.getElementById('scoreboard').classList.add('hidden');
+                document.getElementById('game-logo-container').classList.add('hidden');
+                document.getElementById('screen-game').style.justifyContent = "center";
+                state.oppName = "CPU";
+                startGameUI(); hostGameLogic();
+            } else {
+                document.getElementById('screen-game').style.justifyContent = "flex-start";
+                document.getElementById('scoreboard').classList.remove('hidden');
+                document.getElementById('game-logo-container').classList.remove('hidden');
+                showScreen('screen-connect'); initPeer();
+            }
+        }
+
+        function startGameUI() {
+            document.body.classList.add('no-bg');
+            showScreen('screen-game');
+            document.getElementById('name-p2').innerText = state.oppName;
+            updateAvatars();
+        }
+
+        function hostGameLogic() {
+            let letters = [];
+            const numVowels = Math.random() > 0.5 ? 4 : 5;
+            for (let i = 0; i < numVowels; i++) letters.push(randChar(VOWEL_BAG));
+            for (let i = 0; i < 10 - numVowels; i++) letters.push(randChar(CONSONANT_BAG));
+            letters.sort(() => Math.random() - 0.5);
+            startRound(letters);
+            if (state.mode === 'MULTI') sendData({ type: 'NEW_GAME', letters: letters });
+        }
+
+        function startRound(letters) {
+            state.letters = letters; state.myWord = null; state.oppWord = null; state.timeLeft = ROUND_TIME;
+
+            document.getElementById('score-p1').innerText = state.myScore;
+            document.getElementById('score-p2').innerText = state.oppScore;
+            document.getElementById('added-p1').classList.add('hidden');
+            document.getElementById('added-p2').classList.add('hidden');
+
+            document.getElementById('game-active-area').classList.remove('hidden');
+            document.getElementById('result-panel').classList.add('hidden');
+
+            document.getElementById('card-timer').classList.remove('collapsed');
+
+            const btnAction = document.getElementById('btn-action');
+            btnAction.disabled = false; btnAction.innerText = "Validar"; btnAction.classList.remove('hidden');
+
+            const btnLeft = document.getElementById('btn-left');
+            btnLeft.innerText = "Nueva partida";
+            btnLeft.onclick = handleLeftButton;
+            btnLeft.classList.remove('hidden');
+
+            renderBoard(letters);
+            if (state.mode === 'MULTI') startTimer();
+        }
+
+        function handleLeftButton() {
+            if (state.mode === 'SOLO') hostGameLogic();
+            else if (document.getElementById('result-panel').classList.contains('hidden') === false) triggerRematch();
+        }
+
+        function renderBoard(letters) {
+            const pool = document.getElementById('pool-zone'); const word = document.getElementById('word-zone'); pool.innerHTML = ''; word.innerHTML = '';
+            letters.forEach((char, i) => {
+                const tile = document.createElement('div'); tile.className = 'tile'; tile.textContent = char; tile.id = `t-${i}`;
+                tile.onclick = () => { if (state.myWord) return; if (tile.parentElement === word) returnToEmptySlot(tile); else word.appendChild(tile); };
+                const slot = document.createElement('div'); slot.className = 'slot'; slot.appendChild(tile); pool.appendChild(slot);
+            });
+        }
+        function returnToEmptySlot(tile) {
+            const slots = document.querySelectorAll('.pool-zone .slot');
+            for (let s of slots) { if (s.children.length === 0) { s.appendChild(tile); break; } }
+        }
+
+        function startTimer() { clearInterval(timerId); updateTimerDisplay(); timerId = setInterval(() => { state.timeLeft--; updateTimerDisplay(); if (state.timeLeft <= 0) { clearInterval(timerId); timeUp(); } }, 1000); }
+        function updateTimerDisplay() { document.getElementById('timer-val').innerText = state.timeLeft; }
+        function timeUp() { if (!state.myWord) submitWord(true); }
+
+        async function validateWord() {
+            const btn = document.getElementById('btn-action'); btn.disabled = true; btn.innerText = "Validando...";
+            let wordStr = ""; document.querySelectorAll('#word-zone .tile').forEach(t => wordStr += t.textContent);
+
+            const doShake = () => {
+                const myTiles = document.querySelectorAll('#word-zone .tile');
+                myTiles.forEach(t => {
+                    t.classList.remove('shake');
+                    void t.offsetWidth;
+                    t.classList.add('shake');
+                });
+            };
+
+            if (wordStr.length < 2) {
+                showToast("⚠️ Mínimo 2 letras");
+                btn.disabled = false; btn.innerText = "Validar";
+                doShake();
+                return;
+            }
+
+            const myTiles = document.querySelectorAll('#word-zone .tile');
+            myTiles.forEach((t, index) => { setTimeout(() => { t.classList.add('validating'); }, index * 80); });
+            await new Promise(r => setTimeout(r, 600));
+
+            try {
+                const res = await fetch(`https://es.wiktionary.org/w/api.php?action=query&titles=${wordStr.toLowerCase()}&format=json&origin=*`);
+                const data = await res.json();
+                if (Object.keys(data.query.pages)[0] === "-1") {
+                    showToast(`❌ "${wordStr}" no existe`);
+                    btn.disabled = false; btn.innerText = "Validar";
+                    myTiles.forEach(t => t.classList.remove('validating'));
+                    doShake();
+                    return;
+                }
+            } catch (e) { }
+
+            if (state.mode === 'SOLO') {
+                animateSuccessAndClear(myTiles);
+                btn.innerText = "¡Correcto!";
+                return;
+            }
+            submitWord(false, wordStr);
+        }
+
+        function animateSuccessAndClear(tiles) {
+            document.getElementById('pool-zone').innerHTML = '';
+            tiles.forEach((t, index) => { setTimeout(() => { t.classList.add('success'); }, index * 50); });
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+        }
+
+        function submitWord(forced, wordStr = "") {
+            state.myWord = wordStr; const btn = document.getElementById('btn-action'); btn.disabled = true; btn.innerText = "Enviado";
+            document.getElementById('pool-zone').innerHTML = '';
+
+            if (state.mode === 'MULTI' && !state.oppWord) btn.innerText = `Esperando a ${state.oppName}...`;
+            if (state.mode === 'MULTI') { sendData({ type: 'SUBMIT', word: wordStr }); checkEndRound(); }
+        }
+
+        function checkEndRound() { if (state.myWord !== null && state.oppWord !== null) { clearInterval(timerId); finishRound(); } }
+
+        function finishRound() {
+            document.getElementById('card-timer').classList.add('collapsed');
+            const myLen = state.myWord.length; const oppLen = state.oppWord.length;
+
+            let type = "DRAW";
+            let p1AddScore = 0, p2AddScore = 0;
+            let p1Class = "", p2Class = "";
+
+            if (myLen > oppLen) {
+                type = "WIN"; state.myScore += myLen; p1AddScore = myLen; p1Class = "win";
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            }
+            else if (myLen < oppLen) {
+                type = "LOSE"; state.oppScore += oppLen; p2AddScore = oppLen; p2Class = "win";
+            }
+            else {
+                type = "DRAW"; state.myScore += myLen; state.oppScore += oppLen;
+                p1AddScore = myLen; p2AddScore = oppLen;
+                p1Class = "draw"; p2Class = "draw";
+            }
+
+            updateAddedScore('added-p1', p1AddScore, p1Class);
+            updateAddedScore('added-p2', p2AddScore, p2Class);
+
+            updateAvatars();
+            showResultPanel(type);
+
+            setTimeout(() => {
+                startScoreAnimation('p1', p1AddScore);
+                startScoreAnimation('p2', p2AddScore);
+            }, 1500);
+        }
+
+        function startScoreAnimation(player, addedScore) {
+            if (addedScore === 0) return;
+
+            const addedEl = document.getElementById(`added-${player}`);
+            const scoreEl = document.getElementById(`score-${player}`);
+            const isP1 = player === 'p1';
+
+            addedEl.classList.add('score-fly');
+
+            setTimeout(() => {
+                scoreEl.innerText = isP1 ? state.myScore : state.oppScore;
+                scoreEl.classList.add('pop');
+                setTimeout(() => scoreEl.classList.remove('pop'), 300);
+                addedEl.classList.remove('score-fly');
+                addedEl.classList.add('hidden');
+            }, 1000);
+        }
+
+        function updateAddedScore(id, score, cls) {
+            const el = document.getElementById(id);
+            if (cls && score > 0) {
+                el.innerText = `+${score}`; el.className = `added ${cls}`; el.classList.remove('hidden');
+            } else { el.classList.add('hidden'); }
+        }
+
+        function showResultPanel(type) {
+            document.getElementById('game-active-area').classList.add('hidden');
+            document.getElementById('result-panel').classList.remove('hidden');
+
+            const icon = document.getElementById('res-icon');
+            const title = document.getElementById('res-title');
+            const subtitle = document.getElementById('res-subtitle');
+
+            if (type === 'WIN') {
+                icon.innerText = "🎉"; title.innerText = "¡Has ganado!";
+                subtitle.innerText = `${state.oppName} ha perdido con:`;
+                renderResultTiles('res-my-word', state.myWord, 'success');
+                renderResultTiles('res-opp-word', state.oppWord, 'fail');
+            } else if (type === 'LOSE') {
+                icon.innerText = "😭"; title.innerText = "Oh... ¡has perdido!";
+                subtitle.innerText = `${state.oppName} ha ganado con:`;
+                renderResultTiles('res-my-word', state.myWord, 'fail');
+                renderResultTiles('res-opp-word', state.oppWord, 'success');
+            } else {
+                icon.innerText = "🤝"; title.innerText = "¡Habéis empatado!";
+                subtitle.innerText = `${state.oppName} ha puesto:`;
+                renderResultTiles('res-my-word', state.myWord, 'draw');
+                renderResultTiles('res-opp-word', state.oppWord, 'draw');
+            }
+        }
+
+        function renderResultTiles(containerId, word, statusClass) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            if (!word) word = "";
+            word.split('').forEach((char, index) => {
+                const tile = document.createElement('div');
+                tile.className = `tile`;
+                tile.textContent = char;
+                tile.style.animationDelay = `${index * 0.1}s`;
+                if (statusClass === 'success') tile.classList.add('success');
+                else if (statusClass === 'draw') tile.classList.add('draw');
+                else if (statusClass === 'fail') tile.classList.add('fail');
+                container.appendChild(tile);
+            });
+        }
+
+        function setAvatar(containerId, type) {
+            const el = document.getElementById(containerId);
+            let svgData;
+            if (containerId === 'icon-p1') {
+                if (type === 'happy') svgData = SVG_P1_HAPPY;
+                else if (type === 'sad') svgData = SVG_P1_SAD;
+                else svgData = SVG_P1_NEUTRAL;
+            } else if (containerId === 'icon-p2') {
+                if (type === 'happy') svgData = SVG_P2_HAPPY;
+                else if (type === 'sad') svgData = SVG_P2_SAD;
+                else svgData = SVG_P2_NEUTRAL;
+            }
+            el.innerHTML = svgData;
+        }
+
+        function updateAvatars() {
+            let p1State = 'neutral'; let p2State = 'neutral';
+            if (state.myScore > state.oppScore) { p1State = 'happy'; p2State = 'sad'; }
+            else if (state.myScore < state.oppScore) { p1State = 'sad'; p2State = 'happy'; }
+            setAvatar('icon-p1', p1State); setAvatar('icon-p2', p2State);
+        }
+
+        function triggerRematch() { if (state.mode === 'SOLO') hostGameLogic(); else { if (state.role === 'HOST') hostGameLogic(); else sendData({ type: 'REMATCH' }); } }
+        function initPeer() { if (peer) return; peer = new Peer(null, { debug: 1 }); peer.on('open', (id) => document.getElementById('my-code').innerText = id); peer.on('connection', (c) => { state.role = 'HOST'; setupConn(c); }); }
+        function joinGame() { const code = document.getElementById('friend-code').value; if (!code) return; state.role = 'GUEST'; setupConn(peer.connect(code)); }
+        function setupConn(c) {
+            conn = c; conn.on('open', () => conn.send({ type: 'HELLO', name: state.myName }));
+            conn.on('data', (d) => {
+                if (d.type === 'HELLO') { state.oppName = d.name; startGameUI(); if (state.role === 'HOST') setTimeout(hostGameLogic, 500); }
+                if (d.type === 'NEW_GAME') startRound(d.letters);
+                if (d.type === 'SUBMIT') { state.oppWord = d.word; checkEndRound(); if (state.myWord) document.getElementById('btn-action').innerText = "¡Rival listo!"; }
+                if (d.type === 'REMATCH') hostGameLogic();
+            });
+        }
+        function sendData(d) { if (conn && conn.open) conn.send(d); }
+        function randChar(str) { return str.charAt(Math.floor(Math.random() * str.length)); }
+        function copyCode() {
+            const code = document.getElementById('my-code').innerText;
+            if (code.includes("...")) return;
+            navigator.clipboard.writeText(code);
+            showToast("¡Código copiado! ✅");
+        }
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 3000);
+        }
+    </script>
+</body>
+
+</html>
